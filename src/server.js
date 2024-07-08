@@ -2,7 +2,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
-
+import routerPacientes from './routers/ministerio_routes.js'
 
 
 // Inicializaciones
@@ -24,7 +24,9 @@ app.use(express.json())
 app.get('/',(req,res)=>{
     res.send("Server on")
     console.log("server on")
+    
 })
+app.use('/api',routerMinisterio)
 
 // Exportar la instancia de express por medio de app
 export default  app
