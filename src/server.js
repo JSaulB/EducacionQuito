@@ -2,7 +2,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
-import routerPacientes from './routers/ministerio_routes.js'
+import routerMinisterio from './routers/ministerio_routes.js'
 
 
 // Inicializaciones

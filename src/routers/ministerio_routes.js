@@ -1,3 +1,4 @@
+import {Router} from 'express'
 import {
     actualizarPaciente,
     detallePaciente,
@@ -5,10 +6,11 @@ import {
     listarPacientes,
     registrarPaciente,
     loginPaciente,
-    perfilPaciente 
-} from "../controllers/paciente_controller.js";
+    perfilPaciente
+     
+} from "../controllers/ministerio_controller.js";
 
-
+const router= Router();
 
 router.post('/paciente/login',loginPaciente)
 router.get('/paciente/perfil',perfilPaciente)
@@ -18,3 +20,5 @@ router.post('/paciente/registro',registrarPaciente)
 router.put('/paciente/actualizar/:id',actualizarPaciente)
 router.delete('/paciente/eliminar/:id',eliminarPaciente)
 
+
+export default router
