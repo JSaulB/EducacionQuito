@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import { sendMailToUser, sendMailToRecoveryPassword } from "../config/nodemailer.js";
 import generarJWT from "../helpers/crearJWT.js";
-import { Institucion, Alumno, Ayuda, User } from "../models/ministerio_models.js";
+import { Institucion, Alumno, Ayuda, User } from "../models/ministerio.js";
 
 // Enpoint para el login
 export const login = async (req, res) => {
