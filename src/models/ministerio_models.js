@@ -1,5 +1,5 @@
 // Implementacion de los Endpoints
-import mongoose, { Mongoose } from "mongoose";
+import mongoose from "mongoose";
 
 const InstitucionSchema=new mongoose.Schema({
     nombre:String,
@@ -16,18 +16,20 @@ const BecaSchema=new mongoose.Schema({
 const AlumnoSchema=new mongoose.Schema({
     nombre:String,
     calificacion: Number,
+    altoRendimiento:Boolean,
     beca:[BecaSchema] 
+
 });
 
-constAyudaSchema=new mongoose.Schema({
+const AyudaSchema=new mongoose.Schema({
     institucionId:mongoose.Schema.Types.ObjectId,
     tipoAyuda:String,
     cantidad:Number,
     fecha:{type:Date,default:Date.now}
 });
 
-const Institucion=mongoose.model('Institucion',InstitucionSchema);
-const Alumno=mongoose.model('Alumno',AlumnoSchema);
-const Ayuda=mongoose.model('Ayuda',AyudaSchema);
+const Institucion = mongoose.model('Institucion',InstitucionSchema);
+const Alumno = mongoose.model('Alumno',AlumnoSchema);
+const Ayuda = mongoose.model('Ayuda',AyudaSchema);
 
-export{Institucion,Alumno,Ayuda}
+export{Institucion, Alumno, Ayuda}

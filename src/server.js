@@ -26,7 +26,7 @@ app.get('/',(req,res)=>{
     console.log("server on")
     
 })
-app.use('/api',routerMinisterio)
+app.use('/api',ministerio_routers)
 
 // Exportar la instancia de express por medio de app
 export default  app
