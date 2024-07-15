@@ -70,7 +70,7 @@ export const listarEstudiantes = async (req, res) => {
     }
 };
 
-// Registrar ayuda a la institución elegida y al niño con la beca más alta
+// Registrar ayuda a la institución elegida y al niño con la nota más alta
 export const registrarAyuda = async (req, res) => {
     const { institucionId, tipoAyuda, cantidad, alumnos } = req.body;
     try {
@@ -87,7 +87,7 @@ export const registrarAyuda = async (req, res) => {
                 return res.status(404).json({ msg: 'Alumno no encontrado' });
             }
 
-            alumno.becas.push({ monto: 1000 }); // Suponiendo un monto fijo para la beca
+            alumno.becas.push({ monto: 1000 }); 
             await alumno.save();
         });
 
@@ -95,6 +95,6 @@ export const registrarAyuda = async (req, res) => {
 
         res.json({ mensaje: 'Ayuda y becas registradas', ayuda: nuevaAyuda });
     } catch (err) {
-        res.status(500).send('Server Error');
+        res.status(500).send('Error en el servidor');
     }
 };

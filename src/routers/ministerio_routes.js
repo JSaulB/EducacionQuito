@@ -12,5 +12,6 @@ router.post('/login', login);
 router.get('/instituciones', getInstituciones);
 router.get('/estudiantes', listarEstudiantes);
 router.post('/ayudas/registrar', registrarAyuda);
+router.post('/ayudas/registrar', registrarAyuda);
 
 export default router;
