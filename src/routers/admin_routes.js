@@ -1,4 +1,5 @@
 import {Router} from 'express'
+
 import {
     login,
     perfil,
@@ -9,9 +10,18 @@ import {
     actualizarPerfil,
     actualizarPassword,
 	recuperarPassword,
+    actualizarEmail,
     comprobarTokenPasword,
-	nuevoPassword
-} from "../controllers/admin_controller.js";
+	nuevoPassword,
+    createInstitucion,
+    getInstituciones,
+    updateInstitucion,
+    deleteInstitucion,
+    getEstudiantes,
+    createEstudiante,
+    updateEstudiante,
+    deleteEstudiante
+}from "../controllers/admin_controller.js";
 
 import verificarAutenticacion from "../middlewares/autenticacion.js";
 
@@ -29,5 +39,14 @@ router.put('/administrador/actualizarpassword',verificarAutenticacion,actualizar
 router.get("/administrador/:id",verificarAutenticacion, detalleadministrador);
 router.put("/administrador/:id",verificarAutenticacion ,actualizarPerfil);
 
+router.get('/', getInstituciones);
+router.post('/', createInstitucion);
+router.put('/:id', updateInstitucion);
+router.delete('/:id', deleteInstitucion);
+
+router.get('/', getEstudiantes);
+router.post('/', createEstudiante);
+router.put('/:id', updateEstudiante);
+router.delete('/:id', deleteEstudiante);
 
 export default router

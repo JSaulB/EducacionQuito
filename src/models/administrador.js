@@ -50,6 +50,52 @@ const adminSchema = new Schema({
     timestamps:true
 })
 
+const institucionSchema = new Schema({
+    nombre: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    calificacion: {
+        type: String,
+        required: true,
+        enum: ['A', 'B', 'C'],
+        trim: true
+    },
+    historialSocioeconomico: {
+        type: String,
+        trim: true
+    }
+}, {
+    timestamps: true
+});
+
+const estudianteSchema = new Schema({
+    nombre: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    apellido: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    institucion: {
+        type: Schema.Types.ObjectId,
+        ref: 'Institucion',
+        required: true
+    },
+    historialSocioeconomico: {
+        type: String,
+        trim: true
+    }
+}, {
+    timestamps: true
+});
+
+
+
 // Método para cifrar el password 
 adminSchema.methods.encrypPassword = async function(password){
     const salt = await bcrypt.genSalt(10)
@@ -68,3 +114,9 @@ adminSchema.methods.crearToken = function(){
     const tokenGenerado = this.token = Math.random().toString(36).slice(2)
     return tokenGenerado
 }
+
+
+// Exportar los modelos
+export const administrador = model('administrador', adminSchema);
+export const institucion1 = model('institucion1', institucionSchema);
+export const Estudiante = model('Estudiante', estudianteSchema);

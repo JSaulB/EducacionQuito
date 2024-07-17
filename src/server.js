@@ -3,7 +3,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import ministerio_routes from './routers/ministerio_routes.js';
-
+import adminRoutes from './routers/admin_routes.js';
 
 
 // Inicializaciones
@@ -28,6 +28,7 @@ app.get('/',(req,res)=>{
     
 })
 app.use('/api', ministerio_routes)
+app.use('/api', adminRoutes);
 
 // Exportar la instancia de express por medio de app
 export default  app

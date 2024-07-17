@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import administrador from '../models/administrador.js'
+import {administrador} from '../models/administrador.js'
 import dotenv from 'dotenv'
 dotenv.config()
 

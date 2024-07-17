@@ -1,4 +1,6 @@
-import administrador from "../models/administrador.js"
+import {administrador} from "../models/administrador.js"
+import { institucion1 } from '../models/administrador.js';
+import {Estudiante }from '../models/administrador.js';
 import { sendMailToUser, sendMailToRecoveryPassword} from "../config/nodemailer.js"
 import mongoose from "mongoose"
 import generarJWT from "../helpers/crearJWT.js";
@@ -281,6 +283,93 @@ const nuevoPassword = async (req,res)=>{
     res.status(200).json({msg:'Contraseña actualizada, ya puedes iniciar sesión'})
 }
 
+// Obtener todas las instituciones
+const getInstituciones = async (req, res) => {
+    try {
+        const instituciones = await institucion1.find();
+        res.json(instituciones);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// Crear una nueva institución
+const createInstitucion = async (req, res) => {
+    const { nombre, calificacion, historialSocioeconomico } = req.body;
+    const newInstitucion = new institucion1({ nombre, calificacion, historialSocioeconomico });
+
+    try {
+        const savedInstitucion = await newInstitucion.save();
+        res.status(201).json(savedInstitucion);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+// Actualizar una institución
+const updateInstitucion = async (req, res) => {
+    try {
+        const updatedInstitucion = await institucion1.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        res.json(updatedInstitucion);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+// Eliminar una institución
+const deleteInstitucion = async (req, res) => {
+    try {
+        await institucion1.findByIdAndDelete(req.params.id);
+        res.json({ message: 'Institución eliminada' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// Obtener todos los estudiantes
+const getEstudiantes = async (req, res) => {
+    try {
+        const estudiantes = await Estudiante.find().populate('institucion');
+        res.json(estudiantes);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// Crear un nuevo estudiante
+const createEstudiante = async (req, res) => {
+    const { nombre, apellido, institucion, historialSocioeconomico } = req.body;
+    const newEstudiante = new Estudiante({ nombre, apellido, institucion, historialSocioeconomico });
+
+    try {
+        const savedEstudiante = await newEstudiante.save();
+        res.status(201).json(savedEstudiante);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+// Actualizar un estudiante
+const updateEstudiante = async (req, res) => {
+    try {
+        const updatedEstudiante = await Estudiante.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        res.json(updatedEstudiante);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+// Eliminar un estudiante
+const deleteEstudiante = async (req, res) => {
+    try {
+        await Estudiante.findByIdAndDelete(req.params.id);
+        res.json({ message: 'Estudiante eliminado' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
 export {
     login,
     perfil,
@@ -291,6 +380,15 @@ export {
     actualizarPerfil,
     actualizarPassword,
 	recuperarPassword,
+    actualizarEmail,
     comprobarTokenPasword,
-	nuevoPassword
+	nuevoPassword,
+    createInstitucion,
+    getInstituciones,
+    updateInstitucion,
+    deleteInstitucion,
+    getEstudiantes,
+    createEstudiante,
+    updateEstudiante,
+    deleteEstudiante
 }
