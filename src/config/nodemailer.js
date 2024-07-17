@@ -42,11 +42,11 @@ const sendMailToRecoveryPassword = async(userMail,token)=>{
     to: userMail,
     subject: "Correo para reestablecer tu contraseña",
     html: `
-    <h1>Sistema de gestión (VET-ESFOT 🐶 😺 🎈)</h1>
+    <h1>Sistema de gestión - Ministerio de educación</h1>
     <hr>
     <a href=${process.env.URL_BACKEND}recuperar-password/${token}>Clic para reestablecer tu contraseña</a>
     <hr>
-    <footer>Grandote te da la Bienvenida!</footer>
+    <footer>¡Bienvenido!</footer>
     `
     });
     console.log("Mensaje enviado satisfactoriamente: ", info.messageId);

@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken'
-import {administrador} from '../models/administrador.js'
+import administrador from '../models/administrador.js'
+import Ciudadania from '../models/ciudadania.js'
+
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -12,6 +14,8 @@ if(!req.headers.authorization) return res.status(404).json({msg:"Lo sentimos, de
         if (rol==="Administrador"){
             req.adminBDD = await administrador.findById(id).lean().select("-password")
             next()
+        }else if (rol === 'Ciudadano') {
+            req.ciudadanoBDD = await Ciudadania.findById(id).lean().select('-password');
         }
     } catch (error) {
         return res.status(404).json({msg:"Formato del token no válido"})

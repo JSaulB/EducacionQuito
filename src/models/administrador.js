@@ -1,7 +1,7 @@
 import {Schema, model} from 'mongoose' // Importar Schema y model de mongoose
 import bcrypt from "bcryptjs" // Importar bcrypt para cifrar el password
 
-// Crear el Schema de amdinistrador
+// Crear el Schema de administrador
 const adminSchema = new Schema({
     nombre:{
         type:String,
