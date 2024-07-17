@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import ministerio_routes from './routers/ministerio_routes.js';
 import adminRoutes from './routers/admin_routes.js';
-
+import ciudadaniaRoutes from './routers/ciudadania_routes.js';
 
 // Inicializaciones
 const app = express()
@@ -29,6 +29,7 @@ app.get('/',(req,res)=>{
 })
 app.use('/api', ministerio_routes)
 app.use('/api', adminRoutes);
+app.use('/api', ciudadaniaRoutes)
 
 // Exportar la instancia de express por medio de app
 export default  app

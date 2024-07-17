@@ -130,9 +130,7 @@ const obtenerCategoriaInstitucion = async (req, res) => {
     }
 };
 
-export {
-    obtenerCategoriaInstitucion
-};
+
 // Endpoint para solicitar ayuda a una institución y otorgar becas a alumnos destacados
 const solicitarAyudaYBecas = async (req, res) => {
     // Actividad 1 (Request)
