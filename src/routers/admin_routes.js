@@ -10,7 +10,6 @@ import {
     actualizarPerfil,
     actualizarPassword,
 	recuperarPassword,
-    actualizarEmail,
     comprobarTokenPasword,
 	nuevoPassword,
     createInstitucion,
@@ -23,11 +22,11 @@ import {
     deleteEstudiante
 }from "../controllers/admin_controller.js";
 
-import verificarAutenticacion from "../middlewares/autenticacion.js";
+import verificarAutenticacion from "../middlewares/autadmin.js";
 
 const router= Router();
-router.post("/login", login);
-router.post("/registro", registro);
+router.post("/loginadmin", login);
+router.post("/registroadmin", registro);
 router.get("/confirmar/:token", confirmEmail);
 router.get("/administradores", listaradministradores);
 router.get("/recuperar-password", recuperarPassword);
@@ -39,13 +38,13 @@ router.put('/administrador/actualizarpassword',verificarAutenticacion,actualizar
 router.get("/administrador/:id",verificarAutenticacion, detalleadministrador);
 router.put("/administrador/:id",verificarAutenticacion ,actualizarPerfil);
 
-router.get('/', getInstituciones);
-router.post('/', createInstitucion);
+router.get('/listai',verificarAutenticacion,getInstituciones);
+router.post('/creari',verificarAutenticacion,createInstitucion);
 router.put('/:id', updateInstitucion);
 router.delete('/:id', deleteInstitucion);
 
-router.get('/', getEstudiantes);
-router.post('/', createEstudiante);
+router.get('/listare',verificarAutenticacion, getEstudiantes);
+router.post('/creare',verificarAutenticacion, createEstudiante);
 router.put('/:id', updateEstudiante);
 router.delete('/:id', deleteEstudiante);
 

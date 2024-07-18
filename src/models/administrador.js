@@ -117,6 +117,6 @@ adminSchema.methods.crearToken = function(){
 
 
 // Exportar los modelos
-export const administrador = model('administrador', adminSchema);
+export default model('administrador',adminSchema); 
 export const institucion1 = model('institucion1', institucionSchema);
 export const Estudiante = model('Estudiante', estudianteSchema);

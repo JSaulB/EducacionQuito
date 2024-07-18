@@ -1,4 +1,4 @@
-import {administrador} from "../models/administrador.js"
+import administrador from "../models/administrador.js"
 import { institucion1 } from '../models/administrador.js';
 import {Estudiante }from '../models/administrador.js';
 import { sendMailToUser, sendMailToRecoveryPassword} from "../config/nodemailer.js"
