@@ -1,18 +1,18 @@
 import express from 'express';
-import { getInstituciones } from '../controllers/admin_controller.js';
+import { getInstituciones,getEstudiantes } from '../controllers/admin_controller.js';
+
 import verificarAutenticacion from "../middlewares/autadmin.js";
 
 import {
     login,
-    listarEstudiantes,
     registrarAyuda
 } from '../controllers/ministerio_controller.js';
 
 const router = express.Router();
 
 router.post('/ministerio/login', login);
-router.get('/listai',verificarAutenticacion,getInstituciones);
-router.get('/estudiantes', listarEstudiantes);
+router.get('/listari',verificarAutenticacion,getInstituciones);
+router.get('/listare',verificarAutenticacion, getEstudiantes);
 router.post('/ayudas/registrar', registrarAyuda);
 
 
