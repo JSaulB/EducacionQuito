@@ -1,0 +1,16 @@
+config:
+  target: 'http://localhost:3000/api'  # URL de tu servidor
+  phases:
+    - duration: 60                 # Duración de la prueba en segundos
+      arrivalRate: 10              # Número de solicitudes por segundo
+scenarios:
+  - flow:
+    - post:
+        url: "/ayudas/registrar"
+        json:
+          institucionId: "1234567890abcdef12345678"
+          tipoAyuda: "financial"
+          cantidad: "1000"
+          alumnos:
+            - "1234567890abcdef12345678"
+            - "abcdef123456789012345678"
