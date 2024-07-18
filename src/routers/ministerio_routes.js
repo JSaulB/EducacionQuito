@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.post('/ministerio/login', login);
 router.get('/listari',verificarAutenticacion,getInstituciones);
-router.get('/listare',verificarAutenticacion, getEstudiantes);
+router.get('/listares',verificarAutenticacion, getEstudiantes);
 router.post('/ayudas/registrar', registrarAyuda);
 
 

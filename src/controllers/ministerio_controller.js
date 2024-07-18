@@ -4,6 +4,7 @@ import { sendMailToUser, sendMailToRecoveryPassword } from "../config/nodemailer
 import generarJWT from "../helpers/crearJWT.js";
 import { Institucion, Alumno, Ayuda, User } from "../models/ministerio.js";
 
+
 // Enpoint para el login
 export const login = async (req, res) => {
     const { email, password } = req.body;
@@ -71,30 +72,50 @@ export const listarEstudiantes = async (req, res) => {
 };
 
 // Registrar ayuda a la institución elegida y al niño con la nota más alta
+// Registrar ayuda a la institución elegida y al niño con la nota más alta
 export const registrarAyuda = async (req, res) => {
     const { institucionId, tipoAyuda, cantidad, alumnos } = req.body;
+
+    // Validar que los campos necesarios estén presentes
+    if (!institucionId || !tipoAyuda || !cantidad || !Array.isArray(alumnos) || alumnos.length === 0) {
+        return res.status(400).json({ msg: "Por favor, proporciona todos los campos requeridos" });
+    }
+
     try {
         const nuevaAyuda = new Ayuda({
             institucionId,
             tipoAyuda,
             cantidad
         });
+
         await nuevaAyuda.save();
 
-        const promises = alumnos.map(async (alumnoId) => {
-            const alumno = await Alumno.findById(alumnoId);
-            if (!alumno) {
-                return res.status(404).json({ msg: 'Alumno no encontrado' });
-            }
+        // Variable para acumular errores
+        const errores = [];
 
-            alumno.becas.push({ monto: 1000 }); 
-            await alumno.save();
+        const promises = alumnos.map(async (alumnoId) => {
+            try {
+                const alumno = await Alumno.findById(alumnoId);
+                if (!alumno) {
+                    errores.push(`Alumno  encontrado: ${alumnoId}`);
+                } else {
+                    alumno.becas.push({ monto: 1000 });
+                    await alumno.save();
+                }
+            } catch (err) {
+                errores.push(`Error al procesar alumno: ${alumnoId}`);
+            }
         });
 
         await Promise.all(promises);
 
+        if (errores.length > 0) {
+            return res.status(404).json({ msg: 'Ayuda registrada exitosamente', errores });
+        }
+
         res.json({ mensaje: 'Ayuda y becas registradas', ayuda: nuevaAyuda });
     } catch (err) {
+        console.error("Error en el servidor: ", err);
         res.status(500).send('Error en el servidor');
     }
 };

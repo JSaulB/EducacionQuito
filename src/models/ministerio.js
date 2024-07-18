@@ -34,8 +34,9 @@ export const Alumno = model('Alumno', alumnoSchema);
 const ayudaSchema = new Schema({
     institucionId: { type: mongoose.Schema.Types.ObjectId, ref: 'Institucion', required: true },
     tipoAyuda: { type: String, required: true },
-    cantidad: { type: Number, required: true }
+    cantidad: { type: Number, required: true } // Cambiado de String a Number
 });
+
 
 export const Ayuda = model('Ayuda', ayudaSchema);
 
