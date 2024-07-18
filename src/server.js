@@ -29,7 +29,7 @@ app.get('/',(req,res)=>{
 })
 app.use('/api', ministerio_routes)
 app.use('/api', adminRoutes);
-app.use('/api', ciudadaniaRoutes)
+app.use('/api/ciudadania', ciudadaniaRoutes)
 
 // Exportar la instancia de express por medio de app
 export default  app

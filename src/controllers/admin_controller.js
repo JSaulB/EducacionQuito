@@ -97,8 +97,13 @@ const confirmEmail = async (req,res)=>{
         //* Actividad 4 (Respuesta)
         res.status(200).json({msg:"Token confirmado, ya puedes iniciar sesión"})
 }
-const listaradministradores = (req,res)=>{
-    res.status(200).json({res:'lista de administradores registrados'})
+const listaradministradores = async (req, res) => {
+    try {
+        const admins = await administrador.find().select('-password -createdAt -updatedAt -__v');
+        res.json(admins);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 }
 const detalleadministrador = async (req,res)=>{
     // Actividad 1 (Request)

@@ -8,7 +8,7 @@ import {
 
 const router = express.Router();
 
-router.post('/login', login);
+router.post('/ministerio/login', login);
 router.get('/instituciones', getInstituciones);
 router.get('/estudiantes', listarEstudiantes);
 router.post('/ayudas/registrar', registrarAyuda);

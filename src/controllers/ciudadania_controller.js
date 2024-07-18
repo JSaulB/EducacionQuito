@@ -1,88 +1,84 @@
-import bcrypt from 'bcryptjs';
 import { Ciudadania } from '../models/ciudadania.js';
 import { Institucion, Alumno, Ayuda } from '../models/ministerio.js';
+import bcrypt from 'bcryptjs';
 import generarJWT from '../helpers/crearJWT.js';
-import { sendMailToUser} from '../config/nodemailer.js';
+import {sendMailToUser} from '../config/nodemailer.js';
 
-// Endpoint para registro de Ciudadanía
 const registroCiudadania = async (req, res) => {
-    // Actividad 1 (Request)
-    const { nombre, apellido, email, password, confirmEmail } = req.body;
+  // Actividad 1 (Request)
+  const { nombre, apellido, email, password, confirmEmail } = req.body;
 
-    // Actividad 2 (Validaciones)
-    if (Object.values(req.body).includes('')) {
-        return res.status(400).json({ error: 'Lo sentimos pero faltan datos' });
-    }
+  // Actividad 2 (Validaciones)
+  if (!nombre || !apellido || !email || !password || !confirmEmail) {
+    return res.status(400).json({ error: 'Lo sentimos pero faltan datos' });
+  }
 
-    // Verificar si el email ya existe
-    const verificarEmailBDD = await Ciudadania.findOne({ email });
-    if (verificarEmailBDD) {
-        return res.status(400).json({ error: 'Lo sentimos pero el email ya existe' });
-    }
+  // Verificar si el email ya existe
+  const verificarEmailBDD = await Ciudadania.findOne({ email });
+  if (verificarEmailBDD) {
+    return res.status(400).json({ error: 'Lo sentimos pero el email ya existe' });
+  }
 
-    // Actividad 3 (Guardar en BDD)
-    const nuevoCiudadano = new Ciudadania({
-        nombre,
-        apellido,
-        email,
-        password,
-        confirmEmail
-    });
-    nuevoCiudadano.password = await nuevoCiudadano.encryptPassword(password);
-    const token = nuevoCiudadano.crearToken();
-    
-    await nuevoCiudadano.save();
-    sendMailToUser(email, token);
+  // Actividad 3 (Guardar en BDD)
+  const nuevoCiudadano = new Ciudadania({
+    nombre,
+    apellido,
+    email,
+    password: await bcrypt.hash(password, 10),
+    confirmEmail: false
+  });
 
-    // Actividad 4 (Respuesta)
-    res.status(200).json({ msg: 'Nuevo usuario registrado, por favor confirma tu email' });
+  const token = nuevoCiudadano.crearToken();
+  await nuevoCiudadano.save();
+  sendMailToUser(email, token);
+
+  // Actividad 4 (Respuesta)
+  res.status(200).json({ msg: 'Nuevo usuario registrado, por favor confirma tu email' });
 };
 
-// Endpoint para login de Ciudadanía
 const loginCiudadania = async (req, res) => {
-    // Actividad 1 (Request)
-    const { email, password } = req.body;
+  // Actividad 1 (Request)
+  const { email, password } = req.body;
 
-    // Actividad 2 (Validaciones)
-    if (!email || !password) {
-        return res.status(400).json({ error: 'Lo sentimos, debes llenar todos los campos' });
+  // Actividad 2 (Validaciones)
+  if (!email || !password) {
+    return res.status(400).json({ error: 'Lo sentimos, debes llenar todos los campos' });
+  }
+
+  try {
+    // Validar el email
+    const ciudadania = await Ciudadania.findOne({ email });
+    if (!ciudadania) {
+      return res.status(404).json({ error: 'Lo sentimos, el email no existe' });
     }
 
-    try {
-        // Validar el email
-        const ciudadania = await Ciudadania.findOne({ email });
-        if (!ciudadania) {
-            return res.status(404).json({ error: 'Lo sentimos, el email no existe' });
-        }
-
-        // Validar confirmación de la cuenta
-        if (!ciudadania.confirmEmail) {
-            return res.status(403).json({ error: 'Lo sentimos, debes verificar tu cuenta' });
-        }
-
-        // Validar la contraseña
-        const isMatch = await bcrypt.compare(password, ciudadania.password);
-        if (!isMatch) {
-            return res.status(400).json({ error: 'La contraseña no es correcta' });
-        }
-
-        // Generar el token
-        const token = generarJWT(ciudadania._id, 'ciudadano'); 
-
-        // Devolver la respuesta
-        const { nombre, apellido, _id } = ciudadania;
-        res.status(200).json({
-            token,
-            nombre,
-            apellido,
-            _id,
-            email: ciudadania.email
-        });
-    } catch (err) {
-        res.status(500).json({ error: 'Error en el servidor' });
+    // Validar confirmación de la cuenta
+    if (!ciudadania.confirmEmail) {
+      return res.status(403).json({ error: 'Lo sentimos, debes verificar tu cuenta' });
     }
+
+    // Validar la contraseña
+    const isMatch = await bcrypt.compare(password, ciudadania.password);
+    if (!isMatch) {
+      return res.status(400).json({ error: 'La contraseña no es correcta' });
+    }
+
+    // Generar el token
+    const token = generarJWT(ciudadania._id, 'ciudadano');
+
+    // Devolver la respuesta
+    const { nombre, apellido, _id } = ciudadania;
+    res.status(200).json({
+      token,
+      nombre,
+      apellido,
+      _id,
+      email: ciudadania.email
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Error en el servidor' });
+  }
 };
-
 // Endpoint para registro de nuevo alumno
 const registrarNuevoAlumno = async (req, res) => {
     // Actividad 1 (Request)

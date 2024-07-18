@@ -5,25 +5,24 @@ import bcrypt from 'bcryptjs';
 const ciudadaniaSchema = new Schema({
     nombre: { 
         type: String, 
-        required: true 
+        require: true 
     },
     apellido: { 
         type: String, 
-        required: true 
+        require: true 
     },
     institucionId: { 
         type: Schema.Types.ObjectId, 
-        ref: 'Institucion',
-        required: true 
+        ref: 'Institucion'
     },
     email: { 
         type: String, 
-        required: true, 
+        require: true, 
         unique: true 
     },
     password: { 
         type: String, 
-        required: true 
+        require: true 
     },
     confirmEmail: { 
         type: Boolean, 

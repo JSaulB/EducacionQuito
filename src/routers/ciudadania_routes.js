@@ -7,7 +7,7 @@ import {
     obtenerCategoriaInstitucion
 } from '../controllers/ciudadania_controller.js';
 
-import verificarAutenticacion from '../middlewares/verificarAutenticacion.js';
+import verificarAutenticacion from '../middlewares/autenticacion.js';
 
 const router = Router();
 

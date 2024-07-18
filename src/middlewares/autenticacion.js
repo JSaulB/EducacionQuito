@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
-import administrador from '../models/administrador.js'
-import Ciudadania from '../models/ciudadania.js'
+import {administrador} from '../models/administrador.js'
+import {Ciudadania} from '../models/ciudadania.js'
 
 import dotenv from 'dotenv'
 dotenv.config()
