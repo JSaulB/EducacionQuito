@@ -73,6 +73,52 @@ export const listarEstudiantes = async (req, res) => {
 
 // Registrar ayuda a la institución elegida y al niño con la nota más alta
 // Registrar ayuda a la institución elegida y al niño con la nota más alta
+// export const registrarAyuda = async (req, res) => {
+//     const { institucionId, tipoAyuda, cantidad, alumnos } = req.body;
+
+//     // Validar que los campos necesarios estén presentes
+//     if (!institucionId || !tipoAyuda || !cantidad || !Array.isArray(alumnos) || alumnos.length === 0) {
+//         return res.status(400).json({ msg: "Por favor, proporciona todos los campos requeridos" });
+//     }
+
+//     try {
+//         const nuevaAyuda = new Ayuda({
+//             institucionId,
+//             tipoAyuda,
+//             cantidad
+//         });
+
+//         await nuevaAyuda.save();
+
+//         // Variable para acumular errores
+//         const errores = [];
+
+//         const promises = alumnos.map(async (alumnoId) => {
+//             try {
+//                 const alumno = await Alumno.findById(alumnoId);
+//                 if (!alumno) {
+//                     errores.push(`Alumno  encontrado: ${alumnoId}`);
+//                 } else {
+//                     alumno.becas.push({ monto: 1000 });
+//                     await alumno.save();
+//                 }
+//             } catch (err) {
+//                 errores.push(`Error al procesar alumno: ${alumnoId}`);
+//             }
+//         });
+
+//         await Promise.all(promises);
+
+//         if (errores.length > 0) {
+//             return res.status(404).json({ msg: 'Ayuda registrada exitosamente', errores });
+//         }
+
+//         res.json({ mensaje: 'Ayuda y becas registradas', ayuda: nuevaAyuda });
+//     } catch (err) {
+//         console.error("Error en el servidor: ", err);
+//         res.status(500).send('Error en el servidor');
+//     }
+// };
 export const registrarAyuda = async (req, res) => {
     const { institucionId, tipoAyuda, cantidad, alumnos } = req.body;
 
@@ -90,14 +136,22 @@ export const registrarAyuda = async (req, res) => {
 
         await nuevaAyuda.save();
 
+        // Buscar todos los alumnos una vez al inicio
+        const alumnosEncontrados = await Alumno.find({
+            _id: { $in: alumnos }
+        });
+
+        // Crear un mapa de alumnos encontrados para un acceso rápido
+        const alumnosMap = new Map(alumnosEncontrados.map(alumno => [alumno._id.toString(), alumno]));
+
         // Variable para acumular errores
         const errores = [];
 
         const promises = alumnos.map(async (alumnoId) => {
             try {
-                const alumno = await Alumno.findById(alumnoId);
+                const alumno = alumnosMap.get(alumnoId);
                 if (!alumno) {
-                    errores.push(`Alumno  encontrado: ${alumnoId}`);
+                    errores.push(`Alumno no encontrado: ${alumnoId}`);
                 } else {
                     alumno.becas.push({ monto: 1000 });
                     await alumno.save();
@@ -110,7 +164,7 @@ export const registrarAyuda = async (req, res) => {
         await Promise.all(promises);
 
         if (errores.length > 0) {
-            return res.status(404).json({ msg: 'Ayuda registrada exitosamente', errores });
+            return res.status(404).json({ msg: 'Algunos alumnos no fueron encontrados', errores });
         }
 
         res.json({ mensaje: 'Ayuda y becas registradas', ayuda: nuevaAyuda });
