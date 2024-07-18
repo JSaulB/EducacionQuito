@@ -40,8 +40,8 @@ router.put("/administrador/:id",verificarAutenticacion ,actualizarPerfil);
 
 router.get('/listai',verificarAutenticacion,getInstituciones);
 router.post('/creari',verificarAutenticacion,createInstitucion);
-router.put('/:id', updateInstitucion);
-router.delete('/:id', deleteInstitucion);
+router.put('/actualizari/:id',verificarAutenticacion, updateInstitucion);
+router.delete('/eliminari/:id',verificarAutenticacion, deleteInstitucion);
 
 router.get('/listare',verificarAutenticacion, getEstudiantes);
 router.post('/creare',verificarAutenticacion, createEstudiante);
