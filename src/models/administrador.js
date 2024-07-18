@@ -64,6 +64,8 @@ const institucionSchema = new Schema({
     },
     historialSocioeconomico: {
         type: String,
+        required: true,
+        enum: ['Alto', 'Medio', 'Bajo'],
         trim: true
     }
 }, {
@@ -82,12 +84,14 @@ const estudianteSchema = new Schema({
         trim: true
     },
     institucion: {
-        type: Schema.Types.ObjectId,
-        ref: 'Institucion',
-        required: true
+        type: String,
+        required: true,
+        trim: true
     },
     historialSocioeconomico: {
         type: String,
+        required: true,
+        enum: ['Alto', 'Medio', 'Bajo'],
         trim: true
     }
 }, {
