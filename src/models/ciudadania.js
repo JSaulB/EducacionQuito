@@ -3,13 +3,17 @@ import bcrypt from 'bcryptjs';
 
 // Definición del esquema para Ciudadanía
 const ciudadaniaSchema = new Schema({
+    confirmationToken: { 
+        type: String,
+        default: null
+    },
     nombre: { 
         type: String, 
-        require: true 
+        required: true 
     },
     apellido: { 
         type: String, 
-        require: true 
+        required: true 
     },
     institucionId: { 
         type: Schema.Types.ObjectId, 
@@ -17,12 +21,12 @@ const ciudadaniaSchema = new Schema({
     },
     email: { 
         type: String, 
-        require: true, 
+        required: true, 
         unique: true 
     },
     password: { 
         type: String, 
-        require: true 
+        required: true 
     },
     confirmEmail: { 
         type: Boolean, 
@@ -47,4 +51,5 @@ ciudadaniaSchema.methods.matchPassword = async function(password) {
 
 // Exportar el modelo Ciudadanía
 export const Ciudadania = model('Ciudadania', ciudadaniaSchema);
+
 

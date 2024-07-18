@@ -2,174 +2,182 @@ import { Ciudadania } from '../models/ciudadania.js';
 import { Institucion, Alumno, Ayuda } from '../models/ministerio.js';
 import bcrypt from 'bcryptjs';
 import generarJWT from '../helpers/crearJWT.js';
-import {sendMailToUser} from '../config/nodemailer.js';
+import { sendMailToUser } from '../config/nodemailer.js';
+import { Estudiante, institucion1 } from '../models/administrador.js';
 
 const registroCiudadania = async (req, res) => {
-  // Actividad 1 (Request)
-  const { nombre, apellido, email, password, confirmEmail } = req.body;
+  const { nombre, apellido, email, password } = req.body;
 
-  // Actividad 2 (Validaciones)
-  if (!nombre || !apellido || !email || !password || !confirmEmail) {
-    return res.status(400).json({ error: 'Lo sentimos pero faltan datos' });
+  if (!nombre || !apellido || !email || !password) {
+    return res.status(400).json({ error: 'Lo sentimos, faltan datos obligatorios' });
   }
 
-  // Verificar si el email ya existe
   const verificarEmailBDD = await Ciudadania.findOne({ email });
   if (verificarEmailBDD) {
-    return res.status(400).json({ error: 'Lo sentimos pero el email ya existe' });
+    return res.status(400).json({ error: 'Lo sentimos, el email ya existe' });
   }
 
-  // Actividad 3 (Guardar en BDD)
-  const nuevoCiudadano = new Ciudadania({
+  const token = generarJWT({ email });
+
+  const nuevoRegistroCiudadania = new Ciudadania({
     nombre,
     apellido,
     email,
     password: await bcrypt.hash(password, 10),
-    confirmEmail: false
+    confirmEmail: false,
+    confirmationToken: token
   });
 
-  const token = nuevoCiudadano.crearToken();
-  await nuevoCiudadano.save();
+  await nuevoRegistroCiudadania.save();
+  
   sendMailToUser(email, token);
 
-  // Actividad 4 (Respuesta)
-  res.status(200).json({ msg: 'Nuevo usuario registrado, por favor confirma tu email' });
+  res.status(200).json({ msg: 'Nuevo registro de ciudadanía creado correctamente' });
+};
+
+
+const confirmarEmail = async (req, res) => {
+  const { token } = req.params;
+
+  const ciudadania = await Ciudadania.findOne({ confirmationToken: token });
+  if (!ciudadania) {
+    return res.status(404).json({ error: 'El token no es válido' });
+  }
+  
+  if (ciudadania.confirmEmail) {
+    return res.status(400).json({ msg: 'La cuenta ya ha sido confirmada' });
+  }
+
+  ciudadania.confirmEmail = true;
+  ciudadania.confirmationToken = null; // Clear the token after confirmation
+  await ciudadania.save();
+  
+  res.status(200).json({ msg: 'El correo electrónico ha sido confirmado con éxito' });
 };
 
 const loginCiudadania = async (req, res) => {
-  // Actividad 1 (Request)
   const { email, password } = req.body;
 
-  // Actividad 2 (Validaciones)
   if (!email || !password) {
     return res.status(400).json({ error: 'Lo sentimos, debes llenar todos los campos' });
   }
 
   try {
-    // Validar el email
     const ciudadania = await Ciudadania.findOne({ email });
-    if (!ciudadania) {
-      return res.status(404).json({ error: 'Lo sentimos, el email no existe' });
-    }
 
-    // Validar confirmación de la cuenta
-    if (!ciudadania.confirmEmail) {
+    if (!ciudadania || !ciudadania.confirmEmail) {
       return res.status(403).json({ error: 'Lo sentimos, debes verificar tu cuenta' });
     }
 
-    // Validar la contraseña
     const isMatch = await bcrypt.compare(password, ciudadania.password);
     if (!isMatch) {
       return res.status(400).json({ error: 'La contraseña no es correcta' });
     }
 
-    // Generar el token
     const token = generarJWT(ciudadania._id, 'ciudadano');
 
-    // Devolver la respuesta
-    const { nombre, apellido, _id } = ciudadania;
     res.status(200).json({
       token,
-      nombre,
-      apellido,
-      _id,
-      email: ciudadania.email
+      nombre: ciudadania.nombre,
+      apellido: ciudadania.apellido,
+      _id: ciudadania._id,
+      email: ciudadania.email,
     });
   } catch (error) {
     res.status(500).json({ error: 'Error en el servidor' });
   }
 };
-// Endpoint para registro de nuevo alumno
+
 const registrarNuevoAlumno = async (req, res) => {
-    // Actividad 1 (Request)
-    const { nombre, calificacion, institucionId } = req.body;
+  const { nombre, calificacion, institucionId } = req.body;
+  console.log(req.body);  
 
-    // Actividad 2 (Validaciones)
-    if (Object.values(req.body).includes('')) {
-        return res.status(400).json({ error: 'Lo sentimos pero faltan datos' });
-    }
+  // Validación de campos obligatorios
+  if (!nombre || !calificacion ) {
+      return res.status(400).json({ error: 'Lo sentimos, faltan datos obligatorios' });
+  }
 
-    try {
-        // Validar si la institución existe
-        const institucion = await Institucion.findById(institucionId);
-        if (!institucion) {
-            return res.status(404).json({ error: 'Lo sentimos, la institución no existe' });
-        }
+  try {
+      // Validar si la institución existe
+      const institucion = await institucion1.findById(institucionId);
+      if (!institucion) {
+          return res.status(404).json({ error: 'Lo sentimos, la institución no existe' });
+      }
+      // Crear un nuevo registro de alumno
+      const nuevoAlumno = new Estudiante({
+          nombre,
+          calificacion,
+          institucionId
+      });
+      await nuevoAlumno.save();
 
-        // Actividad 3 (Guardar en BDD)
-        const nuevoAlumno = new Alumno({
-            nombre,
-            calificacion
-        });
-        await nuevoAlumno.save();
-
-        // Actividad 4 (Respuesta)
-        res.status(200).json({ msg: 'Alumno registrado correctamente', alumno: nuevoAlumno });
-    } catch (error) {
-        res.status(500).json({ error: 'Error en el servidor' });
-    }
+      // Responder con un mensaje de éxito
+      res.status(200).json({ msg: 'Alumno registrado correctamente', alumno: nuevoAlumno });
+  } catch (error) {
+      res.status(500).json({ error: 'Error en el servidor' });
+  }
 };
+
+
 const obtenerCategoriaInstitucion = async (req, res) => {
-    const { id } = req.params; 
-
-    try {
-        const institucion = await Institucion.findById(id);
-
-        if (!institucion) {
-            return res.status(404).json({ error: 'Institución no encontrada' });
-        }
-
-        // Devolvemos solo la categoría de la institución
-        res.status(200).json({ categoria: institucion.categoria });
-    } catch (error) {
-        res.status(500).json({ error: 'Error en el servidor' });
-    }
+  try {
+    const instituciones = await institucion1.find();
+    res.json(instituciones);
+} catch (error) {
+    res.status(500).json({ message: error.message });
+}
 };
 
-
-// Endpoint para solicitar ayuda a una institución y otorgar becas a alumnos destacados
 const solicitarAyudaYBecas = async (req, res) => {
-    // Actividad 1 (Request)
-    const { institucionId, tipoAyuda, cantidad, alumnos } = req.body;
+  const { institucionId, tipoAyuda, cantidad, alumnos } = req.body;
 
-    try {
-        // Validar si la institución existe
-        const institucion = await Institucion.findById(institucionId);
-        if (!institucion) {
-            return res.status(404).json({ error: 'Lo sentimos, la institución no existe' });
-        }
+  if (!institucionId || !tipoAyuda || !cantidad || !Array.isArray(alumnos) || alumnos.length === 0) {
+    return res.status(400).json({ error: 'Faltan datos obligatorios' });
+  }
 
-        // Registrar la ayuda
-        const nuevaAyuda = new Ayuda({
-            institucionId,
-            tipoAyuda,
-            cantidad
-        });
-        await nuevaAyuda.save();
-
-        // Otorgar becas a los alumnos destacados
-        const promises = alumnos.map(async (alumnoId) => {
-            const alumno = await Alumno.findById(alumnoId);
-            if (!alumno) {
-                return res.status(404).json({ error: 'Alumno no encontrado' });
-            }
-            alumno.becas.push({ monto: 1000 }); // Ejemplo de monto de beca, ajustar según criterios
-            await alumno.save();
-        });
-
-        await Promise.all(promises);
-
-        // Actividad 4 (Respuesta)
-        res.status(200).json({ msg: 'Solicitud de ayuda y becas registrada correctamente' });
-    } catch (error) {
-        res.status(500).json({ error: 'Error en el servidor' });
+  try {
+    const institucion = await institucion1.findById(institucionId);
+    if (!institucion) {
+      return res.status(404).json({ error: 'Lo sentimos, la institución no existe' });
     }
-};
+
+    const nuevaAyuda = new Ayuda({
+      institucionId,
+      tipoAyuda,
+      cantidad
+    });
+    await nuevaAyuda.save();
+
+    const promises = alumnos.map(async (alumnoId) => {
+      const alumno = await Estudiante.findById(alumnoId);
+      if (!alumno) {
+        throw new Error(`Alumno no encontrado: ${alumnoId}`);
+      }
+      // Verifica si alumno.becas existe y es un array antes de usar push
+      if (!alumno.becas || !Array.isArray(alumno.becas)) {
+        alumno.becas = [];
+      }
+      alumno.becas.push({ monto: 1000 });
+      await alumno.save();
+    });
+
+    await Promise.all(promises);
+
+    res.status(200).json({ msg: 'Solicitud de ayuda y becas registrada correctamente' });
+  } catch (error) {
+    console.error("Error al procesar la solicitud de ayuda y becas:", error);
+    res.status(500).json({ error: 'Error en el servidor' });
+  }
+}
+
+
 
 export {
-    registroCiudadania,
-    loginCiudadania,
-    obtenerCategoriaInstitucion,
-    registrarNuevoAlumno,
-    solicitarAyudaYBecas
+  registroCiudadania,
+  loginCiudadania,
+  obtenerCategoriaInstitucion,
+  registrarNuevoAlumno,
+  solicitarAyudaYBecas,
+  confirmarEmail
 };
+
