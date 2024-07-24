@@ -56,10 +56,25 @@ const institucionSchema = new Schema({
         required: true,
         trim: true
     },
-    calificacion: {
+    direccion: {
+        type: String,
+        required: true
+    },
+    telefono: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    descripcion: {
+        type: String
+    },
+    categoria: {
         type: String,
         required: true,
-        enum: ['A', 'B', 'C'],
+        enum: ['A', 'B', 'C','D','E'],
         trim: true
     },
     historialSocioeconomico: {
