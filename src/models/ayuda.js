@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose, {Schema,model} from 'mongoose'
+
 
 const AyudaSchema = new mongoose.Schema({
     institucion: {
