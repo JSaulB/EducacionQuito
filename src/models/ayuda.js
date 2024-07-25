@@ -21,5 +21,7 @@ const AyudaSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-module.exports = mongoose.model('Ayuda', AyudaSchema);
+export default model('Ayuda', AyudaSchema);
+
+
 
