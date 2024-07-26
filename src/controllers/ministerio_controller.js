@@ -2,7 +2,9 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import { sendMailToUser, sendMailToRecoveryPassword } from "../config/nodemailer.js";
 import generarJWT from "../helpers/crearJWT.js";
-import { Institucion, Alumno, Ayuda, User } from "../models/ministerio.js";
+import administrador from '../models/administrador.js';
+import { institucion1 as Institucion, Estudiante as Alumno } from "../models/administrador.js";
+import  Ayuda  from "../models/ayuda.js";
 
 
 
@@ -17,7 +19,7 @@ export const login = async (req, res) => {
 
     try {
         // Validar el email
-        const user = await User.findOne({ email });
+        const user = await administrador.findOne({ email });
         if (!user) {
             return res.status(404).json({ msg: "Lo sentimos, el email no existe" });
         }

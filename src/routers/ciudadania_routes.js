@@ -15,12 +15,12 @@ const router = Router();
 // Rutas públicas
 router.post('/registro', registroCiudadania);
 router.post('/login', loginCiudadania);
-router.get('/ciudadania/confirmar', confirmarEmail);
+router.get('/confirmar/:token', confirmarEmail);
 
 // Rutas protegidas
 
-router.post('/alumnos/registrar/:id', registrarNuevoAlumno);
-router.post('/ayudas/registrar/:id', solicitarAyudaYBecas);
-router.get('/instituciones/:id/categoria', obtenerCategoriaInstitucion);
+router.post('/alumnos/registrar', verificarAutenticacion, registrarNuevoAlumno);
+router.post('/ayudas/registrar', verificarAutenticacion, solicitarAyudaYBecas);
+router.get('/instituciones/categoria', verificarAutenticacion, obtenerCategoriaInstitucion);
 
 export default router;

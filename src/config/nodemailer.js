@@ -28,7 +28,22 @@ const sendMailToUser = (userMail, token) => {
         }
     });
 };
-
+const sendMailToUserCiudadania = (email, token) => {
+    let mailOptions = {
+      from: process.env.USER_MAILTRAP,
+      to: email,
+      subject: 'Confirmación de correo electrónico',
+      html: `<p>Haz clic en el siguiente enlace para confirmar tu correo electrónico: <a href="${process.env.URL_BACKEND}ciudadania/confirmar/${encodeURIComponent(token)}">Confirmar correo</a></p>`
+    };
+  
+    transporter.sendMail(mailOptions, function(error, info) {
+      if (error) {
+        console.log(error)
+      } else {
+        console.log('Correo enviado: ' + info.response);
+      }
+    });
+  };
 
 const sendMailToRecoveryPassword = async(userMail, token) => {
     let info = await transporter.sendMail({
@@ -48,5 +63,6 @@ const sendMailToRecoveryPassword = async(userMail, token) => {
 
 export {
     sendMailToUser,
+    sendMailToUserCiudadania,
     sendMailToRecoveryPassword
 };

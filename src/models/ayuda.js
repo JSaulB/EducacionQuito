@@ -1,5 +1,4 @@
-import mongoose, {Schema,model} from 'mongoose'
-
+import mongoose from 'mongoose';
 
 const AyudaSchema = new mongoose.Schema({
     institucion: {
@@ -21,7 +20,8 @@ const AyudaSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-export default model('Ayuda', AyudaSchema);
+const Ayuda = mongoose.model('Ayuda', AyudaSchema);
 
+export default Ayuda;
 
 

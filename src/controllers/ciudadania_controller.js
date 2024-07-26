@@ -1,9 +1,11 @@
-import { Ciudadania } from '../models/ciudadania.js';
-import { Institucion, Alumno, Ayuda } from '../models/ministerio.js';
-import bcrypt from 'bcryptjs';
-import generarJWT from '../helpers/crearJWT.js';
-import { sendMailToUser } from '../config/nodemailer.js';
-import { Estudiante, institucion1 } from '../models/administrador.js';
+import bcrypt from 'bcryptjs'
+import mongoose from 'mongoose'
+import generarJWT from '../helpers/crearJWT.js'
+import { Ciudadania } from '../models/ciudadania.js'
+import { sendMailToUserCiudadania } from '../config/nodemailer.js'
+import  Ayuda  from "../models/ayuda.js"
+import administrador from '../models/administrador.js'
+import { institucion1 as Institucion, Estudiante } from "../models/administrador.js"
 
 const registroCiudadania = async (req, res) => {
   const { nombre, apellido, email, password } = req.body;
@@ -30,11 +32,10 @@ const registroCiudadania = async (req, res) => {
 
   await nuevoRegistroCiudadania.save();
   
-  sendMailToUser(email, token);
+  sendMailToUserCiudadania(email, token);
 
   res.status(200).json({ msg: 'Nuevo registro de ciudadanía creado correctamente' });
 };
-
 
 const confirmarEmail = async (req, res) => {
   const { token } = req.params;
@@ -49,7 +50,7 @@ const confirmarEmail = async (req, res) => {
   }
 
   ciudadania.confirmEmail = true;
-  ciudadania.confirmationToken = null; // Clear the token after confirmation
+  ciudadania.confirmationToken = null; 
   await ciudadania.save();
   
   res.status(200).json({ msg: 'El correo electrónico ha sido confirmado con éxito' });
@@ -89,62 +90,58 @@ const loginCiudadania = async (req, res) => {
 };
 
 const registrarNuevoAlumno = async (req, res) => {
-  const { nombre, calificacion, institucionId } = req.body;
-  console.log(req.body);  
+  const { nombre, apellido, institucion, historialSocioeconomico } = req.body;
 
-  // Validación de campos obligatorios
-  if (!nombre || !calificacion ) {
-      return res.status(400).json({ error: 'Lo sentimos, faltan datos obligatorios' });
+  if (!nombre || !apellido || !institucion || !historialSocioeconomico) { //Datos  a traves de req.body, nombre de la institucion no id
+    return res.status(400).json({ error: 'Lo sentimos, faltan datos obligatorios' });
   }
 
   try {
-      // Validar si la institución existe
-      const institucion = await institucion1.findById(institucionId);
-      if (!institucion) {
-          return res.status(404).json({ error: 'Lo sentimos, la institución no existe' });
-      }
-      // Crear un nuevo registro de alumno
-      const nuevoAlumno = new Estudiante({
-          nombre,
-          calificacion,
-          institucionId
-      });
-      await nuevoAlumno.save();
+    const nuevaInstitucion = await Institucion.findOne({ nombre: institucion });
+    if (!nuevaInstitucion) {
+      return res.status(404).json({ error: 'Lo sentimos, la institución no existe' });
+    }
 
-      // Responder con un mensaje de éxito
-      res.status(200).json({ msg: 'Alumno registrado correctamente', alumno: nuevoAlumno });
+    const nuevoAlumno = new Estudiante({
+      nombre,
+      apellido,
+      institucion: nuevaInstitucion._id,
+      historialSocioeconomico
+    });
+    await nuevoAlumno.save();
+
+    res.status(200).json({ msg: 'Alumno registrado correctamente', alumno: nuevoAlumno });
   } catch (error) {
-      res.status(500).json({ error: 'Error en el servidor' });
+    console.error("Error al registrar nuevo alumno:", error);
+    res.status(500).json({ error: 'Error en el servidor' });
   }
 };
-
-
 const obtenerCategoriaInstitucion = async (req, res) => {
   try {
-    const instituciones = await institucion1.find();
+    const instituciones = await Institucion.find();
     res.json(instituciones);
-} catch (error) {
+  } catch (error) {
     res.status(500).json({ message: error.message });
-}
+  }
 };
 
 const solicitarAyudaYBecas = async (req, res) => {
-  const { institucionId, tipoAyuda, cantidad, alumnos } = req.body;
+  const { institucion, descripcion, monto } = req.body;  //Datos  a traves de req.body, nombre de la institucion no id
 
-  if (!institucionId || !tipoAyuda || !cantidad || !Array.isArray(alumnos) || alumnos.length === 0) {
+  if (!institucion || !descripcion || !monto ) {
     return res.status(400).json({ error: 'Faltan datos obligatorios' });
   }
 
   try {
-    const institucion = await institucion1.findById(institucionId);
-    if (!institucion) {
+    const nuevaInstitucion = await Institucion.findOne({ nombre: institucion });
+    if (!nuevaInstitucion) {
       return res.status(404).json({ error: 'Lo sentimos, la institución no existe' });
     }
 
     const nuevaAyuda = new Ayuda({
-      institucionId,
-      tipoAyuda,
-      cantidad
+      institucion: nuevaInstitucion._id,
+      descripcion,
+      monto
     });
     await nuevaAyuda.save();
 
@@ -153,7 +150,6 @@ const solicitarAyudaYBecas = async (req, res) => {
       if (!alumno) {
         throw new Error(`Alumno no encontrado: ${alumnoId}`);
       }
-      // Verifica si alumno.becas existe y es un array antes de usar push
       if (!alumno.becas || !Array.isArray(alumno.becas)) {
         alumno.becas = [];
       }
@@ -168,8 +164,7 @@ const solicitarAyudaYBecas = async (req, res) => {
     console.error("Error al procesar la solicitud de ayuda y becas:", error);
     res.status(500).json({ error: 'Error en el servidor' });
   }
-}
-
+};
 
 
 export {
@@ -180,4 +175,3 @@ export {
   solicitarAyudaYBecas,
   confirmarEmail
 };
-
