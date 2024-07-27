@@ -185,8 +185,26 @@ const nuevoPassword= async(req,res)=>{
 }
 //Registrar ayuda a las instituciones
 
-const registrarAyuda = async(req,res) =>{
-    
+const registrarAyuda = async (req,res) =>{
+    const {idInstitucion, ayuda} = req.body;
+
+    //Valida que no haya campos vacíos
+    if (!idInstitucion || ayuda){
+        return res.status(400).json({msg: "Lo sentimos, debes llenar todos los campos"});
+    }
+
+    //Validar ID de institucion
+    if(!mongoose.Types.ObjectId.isValid(idInstitucion)){
+        return res.status(400).json({msg: `Lo sentimos, no existe la institucion con ID ${idInstitucion}`});
+    }
+
+    //Agregar ayuda a la institución
+    institucionBDD.ayuda = institucionBDD.ayuda || [];
+    institucionBDD.ayuda.push(ayuda);
+    await institucionBDD.save();
+
+    res.status(200).json({msg: "Ayuda registrada correctamente"});
+
 }
 
 
@@ -202,5 +220,6 @@ export {
     actualizarPassword,
 	recuperarPassword,
     comprobarTokenPasword,
-	nuevoPassword
+	nuevoPassword,
+    registrarAyuda
 }
