@@ -4,128 +4,203 @@ import { sendMailToUser, sendMailToRecoveryPassword } from "../config/nodemailer
 import generarJWT from "../helpers/crearJWT.js";
 import administrador from '../models/administrador.js';
 import { institucion1 as Institucion, Estudiante as Alumno } from "../models/administrador.js";
-import  Ayuda  from "../models/ayuda.js";
+import ministerio from '../models/ministerio.js'
+import ayuda from '../models/ayuda.js'
 
+//Registrar un nuevo usuario para ministerio
 
+const registro = async (req,res)=>{
+    const {nombre,email,password,rol}=req.body
+    //Valida si no hay campos vacios
+    if (Object.values(req.body).includes("")) return res.status("400").json
+    ({msg:"Lo sentimos, debes llenar todos los campos"})
+    //Verifica si el email ya esta registrado
+    const verificarEmailBDD= await Ministerio.findOne({email})
+    if (verificarEmailBDD) return res.status(400).json({msg:"Lo sentimos, el email ya se encuentra registrado"})
+    //Crea un nuevo usuario 
+    const nuevoMinisterio= new Ministerio(req.body)
+    nuevoMinisterio.password= await nuevoMinisterio.encrypPassword(password)
+    const token= nuevoMinisterio.crearToken()
+    await sendMailToUser(email,token)
+    await nuevoMinisterio.save()
+    res.status(200).json({mg:"Revisa tu correo electronico para confirmar tu cuenta"})
 
-// Enpoint para el login
-export const login = async (req, res) => {
-    const { email, password } = req.body;
+}
 
-    // Validar campos vacíos
-    if (!email || !password) {
-        return res.status(400).json({ msg: "Lo sentimos, debes llenar todos los campos" });
+//Login de un usuario para ministerio
+
+const login = async(req,res)=>{
+    const {email,password}=req.body
+
+    //Valida que no hayan campos vacios
+    if (Object.values(req.body).includes("")) return res.status(404).json
+    ({msg:"Lo sentimos, debes llenar todo los campos"})
+
+    //Buscar al usuario
+    const ministerioBDD= await Ministerio.findOne({email});
+    if(!ministerioBDD){
+        return res.status(400).json({msg: "Lo sentimos, el email no existe" });
     }
+   
 
-    try {
-        // Validar el email
-        const user = await administrador.findOne({ email });
-        if (!user) {
-            return res.status(404).json({ msg: "Lo sentimos, el email no existe" });
+    //Verificar si el email ha sido confirmado
+    if(ministerioBDD?.confirmEmail===false)return res.status(403).json
+    ({msg:"Lo sentimos, debes verificar tu cuenta"})
+
+
+    //Validar la contraseña
+    const verificartPassword = await ministerioBDD.matchPassword(password);
+    if (!verificartPassword)
+        return res.status(404).json({msg:"Lo el password no es el correcto"})
+
+    const token = generarJWT(ministerioBDD._id,"ministerio")
+    const {nombre,apellido,direccion,telefono,_id}= ministerioBDD
+
+    res.status(200).json({
+        token,
+        nombre,
+        apellido,
+        direccion,
+        telefono,
+        _id,
+        email:ministerioBDD.email 
+    })  
+}
+//Actualización del Perfil
+const actualizarPerfil = async (req,res)=>{
+    const {id} = req.params
+    //Validar ID
+    if( !mongoose.Types.ObjectId.isValid(id) ) return res.status(404).json({msg:`Lo sentimos, debe ser un id válido`});
+    //Validar Campos Vacíos
+    if (Object.values(req.body).includes("")) return res.status(400).json({msg:"Lo sentimos, debes llenar todos los campos"})
+    //Buscar al usuario
+    const ministerioBDD = await Ministerio.findById(id)
+    if(!ministerioBDD) return res.status(404).json({msg:`Lo sentimos, no existe el veterinario ${id}`})
+    //Verifica si el email esta siendo cambiado y ya existe
+        if (ministerioBDD.email !=  req.body.email)
+    {
+        const ministerioBDDMail = await Ministerio.findOne({email:req.body.email})
+        if (ministerioBDDMail)
+        {
+            return res.status(404).json({msg:`Lo sentimos, el existe ya se encuentra registrado`})  
         }
-
-        // Validar confirmación de la cuenta
-        if (!user.confirmEmail) {
-            return res.status(403).json({ msg: "Lo sentimos, debes verificar tu cuenta" });
-        }
-
-        // Validar la contraseña
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return res.status(400).json({ msg: "La contraseña no es correcta" });
-        }
-
-        // Generar el token
-        const token = generarJWT(user._id, "user"); // Cambia "user" por el rol correspondiente si es necesario
-
-        // Devolver la respuesta
-        const { nombre, apellido, direccion, telefono, _id } = user;
-        res.status(200).json({
-            token,
-            nombre,
-            apellido,
-            direccion,
-            telefono,
-            _id,
-            email: user.email
-        });
-    } catch (err) {
-        res.status(500).json({ msg: "Error en el servidor" });
     }
+    //Actualizar el perfil
+    ministerioBDD.nombre = req.body.nombre || ministerioBDD?.nombre
+    ministerioBDD.apellido = req.body.apellido  || ministerioBDD?.apellido
+    ministerioBDD.direccion = req.body.direccion ||  ministerioBDD?.direccion
+    ministerioBDD.telefono = req.body.telefono || ministerioBDD?.telefono
+    ministerioBDD.email = req.body.email || ministerioBDD?.email
+    await ministerioBDD.save()
+
+    res.status(200).json({msg:"Perfil actualizado correctamente"})
+}
+//Perfil de usuario
+const perfil=(req,res)=>{
+    res.status(200).json({res:'perfil de ministerio'})
+}
+ //Confirmacion de email
+const confirmEmail = async (req,res)=>{
+    
+    if (!(req.params.token))return res.status(400).json
+    ({msg:"Lo sentimos, no se puede validar"})
+
+    const ministerioBDD= await Ministerio.findOne({token:req.params.token})
+    if (!ministerioBDD?.token) return res.status(400).json({msg:"La cuenta ya ha sido confirmada"})
+    
+    ministerioBDD.token= null
+    ministerioBDD.confirmEmail=true
+    await ministerioBDD.save()
+    res.status(200).json({msg:'Token confirmado, ya puedes iniciar sesión'})
+}
+
+//Listar Instituciones
+const listarInstituciones = async (req,res)=>{
+    const instituciones = await Ministerio.find();
+    res.status(200).json({instituciones});
 };
 
-// Enpoint para visualizar detalle de la institución y su categoría
-export const getInstituciones = async (req, res) => {
-    try {
-        const instituciones = await Institucion.find().sort({ calificacion: -1 });
-        res.json(instituciones);
-    } catch (err) {
-        res.status(500).send('Error en el servidor');
+// Detalle de una institución
+const detalleInstituciones = async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ msg: `Lo sentimos, no existe el veterinario ${id}` });
     }
+
+    const ministerioBDD = await Ministerio.findById(id).select("-password");
+    if (!ministerioBDD) {
+        return res.status(404).json({ msg: `Lo sentimos, no existe el veterinario ${id}` });
+    }
+
+    res.status(200).json({ ministerioBDD });
 };
 
-// Endpoint para listar estudiantes y sus calificaciones
-export const listarEstudiantes = async (req, res) => {
-    try {
-        const estudiantes = await Alumno.find().sort({ calificacion: -1 });
-        res.json(estudiantes);
-    } catch (err) {
-        res.status(500).send('Error en el Servidor');
-    }
-};
+// Actualizacion de la contraseña
+const actualizarPassword = async (req,res)=>{
+    const ministerioBDD = await Ministerio.findById(req.ministerioBDD._id)
+    if(!ministerioBDD) return res.status(404).json({msg:`Lo sentimos, no existe el veterinario ${id}`})
+
+    const verificarPassword = await ministerioBDD.matchPassword(req.body.passwordactual)
+    if(!verificarPassword) return res.status(404).json({msg:"Lo sentimos, el password actual no es el correcto"})
+    ministerioBDD.password = await ministerioBDD.encrypPassword(req.body.passwordnuevo)
+    await ministerioBDD.save()
+    res.status(200).json({msg:"Password actualizado correctamente"})
+}
+//Recuperar Contraseña
+const recuperarPassword= async (req,res)=>{
+    const {email} = req.body;
+    if (Object.values(req.body).includes("")) return res.status(404).json({msg:"Lo sentimos, debes llenar todos los campos"})
+    const ministerioBDD = await Ministerio.findOne({email})
+    if(!ministerioBDD) return res.status(404).json({msg:"Lo sentimos, el usuario no se encuentra registrado"})
+    const token = ministerioBDD.crearToken()
+    ministerioBDD.token=token
+    await sendMailToRecoveryPassword(email,token)
+    await ministerioBDD.save()
+    res.status(200).json({msg:"Revisa tu correo electrónico para reestablecer tu cuenta"})
+}
+
+//Comprobar token para recuperación de contraseña
+const comprobarTokenPasword= async (req,res)=>{
+    if(!(req.params.token)) return res.status(404).json({msg:"Lo sentimos, no se puede validar la cuenta"})
+    const ministerioBDD = await Ministerio.findOne({token:req.params.token})
+    if(ministerioBDD?.token !== req.params.token) return res.status(404).json({msg:"Lo sentimos, no se puede validar la cuenta"})
+    await ministerioBDD.save()
+
+    res.status(200).json({res:'verificar token mail'})
+}
+//Establecer nuevo password
+const nuevoPassword= async(req,res)=>{
+    const{password,confirmpassword} = req.body
+    if (Object.values(req.body).includes("")) return res.status(404).json({msg:"Lo sentimos, debes llenar todos los campos"})
+    //Validar que no haya campos vacios
+    if(password != confirmpassword) return res.status(404).json({msg:"Lo sentimos, los passwords no coinciden"})
+    const ministerioBDD = await Ministerio.findOne({token:req.params.token})
+    
+    if(ministerioBDD?.token !== req.params.token) return res.status(404).json({msg:"Lo sentimos, no se puede validar la cuenta"})
+    ministerioBDD.token = await null
+    ministerioBDD.password = await ministerioBDD.encrypPassword(password)
+    await ministerioBDD.save()
+    res.status(200).json({msg:"Felicitaciones, ya puedes iniciar sesión con tu nuevo password"}) 
+}
+//Registrar ayuda a las instituciones
+
+const registrarAyuda = async(req,res) =>{
+    
+}
 
 
-export const registrarAyuda = async (req, res) => {
-    const { institucionId, tipoAyuda, cantidad, alumnos } = req.body;
 
-    // Validar que los campos necesarios estén presentes
-    if (!institucionId || !tipoAyuda || !cantidad || !Array.isArray(alumnos) || alumnos.length === 0) {
-        return res.status(400).json({ msg: "Por favor, proporciona todos los campos requeridos" });
-    }
-
-    try {
-        const nuevaAyuda = new Ayuda({
-            institucionId,
-            tipoAyuda,
-            cantidad
-        });
-
-        await nuevaAyuda.save();
-
-        // Buscar todos los alumnos una vez al inicio
-        const alumnosEncontrados = await Alumno.find({
-            _id: { $in: alumnos }
-        });
-
-        // Crear un mapa de alumnos encontrados para un acceso rápido
-        const alumnosMap = new Map(alumnosEncontrados.map(alumno => [alumno._id.toString(), alumno]));
-
-        // Variable para acumular errores
-        const errores = [];
-
-        const promises = alumnos.map(async (alumnoId) => {
-            try {
-                const alumno = alumnosMap.get(alumnoId);
-                if (!alumno) {
-                    errores.push(`Alumno no encontrado: ${alumnoId}`);
-                } else {
-                    alumno.becas.push({ monto: 1000 });
-                    await alumno.save();
-                }
-            } catch (err) {
-                errores.push(`Error al procesar alumno: ${alumnoId}`);
-            }
-        });
-
-        await Promise.all(promises);
-
-        if (errores.length > 0) {
-            return res.status(404).json({ msg: 'Algunos alumnos no fueron encontrados', errores });
-        }
-
-        res.json({ mensaje: 'Ayuda y becas registradas', ayuda: nuevaAyuda });
-    } catch (err) {
-        console.error("Error en el servidor: ", err);
-        res.status(500).send('Error en el servidor');
-    }
-};
+export {
+    login,
+    perfil,
+    registro,
+    confirmEmail,
+    listarInstituciones,
+    detalleInstituciones,
+    actualizarPerfil,
+    actualizarPassword,
+	recuperarPassword,
+    comprobarTokenPasword,
+	nuevoPassword
+}
