@@ -1,4 +1,6 @@
 const Mensaje = ({ children, tipo }) => {
+    console.log("Tipo:", tipo); // Verifica el valor de `tipo`
+    console.log("Children:", children);
     return (
         <div className={`p-6 border-l-4 ${tipo ? 'border-green-500' : 'border-red-500'} rounded-r-xl 
                     ${tipo ? 'bg-green-50' : 'bg-red-50'} flex mt-2`}>

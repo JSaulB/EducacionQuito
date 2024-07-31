@@ -1,3 +1,4 @@
+import './App.css'
 import { Registro } from "./paginas/Registro"
 import{ Login } from "./paginas/Login"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
