@@ -7,12 +7,14 @@ import { ListaAdministradores } from "./paginas/ListaAdministradores"
 import { Perfil } from "./paginas/Perfil"
 import { CrearInstitucion } from "./paginas/CrearInstitucion"
 import { Actualizar} from './paginas/Actualizar'
+import { AuthProvider } from './context/AuthProvider'
 
 function App() {
   return (
     <>
 
     <BrowserRouter>
+    <AuthProvider>
       <Routes>
         <Route index ="/" element ={<LandinPage/>}/>
         <Route path='landingpage' element = {<LandinPage/>}/>
@@ -28,7 +30,7 @@ function App() {
         
         </Route>
       </Routes>
-    
+    </AuthProvider>
     </BrowserRouter>
     
     </>

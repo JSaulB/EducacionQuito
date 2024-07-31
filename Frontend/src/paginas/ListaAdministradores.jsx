@@ -1,5 +1,5 @@
 import React from 'react'
-import Tabla from '../components/Tabla'
+import Tabla from '../componets/Tabla'
 
 export const ListaAdministradores = () => {
   return (

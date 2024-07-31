@@ -1,6 +1,48 @@
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
+import { useState } from 'react'
+import axios from 'axios'
+import Mensaje from '../componets/Alertas'
 
 export const Registro = () => {
+  const [mensaje, setMensaje] = useState({}); //paso 4 alertar
+  const [form, setForm] = useState({//Paso 1 capturar los datos del formulario
+        nombre: '',
+        apellido: '',
+        direccion: '',
+        telefono: '',
+        email: '',
+        password: ""
+  }); // Estado del formulario (vacío al principio)
+
+  console.log(form); // Mostrar en consola el estado del formulario
+
+    const handleChange = (e) => { // Paso 2 Función para manejar los cambios en los inputs
+        setForm({...form, // Copiar el estado actual
+            [e.target.name]:e.target.value // Cambiar el valor del input en el estado
+        })
+    }
+    // Función para enviar los datos del formulario
+    const handleSubmit = async(e) => { 
+            // Prevención de recarga de la página al enviar el formulario
+            e.preventDefault();
+            // Manejo de errores en el envío de datos
+            try {
+                const url = `${import.meta.env.VITE_BACKEND_URL}/registro`
+                const respuesta = await axios.post(url,form)
+                setMensaje({
+                    respuesta:respuesta.data.msg,
+                    tipo:true
+                })
+                console.log(respuesta.data.msg);
+            } catch (error) {
+                console.log( error);
+                setMensaje({
+                    respuesta:error.response.data.msg,
+                    tipo:false
+                })
+            }
+    }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white flex justify-center items-center w-1/2 p-5 shadow-lg rounded-lg">
@@ -11,7 +53,13 @@ export const Registro = () => {
           <form>
             <div className="mb-3">
               <label className="mb-2 block text-sm font-semibold">Nombre *</label>
-              <input type="name" placeholder="Enter your name" className="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
+              <input 
+              type="text" 
+              id="nombre"
+              name='nombre'
+              onChange={handleChange}
+              value={form.nombre || ""}
+              placeholder="Enter your name" className="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
             </div>
 
             <div className="mb-3">
