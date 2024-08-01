@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
-import Mensaje from '../componets/Alertas'
+import Mensaje from '../componets/Alerts'
 
 export const Registro = () => {
   const [mensaje, setMensaje] = useState({}); //paso 4 alertar
@@ -38,7 +38,7 @@ export const Registro = () => {
       }catch (error) {
           console.log( error);
           setMensaje({
-              respuesta:error.response.data.msg,
+              respuesta:error.response.data.error,
               tipo:false
           })
       }

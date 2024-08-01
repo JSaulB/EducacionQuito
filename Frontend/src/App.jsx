@@ -9,6 +9,9 @@ import { Perfil } from "./paginas/Perfil"
 import { CrearInstitucion } from "./paginas/CrearInstitucion"
 import { Actualizar} from './paginas/Actualizar'
 import { AuthProvider } from './context/AuthProvider'
+import { Forgot } from './paginas/Forgot'
+import Restablecer from './paginas/Restablecer'
+
 
 function App() {
   return (
@@ -16,11 +19,15 @@ function App() {
 
     <BrowserRouter>
     <AuthProvider>
+      
       <Routes>
+        
         <Route index ="/" element ={<LandinPage/>}/>
         <Route path='landingpage' element = {<LandinPage/>}/>
         <Route path='login' element = {<Login/>}/>
         <Route path='registro' element = {<Registro/>}/>
+        <Route path='forgot/:id' element={<Forgot/>}/>
+        <Route path='recuperar-password/:token' element={<Restablecer/>}/>
 
 
         <Route path='dashboard' element = {<Dashboard/>}>

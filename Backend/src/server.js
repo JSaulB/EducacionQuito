@@ -22,11 +22,7 @@ app.use(express.json())
 
 
 // Rutas 
-app.get('/',(req,res)=>{
-    res.send("Server on")
-    console.log("server on")
-    
-})
+
 app.use('/api', ministerio_routes)
 app.use('/api', adminRoutes);
 app.use('/api/ciudadania', ciudadaniaRoutes)

@@ -29,7 +29,7 @@ router.post("/loginadmin", login);
 router.post("/registroadmin", registro);
 router.get("/confirmar/:token", confirmEmail);
 router.get("/administradores", listaradministradores);
-router.get("/recuperar-password", recuperarPassword);
+router.post("/recuperar-password", recuperarPassword);
 router.get("/recuperar-password/:token", comprobarTokenPasword);
 router.post("/nuevo-password/:token", nuevoPassword);
 

@@ -16,7 +16,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useContext, useState } from 'react'
 import AuthContext from '../context/AuthProvider'
 import axios from 'axios'
-import Mensaje from '../componets/Alertas'
+import Mensaje from '../componets/Alerts'
 
 
 export const Login =() =>{
@@ -43,7 +43,7 @@ export const Login =() =>{
   const handleSubmit = async(e) => { 
       e.preventDefault()
       try {
-          const url = `${import.meta.env.VITE_BACKEND_URL}/login`
+          const url = `${import.meta.env.VITE_BACKEND_URL}/loginadmin`
           const respuesta= await axios.post(url,form)
           // Obtener un token y guardarlo en el localStorage
           localStorage.setItem('token',respuesta.data.token)
@@ -51,95 +51,90 @@ export const Login =() =>{
           navigate('/dashboard')
       } catch (error) {
           console.log(error)
-          setMensaje({respuesta:error.response.data.msg,tipo:false})
+          setMensaje({respuesta:error.response.data.error,tipo:false})
       }
   }
   // Consumir el contexto
 
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-white">
-        <body class="h-full">
-        ```
-      */}
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-
-          <img
-            alt="Your Company"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            className="mx-auto h-10 w-auto"
-          />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Sign in to your account
-          </h2>
-        </div>
-
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        {Object.keys(mensaje).length>0 && <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>}
-          <form onSubmit={handleSubmit} action="#" method="POST" className="space-y-6">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-              Dirección de correo electrónico
-              </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  autoComplete="email"
-                  value={form.email || ""}
-                  onChange={handleChange}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+                <img
+                alt="Your Company"
+                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                className="mx-auto h-10 w-auto"
                 />
-              </div>
-            </div>
+                {Object.keys(mensaje).length>0 && <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>}
 
-            <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                  Contraseña
-                </label>
-                <div className="text-sm">
-                  <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                    ¿Te olvidaste la contraseña?
-                  </a>
+                <h1 className="text-3xl font-semibold mb-2 text-center uppercase  text-gray-500">Welcome back</h1>
+                <small className="text-gray-400 block my-4 text-sm">Welcome back! Please enter your details</small>
+
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-3">
+                        <label className="mb-2 block text-sm font-semibold">Email</label>
+                        <input 
+                            type="email" 
+                            name='email'
+                            value={form.email || ""}
+                            onChange={handleChange}
+                            placeholder="Enter you email"
+                            className="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500"
+                        />
+                    </div>
+
+                    <div className="mb-3">
+                        <label className="mb-2 block text-sm font-semibold">Password</label>
+                        <input 
+                            type="password"
+                            name='password'
+                            value={form.password || ""}
+                            onChange={handleChange}
+                            placeholder="********************"
+                            className="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500"
+                        />
+                    </div>
+
+                    <div className="my-4">
+                        <button
+                            className="py-2 w-full block text-center bg-gray-500 text-slate-300 border rounded-xl hover:scale-100 duration-300 hover:bg-gray-900 hover:text-white"
+                        >
+                            Login
+                        </button>
+                    </div>
+
+                </form>
+
+                <div className="mt-6 grid grid-cols-3 items-center text-gray-400">
+                    <hr className="border-gray-400" />
+                    <p className="text-center text-sm">OR</p>
+                    <hr className="border-gray-400" />
                 </div>
-              </div>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  required
-                  autoComplete="current-password"
-                  value={form.password || ""}
-                  onChange={handleChange}
-                  placeholder="********************"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
 
-            <div className="my-4">
-            <Link to="/dashboard" className="py-2 px-5 bg-gray-500 text-slate-300 border rounded-xl hover:scale-110 duration-300 hover:bg-gray-900 ">Ingresar</Link>
-            </div>
-          </form>
+                <button className="bg-white border py-2 w-full rounded-xl mt-5 flex justify-center items-center text-sm hover:scale-105 duration-300 hover:bg-black hover:text-white">
+                    <img className="w-5 mr-2" src="https://cdn-icons-png.flaticon.com/512/281/281764.png" />
+                    Sign in with Google
+                </button>
 
-          <p className="mt-10 text-center text-sm text-gray-500">
-            No tienes cuenta?{' '}
-            <a href="/registro" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-              registrate gratis
-            </a>
-          </p>
+                <button className="bg-white border py-2 w-full rounded-xl mt-5 flex justify-center items-center text-sm hover:scale-105 duration-300 hover:bg-blue-600 hover:text-white">
+                    <img className="w-5 mr-2" src="https://cdn-icons-png.flaticon.com/512/733/733547.png" />
+                    Sign in with Google
+                </button>
+
+                <div className="mt-5 text-xs border-b-2 py-4 ">
+                    <Link to="/forgot/id" className="underline text-sm text-gray-400 hover:text-gray-900">Forgot your password?</Link>
+                </div>
+
+                <div className="mt-3 text-sm flex justify-between items-center">
+                    <p>Don't have an account?</p>
+                    <Link to="/Registro" className="py-2 px-5 bg-gray-600 text-slate-300 border rounded-xl hover:scale-110 duration-300 hover:bg-gray-900 hover:text-white">Register</Link>
+
+                </div>
+
+
+            </div>
         </div>
-      </div>
     </>
-  )  
+) 
     
 }
