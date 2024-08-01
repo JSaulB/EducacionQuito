@@ -11,6 +11,7 @@ import { Actualizar} from './paginas/Actualizar'
 import { AuthProvider } from './context/AuthProvider'
 import { Forgot } from './paginas/Forgot'
 import Restablecer from './paginas/Restablecer'
+import { Confirmar } from './paginas/Confirmar'
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path='login' element = {<Login/>}/>
         <Route path='registro' element = {<Registro/>}/>
         <Route path='forgot/:id' element={<Forgot/>}/>
+        <Route path='confirmar/:token' element={<Confirmar/>}/>
         <Route path='recuperar-password/:token' element={<Restablecer/>}/>
 
 
