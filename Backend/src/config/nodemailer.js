@@ -17,7 +17,7 @@ const sendMailToUser = (userMail, token) => {
         from: process.env.USER_MAILTRAP,
         to: userMail,
         subject: "Verifica tu cuenta",
-        html: `<p>Hola, haz clic <a href="${process.env.URL_BACKEND}/confirmar/${encodeURIComponent(token)}">aquí</a> para confirmar tu cuenta.</p>`
+        html: `<p>Hola, haz clic <a href="${process.env.URL_FRONTEND}confirmar/${encodeURIComponent(token)}">aquí</a> para confirmar tu cuenta.</p>`
     };
 
     transporter.sendMail(mailOptions, function(error, info){
@@ -53,7 +53,7 @@ const sendMailToRecoveryPassword = async(userMail, token) => {
         html: `
             <h1>Sistema de gestión - Ministerio de educación</h1>
             <hr>
-            <a href="${process.env.URL_BACKEND}/recuperar-password/${token}">Clic para reestablecer tu contraseña</a>
+            <a href="${process.env.URL_FRONTEND}recuperar-password/${token}">Clic para reestablecer tu contraseña</a>
             <hr>
             <footer>¡Bienvenido!</footer>
         `

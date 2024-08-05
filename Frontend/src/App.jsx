@@ -1,3 +1,4 @@
+import './App.css'
 import { Registro } from "./paginas/Registro"
 import{ Login } from "./paginas/Login"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
@@ -7,17 +8,28 @@ import { ListaAdministradores } from "./paginas/ListaAdministradores"
 import { Perfil } from "./paginas/Perfil"
 import { CrearInstitucion } from "./paginas/CrearInstitucion"
 import { Actualizar} from './paginas/Actualizar'
+import { AuthProvider } from './context/AuthProvider'
+import { Forgot } from './paginas/Forgot'
+import Restablecer from './paginas/Restablecer'
+import { Confirmar } from './paginas/Confirmar'
+
 
 function App() {
   return (
     <>
 
     <BrowserRouter>
+    <AuthProvider>
+      
       <Routes>
+        
         <Route index ="/" element ={<LandinPage/>}/>
         <Route path='landingpage' element = {<LandinPage/>}/>
         <Route path='login' element = {<Login/>}/>
         <Route path='registro' element = {<Registro/>}/>
+        <Route path='forgot/:id' element={<Forgot/>}/>
+        <Route path='confirmar/:token' element={<Confirmar/>}/>
+        <Route path='recuperar-password/:token' element={<Restablecer/>}/>
 
 
         <Route path='dashboard' element = {<Dashboard/>}>
@@ -28,7 +40,7 @@ function App() {
         
         </Route>
       </Routes>
-    
+    </AuthProvider>
     </BrowserRouter>
     
     </>

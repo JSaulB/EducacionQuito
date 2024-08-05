@@ -53,7 +53,7 @@ const confirmarEmail = async (req, res) => {
   ciudadania.confirmationToken = null; 
   await ciudadania.save();
   
-  res.status(200).json({ msg: 'El correo electrónico ha sido confirmado con éxito' });
+  res.status(200).json({ msg: ' correo electrónico ha sido confirmado con éxito' });
 };
 
 const loginCiudadania = async (req, res) => {
