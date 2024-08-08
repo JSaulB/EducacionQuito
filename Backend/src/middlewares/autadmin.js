@@ -7,7 +7,7 @@ if(!req.headers.authorization) return res.status(404).json({msg:"Lo sentimos, de
     const {authorization} = req.headers
     try {
         const {id,rol} = jwt.verify(authorization.split(' ')[1],process.env.JWT_SECRET)
-        if (rol==="veterinario"){
+        if (rol==="Administrador"){
             req.veterinarioBDD = await administrador.findById(id).lean().select("-password")
             next()
         }

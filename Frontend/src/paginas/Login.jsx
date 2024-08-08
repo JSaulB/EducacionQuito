@@ -43,15 +43,20 @@ export const Login =() =>{
   const handleSubmit = async(e) => { 
       e.preventDefault()
       try {
-          const url = `${import.meta.env.VITE_BACKEND_URL}/loginadmin`
-          const respuesta= await axios.post(url,form)
+          const url1 = form.password.includes("min") ? `${import.meta.env.VITE_BACKEND_URL}/ministerio/login` : `${import.meta.env.VITE_BACKEND_URL}/loginadmin`
+        //   const url = `${import.meta.env.VITE_BACKEND_URL}/loginadmin`
+        //   const respuesta= await axios.post(url,form)
+          const respuesta= await axios.post(url1,form)
+
           // Obtener un token y guardarlo en el localStorage
-          localStorage.setItem('token',respuesta.data.token)
-          
+          localStorage.setItem('token',respuesta.data.data.token)
+          console.log(respuesta.data.data.token)
+          setAuth(respuesta.data.data)
           navigate('/dashboard')
       } catch (error) {
           console.log(error)
           setMensaje({respuesta:error.response.data.error,tipo:false})
+          
       }
   }
   // Consumir el contexto

@@ -12,6 +12,7 @@ import { AuthProvider } from './context/AuthProvider'
 import { Forgot } from './paginas/Forgot'
 import Restablecer from './paginas/Restablecer'
 import { Confirmar } from './paginas/Confirmar'
+import ListaInstituciones  from './paginas/ListaInstituciones'
 
 
 function App() {
@@ -37,6 +38,8 @@ function App() {
           <Route path='/dashboard/listar' element = {<ListaAdministradores/>}/>
           <Route path='/dashboard/crear' element={<CrearInstitucion/>}/>
           <Route path='/dashboard/actualizar' element={<Actualizar/>}/>
+          <Route path='/dashboard/listaInstituciones' element={<ListaInstituciones/>}/>
+
         
         </Route>
       </Routes>
