@@ -3,8 +3,8 @@ export const Perfil = () => {
 
         <form>
 
-            <div>
-                <h1 className='font-black text-4xl text-gray-500'>Perfil</h1>
+            <div> 
+                <h1 className='font-black text-4xl text-gray-100'>Perfil</h1>
                 <hr className='my-4' />
                 <p className='mb-8'>Visualizar Perfil</p>
             </div>
@@ -12,7 +12,7 @@ export const Perfil = () => {
             <div>
                 <label
                     htmlFor='nombre'
-                    className='text-gray-700 uppercase font-bold text-sm'>Nombre: </label>
+                    className='text-gray-100 uppercase font-bold text-sm'>Nombre: </label>
                 <input
                     id='nombre'
                     type="text"
@@ -24,7 +24,7 @@ export const Perfil = () => {
             <div>
                 <label
                     htmlFor='nombre'
-                    className='text-gray-700 uppercase font-bold text-sm'>Nombre: </label>
+                    className='text-gray-100 uppercase font-bold text-sm'>Nombre: </label>
                 <input
                     id='nombre'
                     type="text"
@@ -36,7 +36,7 @@ export const Perfil = () => {
             <div>
                 <label
                     htmlFor='nombre'
-                    className='text-gray-700 uppercase font-bold text-sm'>Nombre: </label>
+                    className='text-gray-100 uppercase font-bold text-sm'>Nombre: </label>
                 <input
                     id='nombre'
                     type="text"
@@ -49,7 +49,7 @@ export const Perfil = () => {
             <div>
                 <label
                     htmlFor='detalles'
-                    className='text-gray-700 uppercase font-bold text-sm'>Detalles: </label>
+                    className='text-gray-100 uppercase font-bold text-sm'>Detalles: </label>
                 <textarea
                     id='detalles'
                     type="text"
@@ -60,7 +60,7 @@ export const Perfil = () => {
 
             <input
                 type="submit"
-                className='bg-gray-800 w-full p-3 
+                className='bg-green-600 w-m p-3 
         text-slate-300 uppercase font-bold rounded-lg 
         hover:bg-gray-600 cursor-pointer transition-all'
                 value='Actualizar' />

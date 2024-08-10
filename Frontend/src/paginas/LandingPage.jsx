@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 
 export const LandinPage = () =>{
-    const [count, setCount] = useState(0)
+    
     const navigate = useNavigate()
 
   return (
@@ -17,7 +17,7 @@ export const LandinPage = () =>{
           Registrarse
         </button>
     </header>
-      <h1>EduScholar Portal</h1>
+      <h1 className='Titulo'>EduScholar Portal</h1>
       <div className='Contenedorlogo'>
         <a href="../src/assets/educacion.jpg" target="_blank">
           <img src={educacion} className="logo" alt="educacion" />
@@ -33,7 +33,7 @@ export const LandinPage = () =>{
           La Educación es una oportunidad para todos, que nada te limite a cumplir tus metas
         </p>
       </div>
-      <footer>
+      <footer className='footer'>
       Todos los derechos reservados - Escuela Politécnica Nacional
       </footer>
       

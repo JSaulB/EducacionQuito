@@ -137,11 +137,11 @@ export const Login =() =>{
                 </button>
 
                 <div className="mt-5 text-xs border-b-2 py-4 ">
-                    <Link to="/forgot/id" className="underline text-sm text-gray-400 hover:text-gray-900">Forgot your password?</Link>
+                    <Link to="/forgot/id" className="underline text-sm text-gray-400 hover:text-gray-900">Olvidaste tu Contraseña?</Link>
                 </div>
 
                 <div className="mt-3 text-sm flex justify-between items-center">
-                    <p> Don't have an account?</p>
+                    <p> ¿Aun no tienes una Cuenta?</p>
                     <Link to="/Registro" className="py-2 px-5 bg-gray-600 text-slate-300 border rounded-xl hover:scale-110 duration-300 hover:bg-gray-900 hover:text-white">Register</Link>
 
                 </div>
