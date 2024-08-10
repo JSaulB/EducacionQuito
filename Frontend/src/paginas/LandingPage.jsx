@@ -26,11 +26,11 @@ export const LandinPage = () =>{
       </div>
       <div className="card">
         <p>
-          Descubre un nuevo sistema para 
-          ayudar a instituciones y estudiantes de las escuelas, unete a este sueño
+        La educación es el camino hacia un futuro mejor. No dejes que nada te impida alcanzar tus metas. 
+        
         </p>
         <p>
-          La Educación es una oportunidad para todos, que nada te limite a cumplir tus metas
+        Únete a nosotros en este sueño de apoyar a escuelas y estudiantes, y juntos haremos que la educación sea accesible para todos.
         </p>
       </div>
       <footer className='footer'>
