@@ -105,7 +105,7 @@ console.log(setMensaje);
             </div>
 
             <div className="mb-3">
-              <button className="bg-gray-500 text-slate-300 border py-2 w-full rounded-xl mt-5 hover:scale-105 duration-300 hover:bg-gray-900 hover:text-white">Registrarse</button>
+              <button className="bg-green-500 text-slate-300 border py-2 w-full rounded-xl mt-5 hover:scale-105 duration-300 hover:bg-green-900 hover:text-white">Registrarse</button>
             </div>
           </form>
 
@@ -113,7 +113,7 @@ console.log(setMensaje);
 
           <div className="mt-3 text-sm flex justify-between items-center">
             <p>Ya tinenes una cuenta? iniciar sesión</p>
-            <Link to="/login" className="py-2 px-5 bg-gray-500 text-slate-100 border rounded-xl hover:scale-120 duration-300 hover:bg-gray-900 ">Login</Link>
+            <Link to="/login" className="py-2 px-5 bg-green-500 text-slate-100 border rounded-xl hover:scale-120 duration-300 hover:bg-green-900 ">Login</Link>
 
           </div>
         </div>
