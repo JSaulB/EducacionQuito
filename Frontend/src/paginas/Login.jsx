@@ -72,8 +72,8 @@ export const Login =() =>{
                 />
                 {Object.keys(mensaje).length>0 && <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>}
 
-                <h1 className="text-3xl font-semibold mb-2 text-center uppercase  text-gray-500">Welcome back</h1>
-                <small className="text-gray-400 block my-4 text-sm">Welcome back! Please enter your details</small>
+                <h1 className="text-3xl font-semibold mb-2 text-center uppercase  text-white -500">INICIO DE SESIÓN</h1>
+                <small className="text-gray-00 block my-4 text-sm">Ingresa tus datos correctamente</small>
 
                 <form onSubmit={handleSubmit}>
                     <div>
@@ -112,7 +112,7 @@ export const Login =() =>{
 
                     <div className="my-4">
                         <button
-                            className="py-2 w-full block text-center bg-gray-500 text-slate-300 border rounded-xl hover:scale-100 duration-300 hover:bg-gray-900 hover:text-white"
+                            className="py-2 w-full block text-center bg-blue-500 text-slate-300 border rounded-xl hover:scale-100 duration-300 hover:bg-blue-900 hover:text-white"
                         >
                             Login
                         </button>
@@ -141,7 +141,7 @@ export const Login =() =>{
                 </div>
 
                 <div className="mt-3 text-sm flex justify-between items-center">
-                    <p>Don't have an account?</p>
+                    <p> Don't have an account?</p>
                     <Link to="/Registro" className="py-2 px-5 bg-gray-600 text-slate-300 border rounded-xl hover:scale-110 duration-300 hover:bg-gray-900 hover:text-white">Register</Link>
 
                 </div>

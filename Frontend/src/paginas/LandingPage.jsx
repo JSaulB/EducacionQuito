@@ -19,13 +19,15 @@ import dark from '../assets/darkMode.png'
 
 export const LandinPage = () => {
     const [darkMode, setdarkMode] = useState(false)
+    
     return (
+        
         <div className={darkMode ? "dark" :""}>
 
             <main className='bg-white px-10 md:px-20 lg:px-40 dark:bg-gray-800'>
                 <section>
                     <nav className='p-10 mb-12 flex justify-between'>
-                        <h1 className='text-2xl font-bold dark:text-white'>INSTITUCIONES EDUCATIVAS</h1>
+                        <h1 className='text-2xl font-bold dark:text-white'>EduScholar Portal</h1>
                         <ul className='flex items-center'>
                             <li><img onClick={()=>setdarkMode(!darkMode)} className='cursor-pointer' src={dark} alt="logo" width={40} height={40}/></li>
                             <li><Link to="/login" className='bg-gray-600 text-slate-400 px-6 py-2 rounded-full ml-8 hover:bg-gray-900 hover:text-white' href="#">Login</Link></li>
@@ -34,7 +36,7 @@ export const LandinPage = () => {
 
                     <div className='text-center'>
                         <h2 className='text-5xl py-2 text-teal-600 font-medium md:text-6xl'>BIENVENIDO</h2>
-                        <h3 className='text-2xl py-2 md:text-3xl dark:text-white'>Scalable and Responsive</h3>
+                        
                         <p className='text-md py-5 leading-8 text-gray-800 md:text-xl max-w-lg mx-auto dark:text-white'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel vero dolore pariatur asperiores voluptatibus sunt optio iste atque animi id odio aliquid sapiente voluptatem, accusantium, ea sed quibusdam a. Itaque.</p>
                     </div>
 
@@ -52,11 +54,7 @@ export const LandinPage = () => {
                 </section>
 
                 <section>
-                    <div>
-                        <h3 className='text-3xl py-1 dark:text-white'>Services offered</h3>
-                        <p className='text-md py-2 leading-8 text-gray-800 dark:text-white'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae, delectus iure <span className='text-teal-500'>quibusdam</span> quas quaerat itaque, est minima ducimus recusandae illo ipsam numquam nam earum libero <span className='text-teal-500'>deleniti</span> voluptatem! Autem, veniam ut.</p>
-                        <p className='text-md py-2 leading-8 text-gray-800 dark:text-white'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae, delectus iure <span className='text-teal-500'>quibusdam</span> quas quaerat itaque, est minima ducimus recusandae illo ipsam numquam nam earum libero <span className='text-teal-500'>deleniti</span> voluptatem! Autem, veniam ut.</p>
-                    </div>
+                   
 
                     <div className='md:flex md:flex-wrap lg:flex lg:justify-center gap-10'>
                         <div className='text-center shadow-2xl p-10 rounded-xl my-10 md:w-72 lg:w-96 dark:bg-slate-100'>
