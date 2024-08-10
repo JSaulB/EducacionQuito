@@ -114,18 +114,18 @@ export const Dashboard = () => {
 
             <div className='flex-1 flex flex-col justify-between h-screen'>
                 <div className='bg-gray-100 py-2 flex md:justify-end items-center gap-5 justify-center'>
-                    {/* <div className='text-md font-semibold text-slate-100'>
+                    { <div className='text-md font-semibold text-slate-100'>
                         Usuario - {auth?.nombre}
     
-                    </div> */}
+                    </div> }
                     
-                    {/* <div>
+                    {/* {<div>
                         <img src="https://cdn-icons-png.flaticon.com/512/4715/4715329.png" alt="img-client" className="border-2 border-green-600 rounded-full" width={50} height={50} />
-                    </div> */}
-                    {/* <div>
+                    </div> } */}
+                    { <div>
                         <Link to='/landingpage' className=" text-white mr-3 text-md block hover:bg-red-900 text-center
                         bg-red-800 px-4 py-1 rounded-lg">Salir</Link>
-                    </div> */}
+                    </div> }
                 </div>
                 <div className='overflow-y-scroll p-8'>
                     <Outlet />
