@@ -4,7 +4,7 @@ import { sendMailToUser, sendMailToRecoveryPassword } from "../config/nodemailer
 import generarJWT from "../helpers/crearJWT.js";
 import administrador from '../models/administrador.js';
 import { institucion1 as Institucion, Estudiante as Alumno } from "../models/administrador.js";
-import ministerio from '../models/ministerio.js'
+import Ministerio from '../models/ministerio.js'
 import ayuda from '../models/ayuda.js'
 
 //Registrar un nuevo usuario para ministerio
@@ -63,7 +63,8 @@ const login = async(req,res)=>{
         direccion,
         telefono,
         _id,
-        email:ministerioBDD.email 
+        email:ministerioBDD.email,
+        rol:"ministerio",
     })  
 }
 //Actualización del Perfil
@@ -75,7 +76,7 @@ const actualizarPerfil = async (req,res)=>{
     if (Object.values(req.body).includes("")) return res.status(400).json({msg:"Lo sentimos, debes llenar todos los campos"})
     //Buscar al usuario
     const ministerioBDD = await Ministerio.findById(id)
-    if(!ministerioBDD) return res.status(404).json({msg:`Lo sentimos, no existe el veterinario ${id}`})
+    if(!ministerioBDD) return res.status(404).json({msg:`Lo sentimos, no existe el usuario ${id}`})
     //Verifica si el email esta siendo cambiado y ya existe
         if (ministerioBDD.email !=  req.body.email)
     {

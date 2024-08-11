@@ -3,6 +3,7 @@ import { useState } from 'react'
 import axios from 'axios'
 import Mensaje from '../componets/Alerts'
 
+
 export const Registro = () => {
   const [mensaje, setMensaje] = useState({}); //paso 4 alertar
   const [form, setForm] = useState({//Paso 1 capturar los datos del formulario
@@ -46,13 +47,18 @@ export const Registro = () => {
 console.log(mensaje);
 console.log(setMensaje);
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white flex justify-center items-center w-1/2 p-5 shadow-lg rounded-lg">
+    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+      <img
+                alt="Your Company"
+                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                className="mx-auto h-10 w-auto"
+                />
       
         <div className="md:w-4/5 sm:w-full">
           {Object.keys(mensaje).length>0 && <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>}
-          <h1 className="text-3xl font-semibold mb-2 text-center uppercase text-gray-500">BIENVENIDO</h1>
-          <small className="text-gray-400 block my-4 text-sm">INGRESA TODOS LOS DATOS PARA PODER SEGUIR CON EL REGISTRO</small>
+          <h1 className="text-3xl font-semibold mb-2 text-center uppercase  text-white -500">REGISTRO</h1>
+          <small className="text-gray-400 block my-4 text-sm">INGRESA TODOS LOS DATOS CORRECTAMENTE</small>
 
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
@@ -99,7 +105,7 @@ console.log(setMensaje);
             </div>
 
             <div className="mb-3">
-              <button className="bg-gray-500 text-slate-300 border py-2 w-full rounded-xl mt-5 hover:scale-105 duration-300 hover:bg-gray-900 hover:text-white">Registrarse</button>
+              <button className="bg-green-500 text-slate-300 border py-2 w-full rounded-xl mt-5 hover:scale-105 duration-300 hover:bg-green-900 hover:text-white">Registrarse</button>
             </div>
           </form>
 
@@ -107,7 +113,7 @@ console.log(setMensaje);
 
           <div className="mt-3 text-sm flex justify-between items-center">
             <p>Ya tinenes una cuenta? iniciar sesión</p>
-            <Link to="/login" className="py-2 px-5 bg-gray-500 text-slate-300 border rounded-xl hover:scale-110 duration-300 hover:bg-gray-900 ">Login</Link>
+            <Link to="/login" className="py-2 px-5 bg-green-500 text-slate-100 border rounded-xl hover:scale-120 duration-300 hover:bg-green-900 ">Login</Link>
 
           </div>
         </div>

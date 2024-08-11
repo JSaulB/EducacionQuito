@@ -36,13 +36,13 @@ const login = async (req,res)=>{
     }
 
     // Actividad 3 (Base de Datos)
-    const token = generarJWT(adminBDD._id, 'veterinario')
+    const token = generarJWT(adminBDD._id, 'Administrador')
     const {nombre, apellido, direccion, telefono, _id} = adminBDD
 
     // Actividad 4 (Respuesta)
     res.status(200).json({
         msg:'Administrador logueado',
-        data:{nombre, apellido, direccion, telefono, email:adminBDD.email, _id, token}
+        data:{nombre, apellido, direccion, telefono, email:adminBDD.email, rol:"Administrador", _id, token}
     })
 }
 
@@ -52,7 +52,9 @@ const perfil = (req,res)=>{
     delete req.adminBDD.createdAt // Eliminar el createdAt
     delete req.adminBDD.updatedAt // Eliminar el updatedAt
     delete req.adminBDD.__v // Eliminar el __v
+    console.log(req.adminBDD)
     res.status(200).json(req.adminBDD) // Responder con el veterinario
+    
 }
 
 
