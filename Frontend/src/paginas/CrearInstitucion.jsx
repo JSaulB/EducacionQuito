@@ -1,5 +1,6 @@
 import React from 'react'
 import { Formulario } from '../componets/Formulario'
+import { Formularioinstituciones } from '../componets/Forminstituciones'
 
 export const CrearInstitucion = () => {
   return (

@@ -10,9 +10,10 @@ export const Registro = () => {
         nombre: '',
         apellido: '',
         direccion: '',
-
+        telefono: '',
         email: '',
-        password: ""
+        password: "",
+        tipo: 'Administrador'
   }); // Estado del formulario (vacío al principio)
 
   console.log(form); // Mostrar en consola el estado del formulario
@@ -88,6 +89,12 @@ console.log(setMensaje);
               placeholder="Ingresa tu dirrecion" className="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
             </div>
 
+            <div className="mb-3">
+              <label className="mb-2 block text-sm font-semibold">Teléfono:</label>
+              <input type="tel" id="telefono" name='telefono'
+              value={form.telefono || ""} onChange={handleChange}
+              placeholder="Enter your email" className="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
+            </div>
             
 
             <div className="mb-3">

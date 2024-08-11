@@ -303,12 +303,11 @@ const getInstituciones = async (req, res) => {
 
 // Crear una nueva institución
 const createInstitucion = async (req, res) => {
-    const { nombre, calificacion, historialSocioeconomico } = req.body;
-    const newInstitucion = new institucion1({ nombre, calificacion, historialSocioeconomico });
-
+    const {nombre,direccion,telefono,email,categoria,descripcion } = req.body;
+    const newInstitucion = new institucion1({ nombre, direccion, email,telefono,categoria,descripcion });
     try {
         const savedInstitucion = await newInstitucion.save();
-        res.status(201).json(savedInstitucion);
+        res.status(201).json({msg:'Insitucion registrada con exito, por favor confirma tu email'})
     } catch (error) {
         res.status(400).json({ message: error.message });
     }

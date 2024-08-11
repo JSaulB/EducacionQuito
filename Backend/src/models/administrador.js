@@ -44,8 +44,12 @@ const adminSchema = new Schema({
     confirmEmail:{
         type:Boolean,
         default:false
+    },
+    tipo: {
+        type: String,
+        enum: ['Administrador'], 
+        default: 'Administrador'
     }
-
 },{
     timestamps:true
 })
@@ -75,12 +79,6 @@ const institucionSchema = new Schema({
         type: String,
         required: true,
         enum: ['A', 'B', 'C','D','E'],
-        trim: true
-    },
-    historialSocioeconomico: {
-        type: String,
-        required: true,
-        enum: ['Alto', 'Medio', 'Bajo'],
         trim: true
     }
 }, {
@@ -127,6 +125,9 @@ adminSchema.methods.matchPassword = async function(password){
     const response = await bcrypt.compare(password,this.password)
     return response
 }
+
+
+
 
 // Método para crear un token 
 adminSchema.methods.crearToken = function(){

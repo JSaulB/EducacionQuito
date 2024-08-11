@@ -26,9 +26,12 @@ export const Login =() =>{
   // Crear un estado para el formulario
   const [form, setForm] = useState({
       email: "",
-      password: ""
+      password: "",
+      modo:"Administrador"
   })
 
+  console.log(form);
+  console.log(form.modo);
   const [mensaje, setMensaje] = useState({})
 
   const navigate = useNavigate()
@@ -42,12 +45,13 @@ export const Login =() =>{
 
   const handleSubmit = async(e) => { 
       e.preventDefault()
+      
       try {
-          const url1 = form.password.includes("min") ? `${import.meta.env.VITE_BACKEND_URL}/ministerio/login` : `${import.meta.env.VITE_BACKEND_URL}/loginadmin`
+        //const url1 = form.password.includes("min") ? `${import.meta.env.VITE_BACKEND_URL}/ministerio/login` : `${import.meta.env.VITE_BACKEND_URL}/loginadmin`
         //   const url = `${import.meta.env.VITE_BACKEND_URL}/loginadmin`
         //   const respuesta= await axios.post(url,form)
+        const url1 = form.modo ==="Administrador" ? `${import.meta.env.VITE_BACKEND_URL}/loginadmin`:`${import.meta.env.VITE_BACKEND_URL}/ministerio/login`
           const respuesta= await axios.post(url1,form)
-
           // Obtener un token y guardarlo en el localStorage
           localStorage.setItem('token',respuesta.data.data.token)
           console.log(respuesta.data.data.token)
@@ -56,10 +60,9 @@ export const Login =() =>{
       } catch (error) {
           console.log(error)
           setMensaje({respuesta:error.response.data.error,tipo:false})
-          
       }
   }
-  // Consumir el contexto
+  
 
   return (
     <>
@@ -78,12 +81,13 @@ export const Login =() =>{
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label className='mb-2 block text-sm font-semibold' htmlFor="Modo">Modo</label>
-                        <select className='block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500' name="Modo" id="Modo">
+                        <select className='block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500' 
+                        name="modo" id="modo" value={form.modo} // Sincroniza el valor seleccionado con el estado
+                        onChange={handleChange}>
                             <option value="Administrador">Administrador</option>
                             <option value="Ministerio">Ministerio</option>
                             <option value="Ciudadanía">Ciudadanía</option>
-                        </select>
-                        
+                        </select> 
                     </div>
                     
                     <div className="mb-3">
