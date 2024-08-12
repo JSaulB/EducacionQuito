@@ -3,32 +3,56 @@ import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom'
 import Mensaje from "./Alerts"
 import axios from "axios"
+import ListaInstituciones from "../paginas/ListaInstituciones"
 
-export const Formulario = ({ institucion }) => {
+
+
+
+export const FormularioEstudiante = ({ estudiante }) => {
     const location = useLocation()
     const urlActual = location.pathname
     const [mensajeBoton, setMensajeBoton] = useState('')
 
+    const [instituciones, setinstituciones] = useState([])
     
+    const listarinstituciones = async () => {
+        try {
+            const token = localStorage.getItem('token')
+            const url = `${process.env.VITE_BACKEND_URL}/listai`
+            const options = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }
+            const respuesta = await axios.get(url, options)
+            setinstituciones(respuesta.data, ...instituciones)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const navigate = useNavigate()
     const [mensaje, setMensaje] = useState({})
 
     console.log(urlActual)
     const [form, setForm] = useState({
-        nombre: institucion?.institucion?.nombre ?? "",
-        direccion: institucion?.institucion?.direcion ?? "",
-        email: institucion?.institucion?.email ?? "",
-        telefono: institucion?.institucion?.telefono ?? "", 
-        detalles: institucion?.institucion?.detalles ?? "",
-        categoria: institucion?.institucion?.categoria ?? ""
+        nombre: estudiante?.estudiante?.nombre ?? "",
+        apellido :estudiante?.estudiante?.apellido ?? "",
+        direccion: estudiante?.estudiante?.direcion ?? "",
+        email: estudiante?.estudiante?.email ?? "",
+        telefono: estudiante?.estudiante?.telefono ?? "", 
+        institucion: estudiante?.estudiante?.institucion ?? "",
+        historialSocioeconomico: estudiante?.estudiante?. historialSocioeconomico ?? ""
     })
 
     console.log(form);
     
     useEffect (()=> {
+        listarinstituciones()
         const textoBoton = () => {
 
-            if (urlActual === "/dashboard/listaInstituciones") {
+            if (urlActual === "/dashboard/listaestudiantees") {
                 setMensajeBoton("Registrar Ayuda")
     
             }else if (urlActual === "/dashboard/crear") {
@@ -52,7 +76,7 @@ export const Formulario = ({ institucion }) => {
       e.preventDefault();
         try {
             const token = localStorage.getItem('token')
-            const url = `${process.env.VITE_BACKEND_URL}/creari`
+            const url = `${process.env.VITE_BACKEND_URL}/creare`
             const options={
                 headers: {
                     'Content-Type': 'application/json', // Informar al servidor que se envia un JSON
@@ -61,7 +85,7 @@ export const Formulario = ({ institucion }) => {
             }
             const response = await axios.post(url,form,options)
             setMensaje({ 
-                respuesta:"Institucion registrado con exito y correo enviado",
+                respuesta:"estudiante registrado con exito y correo enviado",
                 tipo: true
             })
             setTimeout(() => {
@@ -81,12 +105,26 @@ export const Formulario = ({ institucion }) => {
     }
     return (
         <form onSubmit={handleSubmit}>
-
             <div>
             {Object.keys(mensaje).length>0 && <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>}
                 <label
                     htmlFor='nombre'
-                    className='text-gray-700 uppercase font-bold text-sm'>Nombre de la Institucion: </label>
+                    className='text-gray-700 uppercase font-bold text-sm'>Institucion: </label>
+                <input
+                    id='Intitucion'
+                    type="text"
+                    className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
+                    placeholder='Intitucion'
+                    name='Intitucion'
+                    onChange={handleChange}
+                    value={form.institucion || ""}
+                />
+            </div>
+
+            <div>
+                <label
+                    htmlFor='nombre'
+                    className='text-gray-700 uppercase font-bold text-sm'>Nombre del estudiante: </label>
                 <input
                     id='nombre'
                     type="text"
@@ -97,18 +135,19 @@ export const Formulario = ({ institucion }) => {
                     value={form.nombre || ""}
                 />
             </div>
+
             <div>
                 <label
                     htmlFor='nombre'
-                    className='text-gray-700 uppercase font-bold text-sm'>Dirección: </label>
+                    className='text-gray-700 uppercase font-bold text-sm'>Apellido del estudiante: </label>
                 <input
-                    id='direccion'
+                    id='apellido'
                     type="text"
                     className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
-                    placeholder='direccion'
-                    name='direccion'
+                    placeholder='apellido'
+                    name='apellido'
                     onChange={handleChange}
-                    value={form.direccion || ""}
+                    value={form.apellido || ""}
                 />
             </div>
             <div>
@@ -142,29 +181,15 @@ export const Formulario = ({ institucion }) => {
             <div>
                 <label
                     htmlFor='nombre'
-                    className='text-gray-700 uppercase font-bold text-sm'>Categoria: </label>
+                    className='text-gray-700 uppercase font-bold text-sm'>Historial Socioeconomico: </label>
                 <input
-                    id='categoria'
+                    id='Historial Socioeconomico:'
                     type="text"
                     className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
-                    placeholder='categoria'
-                    name='categoria'
+                    placeholder='Historial Socioeconomico:'
+                    name='Historial Socioeconomico:'
                     onChange={handleChange}
-                    value={form.categoria || ""}
-                />
-            </div>
-
-            <div>
-                <label
-                    htmlFor='detalles'
-                    className='text-gray-700 uppercase font-bold text-sm'>Detalles: </label>
-                <textarea
-                    id='detalles'
-                    type="text"
-                    className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
-                    name='detalles'
-                    onChange={handleChange}
-                    value={form.detalles || ""}
+                    value={form.historialSocioeconomico || ""}
                 />
             </div>
 
@@ -173,8 +198,9 @@ export const Formulario = ({ institucion }) => {
                 className='bg-green-600 w-full p-3 
         text-slate-300 uppercase font-bold rounded-lg 
         hover:bg-gray-900 cursor-pointer transition-all'
-        value={institucion?.institucion ? 'Actualizar': 'Registrar'}
+        value={estudiante?.estudiante ? 'Actualizar': 'Registrar'}
         /> 
         </form>
+        
     )
 }

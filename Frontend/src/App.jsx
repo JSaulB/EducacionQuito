@@ -13,7 +13,7 @@ import { Forgot } from './paginas/Forgot'
 import Restablecer from './paginas/Restablecer'
 import { Confirmar } from './paginas/Confirmar'
 import ListaInstituciones  from './paginas/ListaInstituciones'
-
+import { CrearEstudiante } from './paginas/Crearestudiante'
 
 function App() {
   return (
@@ -37,10 +37,9 @@ function App() {
           <Route index element={<Perfil/>}/>       
           <Route path='/dashboard/listar' element = {<ListaAdministradores/>}/>
           <Route path='/dashboard/crear' element={<CrearInstitucion/>}/>
+          <Route path='/dashboard/crearestudiante' element={<CrearEstudiante/>}/>
           <Route path='/dashboard/actualizar' element={<Actualizar/>}/>
           <Route path='/dashboard/listaInstituciones' element={<ListaInstituciones/>}/>
-
-        
         </Route>
       </Routes>
     </AuthProvider>
