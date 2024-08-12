@@ -5,6 +5,7 @@ import verificarAutenticacion from "../middlewares/autadmin.js";
 
 import {
     login,
+    registrarMinisterio,
     registrarAyuda
 } from '../controllers/ministerio_controller.js';
 
@@ -14,6 +15,6 @@ router.post('/ministerio/login', login);
 router.get('/listari',verificarAutenticacion,getInstituciones);
 router.get('/listares',verificarAutenticacion, getEstudiantes);
 router.post('/registrar-ayuda', registrarAyuda);
-
+router.post('/ministerio/register', registrarMinisterio);
 
 export default router;

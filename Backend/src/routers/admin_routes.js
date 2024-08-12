@@ -19,7 +19,7 @@ import {
     getEstudiantes,
     createEstudiante,
     updateEstudiante,
-    deleteEstudiante
+    deleteEstudiante,
 }from "../controllers/admin_controller.js";
 
 import verificarAutenticacion from "../middlewares/autadmin.js";
@@ -47,5 +47,6 @@ router.get('/listare',verificarAutenticacion, getEstudiantes);
 router.post('/creare',verificarAutenticacion, createEstudiante);
 router.put('/:id', updateEstudiante);
 router.delete('/:id', deleteEstudiante);
+
 
 export default router

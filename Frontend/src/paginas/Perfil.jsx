@@ -57,6 +57,16 @@ export const Perfil = () => {
             Actualizar Institución
         </Link>
     </li>
+
+    <li className="bg-gray-400 p-4 rounded-lg shadow-md flex items-center justify-center" style={{ height: '150px', width: '150px' }}>
+        <Link 
+            to='/dashboard/ministerio' 
+            className={`${urlActual === '/dashboard/ministerio' ? 'text-slate-100 bg-gray-900 px-3 py-2 rounded-md' : 'text-slate-900'} text-xl block text-center hover:text-slate-600`}
+        >
+            Ministerio
+        </Link>
+    </li>    
+
 </ul>
 
 

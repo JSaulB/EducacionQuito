@@ -14,6 +14,8 @@ import Restablecer from './paginas/Restablecer'
 import { Confirmar } from './paginas/Confirmar'
 import ListaInstituciones  from './paginas/ListaInstituciones'
 import { CrearEstudiante } from './paginas/Crearestudiante'
+import { RegistroMinisterio } from './paginas/Ministerios'
+
 
 function App() {
   return (
@@ -39,6 +41,7 @@ function App() {
           <Route path='/dashboard/crear' element={<CrearInstitucion/>}/>
           <Route path='/dashboard/crearestudiante' element={<CrearEstudiante/>}/>
           <Route path='/dashboard/actualizar' element={<Actualizar/>}/>
+          <Route path='/dashboard/ministerio' element={<RegistroMinisterio/>}/>
           <Route path='/dashboard/listaInstituciones' element={<ListaInstituciones/>}/>
         </Route>
       </Routes>

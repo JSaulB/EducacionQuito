@@ -47,7 +47,7 @@ export const Login =() =>{
       e.preventDefault()
       
       try {
-        //const url1 = form.password.includes("min") ? `${import.meta.env.VITE_BACKEND_URL}/ministerio/login` : `${import.meta.env.VITE_BACKEND_URL}/loginadmin`
+        //const url1 = form.password.includes("Min") ? `${import.meta.env.VITE_BACKEND_URL}/ministerio/login` : `${import.meta.env.VITE_BACKEND_URL}/loginadmin`
         //   const url = `${import.meta.env.VITE_BACKEND_URL}/loginadmin`
         //   const respuesta= await axios.post(url,form)
         const url1 = form.modo ==="Administrador" ? `${import.meta.env.VITE_BACKEND_URL}/loginadmin`:`${import.meta.env.VITE_BACKEND_URL}/ministerio/login`

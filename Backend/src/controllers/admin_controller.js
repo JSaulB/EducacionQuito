@@ -5,7 +5,6 @@ import { sendMailToUser, sendMailToRecoveryPassword} from "../config/nodemailer.
 import mongoose from "mongoose"
 import generarJWT from "../helpers/crearJWT.js";
 
-
 const login = async (req,res)=>{
     // Actividad 1 (Request)
     const {email, password} = req.body;
@@ -56,7 +55,6 @@ const perfil = (req,res)=>{
     res.status(200).json(req.adminBDD) // Responder con el veterinario
     
 }
-
 
 const registro = async (req,res)=>{
     //* Actividad 1 (Request)
@@ -397,5 +395,5 @@ export {
     getEstudiantes,
     createEstudiante,
     updateEstudiante,
-    deleteEstudiante
+    deleteEstudiante,
 }
