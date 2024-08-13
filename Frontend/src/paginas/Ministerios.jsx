@@ -55,8 +55,8 @@ console.log(setMensaje);
       
         <div className="md:w-4/5 sm:w-full">
           {Object.keys(mensaje).length>0 && <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>}
-          <h1 className="text-3xl font-semibold mb-2 text-center uppercase  text-white -500">REGISTRO</h1>
-          <small className="text-gray-400 block my-4 text-sm">INGRESA TODOS LOS DATOS CORRECTAMENTE</small>
+          <h1 className="text-3xl font-semibold mb-2 text-center uppercase  text-white -500">Asignar Privilegio</h1>
+          <small className="text-gray-400 block my-4 text-sm">Modo-Ministerio</small>
 
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
@@ -91,17 +91,17 @@ console.log(setMensaje);
 
 
             <div className="mb-3">
-              <button className="bg-green-500 text-slate-300 border py-2 w-full rounded-xl mt-5 hover:scale-105 duration-300 hover:bg-green-900 hover:text-white">Registrarse</button>
+              <button className="bg-green-500 text-slate-300 border py-2 w-full rounded-xl mt-5 hover:scale-105 duration-300 hover:bg-green-900 hover:text-white">Registrar Usuario</button>
             </div>
           </form>
 
-          <div className="mt-5 text-xs border-b-2 py-4"></div>
+          {/* <div className="mt-5 text-xs border-b-2 py-4"></div>
 
           <div className="mt-3 text-sm flex justify-between items-center">
             <p>Ya tinenes una cuenta? iniciar sesión</p>
             <Link to="/login" className="py-2 px-5 bg-green-500 text-slate-100 border rounded-xl hover:scale-120 duration-300 hover:bg-green-900 ">Login</Link>
 
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
