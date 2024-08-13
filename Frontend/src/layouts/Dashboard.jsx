@@ -9,9 +9,9 @@ export const Dashboard = () => {
     return (
         <div className='md:flex md:min-h-screen'>
             <div className='md:w-1/5 bg-gray-100 px-5 py-4'>
-                <h2 className='text-4xl font-black text-center text-slate-900'>BIENVENIDO</h2>
-                <img src="https://cdn-icons-png.freepik.com/512/16/16480.png" alt="img-client" className="m-auto mt-8 p-1 border-2 border-slate-500 rounded-full" width={120} height={120} />
-                <p className='text-slate-400 text-center my-4 text-sm'> <span className='bg-green-600 w-3 h-3 inline-block rounded-full'></span> Hola - {auth?.nombre}</p>
+                <h2 className='text-4xl font-thin text-center text-slate-900'>BIENVENIDO</h2>
+                <img src="https://cdn-icons-png.freepik.com/512/16/16480.png" alt="img-client" className="m-auto mt-8 p-1 border-8 border-slate-700 rounded-full" width={120} height={120} />
+                <p className='text-slate-400 text-center my-4 text-sm'> <span className='bg-green-600 w-3 h-3 inline-block rounded-full'></span> Hola - {auth?.nombre} 🖐️</p> 
                 <p className='text-slate-400 text-center my-4 text-sm'> <span className='bg-red-600 w-3 h-3 inline-block rounded-full'></span> Modo - {auth?.rol}</p>
                 <hr className="mt-5 border-slate-500" />
 

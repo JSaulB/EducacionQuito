@@ -27,8 +27,8 @@ export const Perfil = () => {
 
     <li className="bg-gray-400 p-4 rounded-lg shadow-md flex items-center justify-center hover:bg-white font-bold" style={{ height: '180px', width: '160px' }}>
         <Link 
-            to='/dashboard/listar' 
-            className={`${urlActual === '/dashboard/listar' ? 'text-slate-200 bg-gray-900 px-3 py-2 rounded-md' : 'text-slate-900'} text-xl block text-center hover:text-slate-600`}
+            to='/dashboard/listaUsuarios' 
+            className={`${urlActual === '/dashboard/listaUsuarios' ? 'text-slate-200 bg-gray-900 px-3 py-2 rounded-md' : 'text-slate-900'} text-xl block text-center hover:text-slate-600`}
         >Lista de Usuarios
         <img src="https://w7.pngwing.com/pngs/477/1005/png-transparent-user-computer-icons-logo-others-service-logo-computer-wallpaper.png" alt="img-client" className="m-auto mt-3 p-1 border-2 border-slate-00 rounded-full" width={80} height={80} />
         
