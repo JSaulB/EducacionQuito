@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useLocation } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom'
@@ -16,7 +17,7 @@ export const Formulario = ({ institucion }) => {
     console.log(urlActual)
     const [form, setForm] = useState({
         nombre: institucion?.institucion?.nombre ?? "",
-        direccion: institucion?.institucion?.direcion ?? "",
+        direccion: institucion?.institucion?.direccion ?? "",
         email: institucion?.institucion?.email ?? "",
         telefono: institucion?.institucion?.telefono ?? "", 
         descripcion: institucion?.institucion?.descripcion ?? "",
@@ -30,7 +31,7 @@ export const Formulario = ({ institucion }) => {
     
     useEffect (()=> {
         const textoBoton = () => {
-
+       
             if (urlActual === "/dashboard/listaInstituciones") {
                 setMensajeBoton("Registrar Ayuda")
     
@@ -42,6 +43,7 @@ export const Formulario = ({ institucion }) => {
         }
         textoBoton()
     },[urlActual]) 
+    
 
 
     const handleChange = (e) => { // Paso 2 Función para manejar los cambios en los inputs
@@ -249,3 +251,19 @@ export const Formulario = ({ institucion }) => {
         </form>
     )
 }
+
+Formulario.propTypes = {
+    institucion: PropTypes.shape({
+        institucion: PropTypes.shape({
+            nombre: PropTypes.string,
+            direccion: PropTypes.string,
+            email: PropTypes.string,
+            telefono: PropTypes.string,
+            descripcion: PropTypes.string,
+            categoria: PropTypes.string,
+            Nestudiantes: PropTypes.string,
+            Infraestructura: PropTypes.string,
+            socieconomico: PropTypes.string
+        })
+    })
+};

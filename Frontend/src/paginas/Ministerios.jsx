@@ -37,7 +37,7 @@ export const RegistroMinisterio = () => {
       }catch (error) {
           console.log( error);
           setMensaje({
-              respuesta:error.response.data.error,
+              respuesta:error.response.data.msg,
               tipo:false
           })
       }
@@ -56,7 +56,7 @@ console.log(setMensaje);
       
         <div className="md:w-4/5 sm:w-full">
           {Object.keys(mensaje).length>0 && <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>}
-          <h1 className="text-3xl font-semibold mb-2 text-center uppercase  text-white -500 mt-6">Asignar Privilegio</h1>
+          <h1 className="text-3xl font-semibold mb-2 text-center uppercase  text-white -500 mt-6">Entidad Ministerio</h1>
           <small className="text-gray-400 block my-7 text-m underline ">Modo-Ministerio</small>
 
           <form onSubmit={handleSubmit}>

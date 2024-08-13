@@ -11,7 +11,7 @@ const ministerioSchema = new mongoose.Schema({
     direccion: {
         type: String,
         required: true,
-        unique: true
+
     },
     email: {
         type: String,
@@ -21,11 +21,12 @@ const ministerioSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+        
     },
-    rol: {
-        type: String,
-        enum: ['admin', 'Ministerio'],
-    },
+    // rol: {
+    //     type: String,
+    //     enum: ['admin', 'Ministerio'],
+    // },
     verificado: {
         type: Boolean,
         default: false

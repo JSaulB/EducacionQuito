@@ -18,13 +18,13 @@ export const Perfil = () => {
         <Link 
             to='/dashboard/ministerio' 
             className={`${urlActual === '/dashboard/ministerio' ? 'text-slate-100 bg-gray-900 px-3 py-2 rounded-md' : 'text-slate-900'} text-xl block text-center hover:text-slate-600`}
-        >Crear Privilegio
+        >Crear Privilegio a Usuario
             <img src="https://previews.123rf.com/images/rizkiahmadfauzi28/rizkiahmadfauzi282304/rizkiahmadfauzi28230403919/203130378-icono-de-usuario-con-candado-sobre-fondo-blanco-ilustraci%C3%B3n-3d-aislada.jpg" alt="img-client" className="m-auto mt-3 p-1 border-2 border-slate-00 rounded-full" width={80} height={80} />
         </Link>
         
     </li>    
    
-
+{/* 
     <li className="bg-gray-400 p-4 rounded-lg shadow-md flex items-center justify-center hover:bg-white font-bold" style={{ height: '180px', width: '160px' }}>
         <Link 
             to='/dashboard/listaUsuarios' 
@@ -33,7 +33,7 @@ export const Perfil = () => {
         <img src="https://w7.pngwing.com/pngs/477/1005/png-transparent-user-computer-icons-logo-others-service-logo-computer-wallpaper.png" alt="img-client" className="m-auto mt-3 p-1 border-2 border-slate-00 rounded-full" width={80} height={80} />
         
         </Link>
-    </li>
+    </li> */}
 
     <li className="bg-gray-400 p-4 rounded-lg shadow-md flex items-center justify-center hover:bg-white font-bold" style={{ height: '180px', width: '160px' }}>
         <Link 

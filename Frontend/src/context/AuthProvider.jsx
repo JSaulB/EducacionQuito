@@ -20,12 +20,32 @@ const AuthProvider = ({ children }) => {
                 }
             }
             const respuesta= await axios.get(url,options)
-            setAuth(respuesta.data)
             console.log(respuesta.data)
+            setAuth(respuesta.data)
         } catch (error) {
             console.log(error);
         }
     }
+    const actualizarPerfil = async (form) => {
+    
+        console.log(form);
+        const token = localStorage.getItem("token")
+        try {
+            
+            const respuesta=await axios.put (`${process.env.VITE_BACKEND_URL}/administrador/${auth._id} `,form,{
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                    }
+                    })
+                    return {respuesta: respuesta.data,tipo:true}
+                  
+
+        } catch (error) {
+            return {respuesta: error.data,tipo:false}
+            
+        }
+    };
     useEffect(() => {
         const token = localStorage.getItem('token')
         if(token)
@@ -40,7 +60,9 @@ const AuthProvider = ({ children }) => {
                 auth,
                 setAuth,
                 data,
-                setData           
+                setData,
+                actualizarPerfil
+                     
             }
         }>
             {children}
@@ -49,6 +71,7 @@ const AuthProvider = ({ children }) => {
 }
 export {
     AuthProvider
+
 }
 export default AuthContext
 ///nfdgjhgfd

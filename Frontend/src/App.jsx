@@ -4,7 +4,7 @@ import{ Login } from "./paginas/Login"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { Dashboard } from "./layouts/Dashboard"
 import { LandinPage } from "./paginas/LandingPage"
-import { ListaUsuarios} from "./paginas/ListaUsuarios"
+// import { ListaUsuarios} from "./paginas/ListaUsuarios"
 import { Perfil } from "./paginas/Perfil"
 import { CrearInstitucion } from "./paginas/CrearInstitucion"
 import { Actualizar} from './paginas/Actualizar'
@@ -37,7 +37,7 @@ function App() {
 
         <Route path='dashboard' element = {<Dashboard/>}>
           <Route index element={<Perfil/>}/>       
-          <Route path='/dashboard/listaUsuarios' element = {<ListaUsuarios/>}/>
+          {/* <Route path='/dashboard/listaUsuarios' element = {<ListaUsuarios/>}/> */}
           <Route path='/dashboard/crear' element={<CrearInstitucion/>}/>
           <Route path='/dashboard/crearestudiante' element={<CrearEstudiante/>}/>
           <Route path='/dashboard/actualizar' element={<Actualizar/>}/>

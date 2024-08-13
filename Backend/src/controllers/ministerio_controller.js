@@ -25,39 +25,49 @@ const registro = async (req,res)=>{
 }
 
 // Método para registrar un paciente
+
 const registrarMinisterio = async(req,res)=>{
 
     // desestructurar el email
     const {email} = req.body
+    console.log(req.body)
 
-    //  Validar todos los camposs
-    if (Object.values(req.body).includes("")) return res.status(400).json({msg:"Lo sentimos, debes llenar todos los campos"})
+    try{
+        //  Validar todos los camposs
+        if (Object.values(req.body).includes("")) return res.status(400).json({msg:"Lo sentimos, debes llenar todos los campos"})
+        
+        // Obtener el usuario en base al email
+        const verificarEmailBDD = await Ministerio.findOne({email})
     
-    // Obtener el usuario en base al email
-    const verificarEmailBDD = await Ministerio.findOne({email})
+        // Verificar si el paciente ya se encuentra registrado
+        if(verificarEmailBDD) return res.status(400).json({msg:"Lo sentimos, el email ya se encuentra registrado"})
+    
+        // Crear una instancia del Paciente
+        const nuevoMinisterio = new Ministerio(req.body)
+    
+        // Crear un password
+        const password = Math.random().toString(36).slice(2)
+    
+        // Encriptar el password
+        nuevoMinisterio.password = await nuevoMinisterio.encrypPassword("Min"+password)
+    
+        // Enviar el correo electrónico
+        await sendMailToMinisterio(email,"Min"+password)
+    
+       
+    
+        // Guardar en BDD
+        await nuevoMinisterio.save()
+    
+        // Presentar resultados
+        res.status(200).json({msg:"Registro exitoso del Ministerio y correo enviado"})
 
-    // Verificar si el paciente ya se encuentra registrado
-    if(verificarEmailBDD) return res.status(400).json({msg:"Lo sentimos, el email ya se encuentra registrado"})
+    }catch (error){
+        console.log(error)
+        
 
-    // Crear una instancia del Paciente
-    const nuevoMinisterio = new Ministerio(req.body)
+    }
 
-    // Crear un password
-    const password = Math.random().toString(36).slice(2)
-
-    // Encriptar el password
-    nuevoMinisterio.password = await nuevoMinisterio.encrypPassword("Min"+password)
-
-    // Enviar el correo electrónico
-    await sendMailToMinisterio(email,"Min"+password)
-
-   
-
-    // Guardar en BDD
-    await nuevoMinisterio.save()
-
-    // Presentar resultados
-    res.status(200).json({msg:"Registro exitoso del Ministerio y correo enviado"})
 }
 
 //Login de un usuario para ministerio

@@ -59,7 +59,7 @@ export const Login =() =>{
           navigate('/dashboard')
       } catch (error) {
           console.log(error)
-          setMensaje({respuesta:error.response.data.error,tipo:false})
+          setMensaje({respuesta:error.response.data.msg,tipo:false})
       }
   }
   
