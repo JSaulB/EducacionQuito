@@ -142,25 +142,31 @@ export const Formulario = ({ institucion }) => {
                 />
             </div>
             <div>
-                <label
-                    htmlFor='nombre'
-                    className='text-gray-700 uppercase font-bold text-sm'>Categoria: </label>
-                <input
-                    id='categoria'
-                    type="text"
-                    className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
-                    placeholder='Categorizacion de la Institucion'
-                    name='categoria'
-                    onChange={handleChange}
+                <label htmlFor="nombre" className="text-gray-700 uppercase font-bold text-sm">
+                    Categoría:
+                </label>
+                <select
+                    id="categoria"
+                    className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5"
+                    name="categoria"
                     value={form.categoria || ""}
-                />
+                    onChange={handleChange}
+                >
+                    <option value="" disabled hidden>
+                    Seleccione el nivel de educacion
+                    </option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                </select>
             </div>
 
+
             <div>
-                <label
-                    htmlFor='nombre'
-                    className='text-gray-700 uppercase font-bold text-sm'>Infraestructura: </label>
-                <input
+                <label htmlFor="nombre" className="text-gray-700 uppercase font-bold text-sm">
+                    Infraestructura:
+                </label>
+                <select
                     id='Infraestructura'
                     type="text"
                     className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
@@ -168,7 +174,15 @@ export const Formulario = ({ institucion }) => {
                     name='Infraestructura'
                     onChange={handleChange}
                     value={form.Infraestructura || ""}
-                />
+                >
+                    <option value="" disabled hidden>
+                    Seleccione el estado de la Infraestructura
+                    </option>
+                    <option value="Muy Buena">Muy Buena</option>
+                    <option value="Buena">Buena</option>
+                    <option value="Regular">Regular</option>
+                    <option value="Mala">Mala</option>
+                </select>
             </div>
 
             <div>
@@ -185,6 +199,7 @@ export const Formulario = ({ institucion }) => {
                     value={form.Nestudiantes || ""}
                 />
             </div>
+            
             <div>
                 <label
                     htmlFor='nombre'
@@ -201,9 +216,33 @@ export const Formulario = ({ institucion }) => {
             </div>
 
             <div>
+                <label htmlFor="nombre" className="text-gray-700 uppercase font-bold text-sm">
+                    Historial Socieconomico:
+                </label>
+                <select
+                    id='socieconomico'
+                    type="text"
+                    className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
+                    placeholder='Promedio socieconomico'
+                    name='socieconomico'
+                    onChange={handleChange}
+                    value={form.socieconomico || ""}
+                >
+                    <option value="" disabled hidden>
+                    Seleccione el estado de socieconomico
+                    </option>
+                    <option value="Alto">Alto</option>
+                    <option value="Medio-Alto">Medio-Alto</option>
+                    <option value="Medio">Medio</option>
+                    <option value="Medio-Bajo">Medio-Bajo</option>
+                    <option value="Bajo">Bajo</option>
+                </select>
+            </div>
+
+            <div>
                 <label
                     htmlFor='detalles'
-                    className='text-gray-700 uppercase font-bold text-sm'>Detalles: </label>
+                    className='text-gray-700 uppercase font-bold text-sm'>Observaciones: </label>
                 <textarea
                     id='descripcion'
                     type="text"

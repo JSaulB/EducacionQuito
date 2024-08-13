@@ -78,7 +78,7 @@ const institucionSchema = new Schema({
     categoria: {
         type: String,
         required: true,
-        enum: ['A', 'B', 'C','D','E'],
+        enum: ['A', 'B', 'C'],
         trim: true
     },
     Nestudiantes:{
@@ -94,7 +94,7 @@ const institucionSchema = new Schema({
     },
     socieconomico: {
         type: String,
-        enum: ['A', 'B', 'C','D','E'],
+        enum: ['Alto', 'Medio-Alto', 'Medio','Medio-Bajo','Bajo'],
         trim: true
     },
 }, {

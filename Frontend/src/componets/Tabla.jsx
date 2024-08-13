@@ -73,7 +73,11 @@ const Tabla = () => {
                                 <th className='p-2'>Telefono</th>
                                 <th className='p-2'>Email</th>
                                 <th className='p-2'>Categoria</th>
-                                <th className='p-2'>Detalles</th>
+                                <th className='p-2'>Estado de la Infraestructura</th>
+                                <th className='p-2'>Historial Socieconomico</th>
+                                <th className='p-2'>Numero de Estudiantes</th>
+                                <th className='p-2'>Observaciones</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -83,10 +87,14 @@ const Tabla = () => {
                                         <td>{index + 1}</td>
                                         <td>{institucion.nombre}</td>
                                         <td>{institucion.direccion}</td>
-                                        <td>{institucion.email}</td>
                                         <td>{institucion.telefono}</td>
+                                        <td>{institucion.email}</td>
                                         <td>{institucion.categoria}</td>
+                                        <td>{institucion.Infraestructura}</td>
+                                        <td>{institucion.socieconomico}</td>
+                                        <td>{institucion.Nestudiantes}</td>
                                         <td>{institucion.descripcion}</td>
+                    
                                         <td>
                                             <span className="bg-blue-100 text-green-500 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">{institucion.estado && "activo"}</span>
                                         </td>
@@ -96,7 +104,7 @@ const Tabla = () => {
                                                 onClick={() => navigate(`/dashboard/listaInstituciones/${institucion._id}`)}
                                             />
                                             {
-                                                auth.rol === "veterinario" && (
+                                                auth.rol === "Administrador" && (
                                                     <>
                                                         <MdInfo
                                                             className="h-7 w-7 text-slate-800 cursor-pointer inline-block mr-2"
