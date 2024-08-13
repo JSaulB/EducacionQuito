@@ -52,10 +52,11 @@ export const Login =() =>{
         //   const respuesta= await axios.post(url,form)
         const url1 = form.modo ==="Administrador" ? `${import.meta.env.VITE_BACKEND_URL}/loginadmin`:`${import.meta.env.VITE_BACKEND_URL}/ministerio/login`
           const respuesta= await axios.post(url1,form)
+          console.log(respuesta)
           // Obtener un token y guardarlo en el localStorage
-          localStorage.setItem('token',respuesta.data.data.token)
-          console.log(respuesta.data.data.token)
-          setAuth(respuesta.data.data)
+          localStorage.setItem('token',respuesta.data.token)
+          console.log(respuesta.data.token)
+          setAuth(respuesta.data)
           navigate('/dashboard')
       } catch (error) {
           console.log(error)
@@ -73,7 +74,7 @@ export const Login =() =>{
                 src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                 className="mx-auto h-10 w-auto"
                 />
-                {Object.keys(mensaje).length>0 && <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>}
+                {Object.keys(mensaje).length>0 && <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>}  {/*Para mostrar las alertas */}
 
                 <h1 className="text-3xl font-semibold mb-2 text-center uppercase  text-white -500">INICIO DE SESIÓN</h1>
                 <small className=" underline  text-gray-00 block my-4 text-sm">Ingresa tus datos correctamente</small>
@@ -86,7 +87,7 @@ export const Login =() =>{
                         onChange={handleChange}>
                             <option value="Administrador">Administrador</option>
                             <option value="Ministerio">Ministerio</option>
-                            <option value="Ciudadanía">Ciudadanía</option>
+    
                         </select> 
                     </div>
                     

@@ -94,7 +94,7 @@ const login = async(req,res)=>{
     //Validar la contraseña
     const verificartPassword = await ministerioBDD.matchPassword(password);
     if (!verificartPassword)
-        return res.status(404).json({msg:"Lo el password no es el correcto"})
+        return res.status(404).json({msg:"Lo sentimos la contraseña es incorrecta"})
 
     const token = generarJWT(ministerioBDD._id,"ministerio")
     const {nombre,apellido,direccion,telefono,_id}= ministerioBDD
@@ -140,9 +140,17 @@ const actualizarPerfil = async (req,res)=>{
     res.status(200).json({msg:"Perfil actualizado correctamente"})
 }
 //Perfil de usuario
-const perfil=(req,res)=>{
-    res.status(200).json({res:'perfil de ministerio'})
+const perfil = (req,res)=>{
+    delete req.ministerioBDD.token // Eliminar el token
+    delete req.ministerioBDD.confirmEmail // Eliminar el confirmEmail
+    delete req.ministerioBDD.createdAt // Eliminar el createdAt
+    delete req.ministerioBDD.updatedAt // Eliminar el updatedAt
+    delete req.ministerioBDD.__v // Eliminar el __v
+    console.log(req.ministerioBDD)
+    res.status(200).json(req.ministerioBDD) // Responder con el veterinario
+    
 }
+
  //Confirmacion de email
 const confirmEmail = async (req,res)=>{
     

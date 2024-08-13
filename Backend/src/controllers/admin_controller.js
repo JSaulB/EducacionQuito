@@ -16,8 +16,6 @@ const login = async (req,res)=>{
     }
 
     const adminBDD = await administrador.findOne({email}).select("-status -__v -token -updatedAt -createdAt")
-    
-
     //? Validar si el email existe
     //const adminBDD = await administrador.findOne({'email':email})
 
@@ -44,8 +42,8 @@ const login = async (req,res)=>{
 
     // Actividad 4 (Respuesta)
     res.status(200).json({
-        msg:'Administrador logueado',
-        data:{nombre, apellido, direccion, telefono, email:adminBDD.email, rol:"Administrador", _id, token}
+        nombre, apellido, direccion, telefono, email:adminBDD.email, rol:"Administrador", _id, token
+        
     })
 }
 
@@ -66,11 +64,11 @@ const registro = async (req,res)=>{
 
     //* Actividad 2 (Validaciones)
     if(Object.values(req.body).includes('')){
-        return res.status(400).json({msg:'Lo sentimos pero faltan datos'})
+        return res.status(400).json({msg:'Lo sentimos completa los datos datos'})
     }
     const verificarEmailBDD = await administrador.findOne({email})
     if(verificarEmailBDD){
-        return res.status(400).json({msg:'Lo sentimos pero el email ya existe'})
+        return res.status(400).json({msg:'Lo sentimos, el email ya existe'})
     }
 
     //* Actividad 3 (Guardar en BDD)

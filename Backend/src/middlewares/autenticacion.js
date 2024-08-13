@@ -15,12 +15,6 @@ if(!req.headers.authorization) return res.status(404).json({msg:"Lo sentimos, de
         if (rol==="Administrador"){
             req.adminBDD = await administrador.findById(id).lean().select("-password")
             req.adminBDD.rol = "Administrador"
-            
-        
-        }else if (rol === "ciudadano") {
-            req.ciudadanoBDD = await Ciudadania.findById(id).lean().select("-password");
-            req.ciudadanoBDD.rol = "ciudadano"
-
         }else if (rol === "ministerio") {
             req.ministerioBDD = await ministerio.findById(id).lean().select("-password");
             req.ministerioBDD.rol = "ministerio"

@@ -6,11 +6,13 @@ import verificarAutenticacion from "../middlewares/autadmin.js";
 import {
     login,
     registrarMinisterio,
-    registrarAyuda
+    registrarAyuda,
+    perfil
+
 } from '../controllers/ministerio_controller.js';
 
 const router = express.Router();
-
+router.get("/ministerio/perfil", verificarAutenticacion , perfil);
 router.post('/ministerio/login', login);
 router.get('/listari',verificarAutenticacion,getInstituciones);
 router.get('/listares',verificarAutenticacion, getEstudiantes);

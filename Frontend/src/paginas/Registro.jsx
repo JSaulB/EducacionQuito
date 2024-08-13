@@ -40,7 +40,7 @@ export const Registro = () => {
       }catch (error) {
           console.log( error);
           setMensaje({
-              respuesta:error.response.data.error,
+              respuesta:error.response.data.msg,
               tipo:false
           })
       }

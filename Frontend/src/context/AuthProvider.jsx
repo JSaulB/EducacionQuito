@@ -1,5 +1,6 @@
 import axios from "axios"
 import { createContext, useEffect, useState } from "react"
+import { jwtDecode } from "jwt-decode"
 // Creación del grupo de whatsapp
 const AuthContext = createContext()
 // El mensaje a enviar
@@ -11,7 +12,10 @@ const AuthProvider = ({ children }) => {
     
     const perfil = async(token) => {
         try {
-            const url = `${import.meta.env.VITE_BACKEND_URL}/perfil`
+            const user = jwtDecode(token) // Decodificar el token 
+            const url = user?.rol == "Administrador" ? `${process.env.VITE_BACKEND_URL}/perfil`:`${process.env.VITE_BACKEND_URL}/ministerio/perfil`
+            console.log(user)
+            // const url = `${import.meta.env.VITE_BACKEND_URL}/ministerio/perfil`
             console.log(url)
             const options={
                 headers: {

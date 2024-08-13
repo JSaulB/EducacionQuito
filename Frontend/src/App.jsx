@@ -15,6 +15,8 @@ import { Confirmar } from './paginas/Confirmar'
 import ListaInstituciones  from './paginas/ListaInstituciones'
 import { CrearEstudiante } from './paginas/Crearestudiante'
 import { RegistroMinisterio } from './paginas/Ministerios'
+import { NotAllowed } from './paginas/NotAllowed'
+
 
 
 function App() {
@@ -33,6 +35,7 @@ function App() {
         <Route path='forgot/:id' element={<Forgot/>}/>
         <Route path='confirmar/:token' element={<Confirmar/>}/>
         <Route path='recuperar-password/:token' element={<Restablecer/>}/>
+        <Route path='*' element={<NotAllowed/>}/>
 
 
         <Route path='dashboard' element = {<Dashboard/>}>
