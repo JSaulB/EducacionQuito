@@ -17,25 +17,25 @@ export const Dashboard = () => {
 
                 <form>
                     <div> 
-                        <h1 className='font-black text-4xl text-gray-900 justify-center'>Mi Perfil</h1>
+                        <h1 className='font-black text-2xl text-gray-900 text-center '>Mi Perfil</h1>
                         <hr className='my-4' />
                     </div>
                     {/* Campos de formulario */}
                     <div>
                         <label htmlFor='nombre' className='text-gray-100 uppercase font-bold text-sm'>Nombre: </label>
-                        <input id='nombre' type="text" className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5' placeholder='Nombre' name='Nombre' />
+                        <input id='nombre' type="text" className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-2' placeholder='Nombre' name='Nombre' />
                     </div>
                     <div>
                         <label htmlFor='apellido' className='text-gray-100 uppercase font-bold text-sm'>Apellido: </label>
-                        <input id='apellido' type="text" className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5' placeholder='Apellido' name='Apellido' />
+                        <input id='apellido' type="text" className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-2' placeholder='Apellido' name='Apellido' />
                     </div>
                     <div>
                         <label htmlFor='email' className='text-gray-100 uppercase font-bold text-sm'>Email: </label>
-                        <input id='email' type="text" className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5' placeholder='Email' name='Email' />
+                        <input id='email' type="text" className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-2' placeholder='Email' name='Email' />
                     </div>
                     <div>
                         <label htmlFor='modo' className='text-gray-100 uppercase font-bold text-sm'>Modo: </label>
-                        <textarea id='modo' className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5' name='modo' />
+                        <textarea id='modo' className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-2' name='modo' />
                     </div>
                     <input type="submit" className='bg-green-600 p-3 text-slate-300 uppercase font-bold rounded-lg hover:bg-gray-600 cursor-pointer transition-all' value='Actualizar' />
                 </form>
