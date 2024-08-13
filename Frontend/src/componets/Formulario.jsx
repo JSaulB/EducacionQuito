@@ -19,8 +19,11 @@ export const Formulario = ({ institucion }) => {
         direccion: institucion?.institucion?.direcion ?? "",
         email: institucion?.institucion?.email ?? "",
         telefono: institucion?.institucion?.telefono ?? "", 
-        detalles: institucion?.institucion?.detalles ?? "",
-        categoria: institucion?.institucion?.categoria ?? ""
+        descripcion: institucion?.institucion?.descripcion ?? "",
+        categoria: institucion?.institucion?.categoria ?? "",
+        Nestudiantes: institucion?.institucion?.Nestudiantes ?? "",
+        Infraestructura: institucion?.institucion?.Infraestructura ?? "",
+        socieconomico: institucion?.institucion?.socieconomico ?? ""
     })
 
     console.log(form);
@@ -81,9 +84,8 @@ export const Formulario = ({ institucion }) => {
     }
     return (
         <form onSubmit={handleSubmit}>
-
+            {Object.keys(mensaje).length>0 && <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>}    
             <div>
-            {Object.keys(mensaje).length>0 && <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>}
                 <label
                     htmlFor='nombre'
                     className='text-gray-700 uppercase font-bold text-sm'>Nombre de la Institucion: </label>
@@ -91,7 +93,7 @@ export const Formulario = ({ institucion }) => {
                     id='nombre'
                     type="text"
                     className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
-                    placeholder='nombre'
+                    placeholder='Ingrese el nombre de la Institucion'
                     name='nombre'
                     onChange={handleChange}
                     value={form.nombre || ""}
@@ -105,7 +107,7 @@ export const Formulario = ({ institucion }) => {
                     id='direccion'
                     type="text"
                     className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
-                    placeholder='direccion'
+                    placeholder='Ingrese la direccion'
                     name='direccion'
                     onChange={handleChange}
                     value={form.direccion || ""}
@@ -119,7 +121,7 @@ export const Formulario = ({ institucion }) => {
                     id='telefono'
                     type="tel"
                     className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
-                    placeholder='telefono'
+                    placeholder='Ingrese el telefono'
                     name='telefono'
                     onChange={handleChange}
                     value={form.telefono || ""}
@@ -133,7 +135,7 @@ export const Formulario = ({ institucion }) => {
                     id='email'
                     type="email"
                     className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
-                    placeholder='email'
+                    placeholder='Ingrese el email'
                     name='email'
                     onChange={handleChange}
                     value={form.email || ""}
@@ -147,7 +149,7 @@ export const Formulario = ({ institucion }) => {
                     id='categoria'
                     type="text"
                     className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
-                    placeholder='categoria'
+                    placeholder='Categorizacion de la Institucion'
                     name='categoria'
                     onChange={handleChange}
                     value={form.categoria || ""}
@@ -156,15 +158,59 @@ export const Formulario = ({ institucion }) => {
 
             <div>
                 <label
+                    htmlFor='nombre'
+                    className='text-gray-700 uppercase font-bold text-sm'>Infraestructura: </label>
+                <input
+                    id='Infraestructura'
+                    type="text"
+                    className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
+                    placeholder='Estado de la Infraestructura'
+                    name='Infraestructura'
+                    onChange={handleChange}
+                    value={form.Infraestructura || ""}
+                />
+            </div>
+
+            <div>
+                <label
+                    htmlFor='nombre'
+                    className='text-gray-700 uppercase font-bold text-sm'>N° Estudiantes: </label>
+                <input
+                    id='Nestudiantes'
+                    type="text"
+                    className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
+                    placeholder='Número de estudiantes'
+                    name='Nestudiantes'
+                    onChange={handleChange}
+                    value={form.Nestudiantes || ""}
+                />
+            </div>
+            <div>
+                <label
+                    htmlFor='nombre'
+                    className='text-gray-700 uppercase font-bold text-sm'>Historial Socieconomico: </label>
+                <input
+                    id='socieconomico'
+                    type="text"
+                    className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
+                    placeholder='Promedio socieconomico'
+                    name='socieconomico'
+                    onChange={handleChange}
+                    value={form.socieconomico || ""}
+                />
+            </div>
+
+            <div>
+                <label
                     htmlFor='detalles'
                     className='text-gray-700 uppercase font-bold text-sm'>Detalles: </label>
                 <textarea
-                    id='detalles'
+                    id='descripcion'
                     type="text"
                     className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
-                    name='detalles'
+                    name='descripcion'
                     onChange={handleChange}
-                    value={form.detalles || ""}
+                    value={form.descripcion || ""}
                 />
             </div>
 

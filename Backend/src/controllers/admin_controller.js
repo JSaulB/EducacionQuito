@@ -15,8 +15,11 @@ const login = async (req,res)=>{
         return res.status(400).json({error:'Lo sentimos pero faltan datos'})
     }
 
+    const adminBDD = await administrador.findOne({email}).select("-status -__v -token -updatedAt -createdAt")
+    
+
     //? Validar si el email existe
-    const adminBDD = await administrador.findOne({'email':email})
+    //const adminBDD = await administrador.findOne({'email':email})
 
     //? Validar si el email está confirmado
     if (adminBDD?.confirmEmail === false){ // Si el email está confirmado (?.) operación de encadenamiento opcional (opcional chaining)
@@ -36,6 +39,7 @@ const login = async (req,res)=>{
 
     // Actividad 3 (Base de Datos)
     const token = generarJWT(adminBDD._id, 'Administrador')
+    
     const {nombre, apellido, direccion, telefono, _id} = adminBDD
 
     // Actividad 4 (Respuesta)
@@ -71,7 +75,9 @@ const registro = async (req,res)=>{
 
     //* Actividad 3 (Guardar en BDD)
     const nuevoadmin = new administrador(req.body)
+
     nuevoadmin.password = await nuevoadmin.encrypPassword(password)
+    
     const token = nuevoadmin.crearToken()
     
     await nuevoadmin.save()
@@ -301,11 +307,11 @@ const getInstituciones = async (req, res) => {
 
 // Crear una nueva institución
 const createInstitucion = async (req, res) => {
-    const {nombre,direccion,telefono,email,categoria,descripcion } = req.body;
-    const newInstitucion = new institucion1({ nombre, direccion, email,telefono,categoria,descripcion });
+    const {nombre,direccion,telefono,email,categoria,descripcion,Nestudiantes,Infraestructura,socieconomico } = req.body;
+    const newInstitucion = new institucion1({ nombre, direccion, email,telefono,categoria,descripcion,Nestudiantes,Infraestructura,socieconomico });
     try {
-        const savedInstitucion = await newInstitucion.save();
-        res.status(201).json({msg:'Insitucion registrada con exito, por favor confirma tu email'})
+        const savedInstitucion = await newInstitucion.save()
+        res.status(201).json({msg:'Insitucion registrada con exito para el respectivo analísis'})
     } catch (error) {
         res.status(400).json({ message: error.message });
     }

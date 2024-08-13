@@ -80,7 +80,23 @@ const institucionSchema = new Schema({
         required: true,
         enum: ['A', 'B', 'C','D','E'],
         trim: true
-    }
+    },
+    Nestudiantes:{
+        type:Number,
+        trim:true,
+        default:null
+    },
+    Infraestructura: {
+        type: String,
+        required: true,
+        enum: ['Muy Buena', 'Buena', 'Regular','Mala'],
+        trim: true
+    },
+    socieconomico: {
+        type: String,
+        enum: ['A', 'B', 'C','D','E'],
+        trim: true
+    },
 }, {
     timestamps: true
 });
@@ -137,6 +153,6 @@ adminSchema.methods.crearToken = function(){
 
 
 // Exportar los modelos
-export default model('administrador',adminSchema); 
-export const institucion1 = model('institucion1', institucionSchema);
+export default model('Administradores',adminSchema); 
+export const institucion1 = model('Instituciones', institucionSchema);
 export const Estudiante = model('Estudiante', estudianteSchema);

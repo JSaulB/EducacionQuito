@@ -28,6 +28,7 @@ const sendMailToUser = (userMail, token) => {
         }
     });
 };
+
 const sendMailToUserCiudadania = (email, token) => {
     let mailOptions = {
       from: process.env.USER_MAILTRAP,
@@ -50,7 +51,7 @@ const sendMailToUserCiudadania = (email, token) => {
 // send mail to patient
 const sendMailToMinisterio = async(userMail,password)=>{
     let info = await transporter.sendMail({
-    from: 'admin@vet.com',
+    from: 'admin@edu.com',
     to: userMail,
     subject: "Correo de bienvenida",
     html: `
@@ -59,7 +60,7 @@ const sendMailToMinisterio = async(userMail,password)=>{
     <p>Contraseña de acceso: ${password}</p>
     <a href=${process.env.URL_FRONTEND}login>Clic para iniciar sesión</a>
     <hr>
-    <footer>Grandote te da la Bienvenida!</footer>
+    <footer>Te damos la Bienvenida!</footer>
     `
     });
     console.log("Mensaje enviado satisfactoriamente: ", info.messageId);

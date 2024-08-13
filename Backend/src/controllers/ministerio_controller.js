@@ -1,12 +1,7 @@
 import mongoose from 'mongoose';
-import bcrypt from 'bcryptjs';
-import { sendMailToUser, sendMailToRecoveryPassword } from "../config/nodemailer.js";
+import { sendMailToUser, sendMailToRecoveryPassword, sendMailToMinisterio } from "../config/nodemailer.js";
 import generarJWT from "../helpers/crearJWT.js";
-import administrador from '../models/administrador.js';
-import { institucion1 as Institucion, Estudiante as Alumno } from "../models/administrador.js";
-import Ministerio from '../models/ministerio.js'
-import ayuda from '../models/ayuda.js'
-import { sendMailToMinisterio } from '../config/nodemailer.js';
+import Ministerio from '../models/ministerio.js';
 
 
 //Registrar un nuevo usuario para ministerio
