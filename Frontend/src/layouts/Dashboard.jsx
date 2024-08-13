@@ -17,7 +17,7 @@ export const Dashboard = () => {
 
                 <form>
                     <div> 
-                        <h1 className='font-black text-4xl text-gray-900'>Mi Perfil</h1>
+                        <h1 className='font-black text-4xl text-gray-900 justify-center'>Mi Perfil</h1>
                         <hr className='my-4' />
                     </div>
                     {/* Campos de formulario */}
@@ -43,11 +43,11 @@ export const Dashboard = () => {
 
             <div className='flex-1 flex flex-col justify-between h-screen'>
                 <div className='bg-gray-100 py-2 flex md:justify-end items-center gap-5 justify-center'>
-                    <div className='text-md font-semibold text-slate-100'>
+                    {/* <div className='text-md font-semibold text-slate-100'>
                         Usuario - {auth?.nombre}
-                    </div>
+                    </div> */}
                     <div>
-                        <Link to='/landingpage' className="text-white mr-3 text-md block hover:bg-red-900 text-center bg-red-800 px-4 py-1 rounded-lg">Salir</Link>
+                        <Link to='/landingpage' className="text-white mr-3 text-md block hover:bg-red-900 text-center bg-red-600 px-4 py-1 rounded-lg">Salir</Link>
                     </div>
                 </div>
 

@@ -49,14 +49,15 @@ console.log(setMensaje);
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
       <img
                 alt="Your Company"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                className="mx-auto h-10 w-auto"
+        
+                src="https://www.65ymas.com/uploads/s1/36/42/51/bigstock-internet-security-firewall-or-326464240.jpeg"
+                className="m-auto mt-4 p-1 border-2 border-slate-4000 rounded-full jus" width={80} height={80} 
                 />
       
         <div className="md:w-4/5 sm:w-full">
           {Object.keys(mensaje).length>0 && <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>}
-          <h1 className="text-3xl font-semibold mb-2 text-center uppercase  text-white -500">Asignar Privilegio</h1>
-          <small className="text-gray-400 block my-4 text-sm">Modo-Ministerio</small>
+          <h1 className="text-3xl font-semibold mb-2 text-center uppercase  text-white -500 mt-6">Asignar Privilegio</h1>
+          <small className="text-gray-400 block my-7 text-m underline ">Modo-Ministerio</small>
 
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
@@ -76,7 +77,7 @@ console.log(setMensaje);
               <input 
               type="text" id="direccion" name='direccion'
               value={form.direccion || ""} onChange={handleChange}
-              placeholder="Ingresa tu dirrecion" className="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
+              placeholder="Ingresa tu direción" className="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
             </div>
 
             
@@ -86,7 +87,7 @@ console.log(setMensaje);
               <label className="mb-2 block text-sm font-semibold">Email:</label>
               <input type="email" id="email" name='email'
               value={form.email || ""} onChange={handleChange}
-              placeholder="Enter your email" className="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
+              placeholder="Ingresa tu correo electrónico" className="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
             </div>
 
 
