@@ -64,11 +64,11 @@ export const Formulario = ({ institucion }) => {
             }
             const response = await axios.post(url,form,options)
             setMensaje({ 
-                respuesta:"Institucion registrado con exito y correo enviado",
+                respuesta:"Institucion registrado con exito, para el analísis",
                 tipo: true
             })
             setTimeout(() => {
-                navigate('/dashboard/crearestudiante');
+                navigate('/dashboard/listaInstituciones');
             }, 3000);
             console.log(response);
         } catch (error) {
@@ -199,21 +199,7 @@ export const Formulario = ({ institucion }) => {
                     value={form.Nestudiantes || ""}
                 />
             </div>
-            
-            <div>
-                <label
-                    htmlFor='nombre'
-                    className='text-gray-700 uppercase font-bold text-sm'>Historial Socieconomico: </label>
-                <input
-                    id='socieconomico'
-                    type="text"
-                    className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
-                    placeholder='Promedio socieconomico'
-                    name='socieconomico'
-                    onChange={handleChange}
-                    value={form.socieconomico || ""}
-                />
-            </div>
+        
 
             <div>
                 <label htmlFor="nombre" className="text-gray-700 uppercase font-bold text-sm">
