@@ -60,7 +60,7 @@ console.log(setMensaje);
 
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
-              <label className="mb-2 block text-sm font-semibold">Nombre del Ministerio:</label>
+              <label className="mb-2 block text-sm font-semibold">Nombre de Usuario:</label>
               <input 
               type="text" 
               id="nombre"
