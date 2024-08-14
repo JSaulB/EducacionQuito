@@ -14,6 +14,7 @@ import {
 	nuevoPassword,
     createInstitucion,
     getInstituciones,
+    getInstitucionById,
     updateInstitucion,
     deleteInstitucion,
     getEstudiantes,
@@ -39,6 +40,7 @@ router.get("/administrador/:id",verificarAutenticacion, detalleadministrador);
 router.put("/administrador/:id",verificarAutenticacion ,actualizarPerfil);
 
 router.get('/listai',verificarAutenticacion,getInstituciones);
+router.get('/institucion/:id', verificarAutenticacion, getInstitucionById);
 router.post('/creari',verificarAutenticacion,createInstitucion);
 router.put('/actualizari/:id',verificarAutenticacion, updateInstitucion);
 router.delete('/eliminari/:id',verificarAutenticacion, deleteInstitucion);

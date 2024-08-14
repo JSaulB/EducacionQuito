@@ -1,89 +1,71 @@
 import PropTypes from 'prop-types';
-import { useLocation } from "react-router-dom"
-import { useEffect, useState } from "react"
-import { useNavigate } from 'react-router-dom'
-import Mensaje from "./Alerts"
-import axios from "axios"
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import Mensaje from "./Alerts";
+import axios from "axios";
 
 export const Formulario = ({ institucion }) => {
-    const location = useLocation()
-    const urlActual = location.pathname
-    const [mensajeBoton, setMensajeBoton] = useState('')
+    const location = useLocation();
+    const navigate = useNavigate();
+    const [mensaje, setMensaje] = useState({});
 
-    
-    const navigate = useNavigate()
-    const [mensaje, setMensaje] = useState({})
-
-    console.log(urlActual)
     const [form, setForm] = useState({
-        nombre: institucion?.institucion?.nombre ?? "",
-        direccion: institucion?.institucion?.direccion ?? "",
-        email: institucion?.institucion?.email ?? "",
-        telefono: institucion?.institucion?.telefono ?? "", 
-        descripcion: institucion?.institucion?.descripcion ?? "",
-        categoria: institucion?.institucion?.categoria ?? "",
-        Nestudiantes: institucion?.institucion?.Nestudiantes ?? "",
-        Infraestructura: institucion?.institucion?.Infraestructura ?? "",
-        socieconomico: institucion?.institucion?.socieconomico ?? ""
-    })
+        nombre: institucion?.nombre ?? "",
+        direccion: institucion?.direccion ?? "",
+        email: institucion?.email ?? "",
+        telefono: institucion?.telefono ?? "", 
+        descripcion: institucion?.descripcion ?? "",
+        categoria: institucion?.categoria ?? "",
+        Nestudiantes: institucion?.Nestudiantes ?? "",
+        Infraestructura: institucion?.Infraestructura ?? "",
+        socieconomico: institucion?.socieconomico ?? ""
+    });
 
-    console.log(form);
-    
-    useEffect (()=> {
-        const textoBoton = () => {
-       
-            if (urlActual === "/dashboard/listaInstituciones") {
-                setMensajeBoton("Registrar Ayuda")
-    
-            }else if (urlActual === "/dashboard/crear") {
-                setMensajeBoton("Registrar Institución")
-            }else if (urlActual === "/dashboard/actualizar") {
-                setMensajeBoton("Actualizar Institución")
-            }
-        }
-        textoBoton()
-    },[urlActual]) 
-    
+    const handleChange = (e) => {
+        setForm({
+            ...form,
+            [e.target.name]: e.target.value
+        });
+    };
 
-
-    const handleChange = (e) => { // Paso 2 Función para manejar los cambios en los inputs
-        setForm({...form, // Copiar el estado actual
-            [e.target.name]:e.target.value // Cambiar el valor del input en el estado
-        })
-    }
-    // Función para enviar los datos del formulario
     const handleSubmit = async(e) => { 
-      // Prevención de recarga de la página al enviar el formulario
-      e.preventDefault();
+        e.preventDefault();
         try {
-            const token = localStorage.getItem('token')
-            const url = `${process.env.VITE_BACKEND_URL}/creari`
-            const options={
+            const token = localStorage.getItem('token');
+            const url = institucion 
+                ? `${import.meta.env.VITE_BACKEND_URL}/actualizari/${institucion._id}` 
+                : `${import.meta.env.VITE_BACKEND_URL}/creari`;
+            const options = {
                 headers: {
-                    'Content-Type': 'application/json', // Informar al servidor que se envia un JSON
-                    Authorization: `Bearer ${token}` // Enviar el token en la cabecera
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
                 }
-            }
-            const response = await axios.post(url,form,options)
+            };
+            const response = institucion 
+                ? await axios.put(url, form, options) 
+                : await axios.post(url, form, options);
+
             setMensaje({ 
-                respuesta:"Institucion registrado con exito, para el analísis",
+                respuesta: institucion ? "Institución actualizada con éxito." : "Institución registrada con éxito.",
                 tipo: true
-            })
+            });
+            
             setTimeout(() => {
                 navigate('/dashboard/listaInstituciones');
             }, 3000);
-            console.log(response);
         } catch (error) {
             console.log(error);
             setMensaje({ 
-                respuesta: error.response.data.msg,
+                respuesta: error.response?.data?.msg || "Hubo un error al procesar la solicitud.",
                 tipo: false 
-            })
+            });
             setTimeout(() => {
-                setMensaje({})
+                setMensaje({});
             }, 3000);
         }
-    }
+    };
+    
     return (
         <form onSubmit={handleSubmit}>
             {Object.keys(mensaje).length>0 && <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>}    
@@ -246,14 +228,13 @@ export const Formulario = ({ institucion }) => {
                 className='bg-green-600 w-full p-3 
         text-slate-300 uppercase font-bold rounded-lg 
         hover:bg-gray-900 cursor-pointer transition-all'
-        value={institucion?.institucion ? 'Actualizar': 'Registrar'}
+        value={institucion?._id ? 'Actualizar': 'Registrar'}
         /> 
         </form>
     )
 }
 
 Formulario.propTypes = {
-    institucion: PropTypes.shape({
         institucion: PropTypes.shape({
             nombre: PropTypes.string,
             direccion: PropTypes.string,
@@ -265,5 +246,5 @@ Formulario.propTypes = {
             Infraestructura: PropTypes.string,
             socieconomico: PropTypes.string
         })
-    })
+
 };

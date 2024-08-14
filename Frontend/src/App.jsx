@@ -16,6 +16,7 @@ import ListaInstituciones  from './paginas/ListaInstituciones'
 
 import { RegistroMinisterio } from './paginas/Ministerios'
 import { NotAllowed } from './paginas/NotAllowed'
+import InstitucionEspecifica from './paginas/InstitucionEspecifica'
 
 
 
@@ -42,11 +43,12 @@ function App() {
           <Route index element={<Perfil/>}/>       
        
           <Route path='/dashboard/crear' element={<CrearInstitucion/>}/>
-          
-          <Route path='/dashboard/actualizar' element={<Actualizar/>}/>
+          <Route path='/dashboard/actualizar/:id' element={<Actualizar/>}/>
           <Route path='/dashboard/ministerio' element={<RegistroMinisterio/>}/>
+          <Route path='/dashboard/institucion/:id' element={<InstitucionEspecifica/>}/>
           <Route path='/dashboard/listaInstituciones' element={<ListaInstituciones/>}/>
         </Route>
+        
       </Routes>
     </AuthProvider>
     </BrowserRouter>

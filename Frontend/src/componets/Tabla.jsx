@@ -35,7 +35,7 @@ const Tabla = () => {
                 return
             }
             const token = localStorage.getItem('token')
-            const url = `${process.env.VITE_BACKEND_URL}/institucion/eliminar/${id}`
+            const url = `${process.env.VITE_BACKEND_URL}/eliminari/${id}`
             const headers = {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`
@@ -101,7 +101,7 @@ const Tabla = () => {
                                         <td className='py-2 text-center'>
                                             <MdNoteAdd 
                                                 className="h-7 w-7 text-slate-800 cursor-pointer inline-block mr-2"
-                                                onClick={() => navigate(`/dashboard/listaInstituciones/${institucion._id}`)}
+                                                onClick={() => navigate(`/dashboard/institucion/${institucion._id}`)}
                                             />
                                             {
                                                 auth.rol === "Administrador" && (

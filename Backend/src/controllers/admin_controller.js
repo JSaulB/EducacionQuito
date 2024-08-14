@@ -252,6 +252,28 @@ const recuperarPassword = async (req,res)=>{
     // Actividad 4 (Respuesta)
     res.status(200).json({msg:'Correo enviado, verifica tu email'})
 }
+// Obtener una institución por ID
+const getInstitucionById = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Validar si el id es válido
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).json({ msg: 'ID no válido' });
+        }
+
+        const institucion = await institucion1.findById(id);
+
+        if (!institucion) {
+            return res.status(404).json({ msg: 'Institución no encontrada' });
+        }
+
+        res.json(institucion);
+    } catch (msg) {
+        res.status(500).json({ message: msg.message });
+    }
+};
+
 const comprobarTokenPasword = async (req,res)=>{
     // Actividad 1 (Request)
     const {token} = req.params
@@ -402,4 +424,5 @@ export {
     createEstudiante,
     updateEstudiante,
     deleteEstudiante,
+    getInstitucionById
 }
