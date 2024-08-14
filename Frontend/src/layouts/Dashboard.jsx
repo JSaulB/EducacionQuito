@@ -86,7 +86,7 @@ export const Dashboard = () => {
                         Usuario - {auth?.nombre}
                     </div> */}
                     <div>
-                        <Link to='/landingpage' className="text-white mr-3 text-md block hover:bg-red-900 text-center bg-red-600 px-4 py-1 rounded-lg" onClick={localStorage.removeItem('token')}>Salir</Link>
+                        <Link to='/landingpage' className="text-white mr-3 text-md block hover:bg-red-900 text-center bg-red-600 px-4 py-1 rounded-lg" >Salir</Link>
                     </div>
                 </div>
 
