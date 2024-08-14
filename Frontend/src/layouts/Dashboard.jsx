@@ -11,9 +11,14 @@ export const Dashboard = () => {
 
     console.log(auth);
     
-    const [form,setform]=useState({nombre: "" ,apellido:"",direccion:"", telefono:""}) 
+    const [form, setForm] = useState({
+        nombre: auth?.nombre || "", 
+        apellido: auth?.apellido || "", 
+        direccion: auth?.direccion || "", 
+        telefono: auth?.telefono || ""
+    })
     const handleChange = (e) => {
-        setform({
+        setForm({
             ...form, // Copia del estado
             [e.target.name]: e.target.value // Nombre: "valor"
         });
@@ -81,7 +86,7 @@ export const Dashboard = () => {
                         Usuario - {auth?.nombre}
                     </div> */}
                     <div>
-                        <Link to='/landingpage' className="text-white mr-3 text-md block hover:bg-red-900 text-center bg-red-600 px-4 py-1 rounded-lg">Salir</Link>
+                        <Link to='/landingpage' className="text-white mr-3 text-md block hover:bg-red-900 text-center bg-red-600 px-4 py-1 rounded-lg" onClick={localStorage.removeItem('token')}>Salir</Link>
                     </div>
                 </div>
 

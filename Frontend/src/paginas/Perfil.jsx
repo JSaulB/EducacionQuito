@@ -49,20 +49,21 @@ export const Perfil = () => {
 
             )
          }
-
          {
-            auth?.rol=="Administrador" &&(
+            auth?.rol ==="Administrador" &&(
                 <li className="bg-gray-400 p-4 rounded-lg shadow-md flex items-center justify-center hover:bg-white font-bold" style={{ height: '180px', width: '160px' }}>
                     <Link 
-                        to='/dashboard/actualizar' 
-                        className={`${urlActual === '/dashboard/actualizar' ? 'text-slate-100 bg-gray-900 px-3 py-2 rounded-md' : 'text-slate-900'} text-xl block text-center hover:text-slate-600`}
-                    >Actualizar Institución
-                    <img src="https://images.vexels.com/media/users/3/141104/isolated/preview/57003a56b5f8470651295adb4b7be139-actualizar-signo-de-flecha.png" alt="img-client" className="m-auto mt-3 p-1 border-2 border-slate-00 rounded-full" width={80} height={80} />
+                        to='/dashboard/actualizar-institucion' 
+                        className={`${urlActual === '/dashboard/actualizar-institucion' ? 'text-slate-100 bg-gray-900 px-3 py-2 rounded-md' : 'text-slate-900'} text-xl block text-center hover:text-slate-600`}
+                    >
+                        Actualizar Instituciones
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm0JvVF5FJgxUvqkgEL-_lBh0mZQlweJM8Jg&s" alt="img-client" className="m-auto mt-3 p-1 border-2 border-slate-00 rounded-full" width={80} height={80} />
+
                     </Link>
                 </li>
 
             )
-         }
+         }         
 
                 <li className="bg-gray-400 p-4 rounded-lg shadow-md flex items-center justify-center hover:bg-white font-bold" style={{ height: '180px', width: '160px' }}>
                     <Link 
