@@ -28,6 +28,7 @@ const sendMailToUser = (userMail, token) => {
         }
     });
 };
+
 const sendMailToUserCiudadania = (email, token) => {
     let mailOptions = {
       from: process.env.USER_MAILTRAP,
@@ -43,7 +44,27 @@ const sendMailToUserCiudadania = (email, token) => {
         console.log('Correo enviado: ' + info.response);
       }
     });
-  };
+};
+
+
+
+// send mail to patient
+const sendMailToMinisterio = async(userMail,password)=>{
+    let info = await transporter.sendMail({
+    from: 'admin@edu.com',
+    to: userMail,
+    subject: "Correo de bienvenida",
+    html: `
+    <h1>Sistema de gestión academico </h1>
+    <hr>
+    <p>Contraseña de acceso: ${password}</p>
+    <a href=${process.env.URL_FRONTEND}login>Clic para iniciar sesión</a>
+    <hr>
+    <footer>Te damos la Bienvenida!</footer>
+    `
+    });
+    console.log("Mensaje enviado satisfactoriamente: ", info.messageId);
+}
 
 const sendMailToRecoveryPassword = async(userMail, token) => {
     let info = await transporter.sendMail({
@@ -64,5 +85,6 @@ const sendMailToRecoveryPassword = async(userMail, token) => {
 export {
     sendMailToUser,
     sendMailToUserCiudadania,
-    sendMailToRecoveryPassword
+    sendMailToRecoveryPassword,
+    sendMailToMinisterio
 };

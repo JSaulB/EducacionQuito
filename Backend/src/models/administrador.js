@@ -44,8 +44,12 @@ const adminSchema = new Schema({
     confirmEmail:{
         type:Boolean,
         default:false
+    },
+    tipo: {
+        type: String,
+        enum: ['Administrador'], 
+        default: 'Administrador'
     }
-
 },{
     timestamps:true
 })
@@ -74,15 +78,25 @@ const institucionSchema = new Schema({
     categoria: {
         type: String,
         required: true,
-        enum: ['A', 'B', 'C','D','E'],
+        enum: ['A', 'B', 'C'],
         trim: true
     },
-    historialSocioeconomico: {
+    Nestudiantes:{
+        type:Number,
+        trim:true,
+        default:null
+    },
+    Infraestructura: {
         type: String,
         required: true,
-        enum: ['Alto', 'Medio', 'Bajo'],
+        enum: ['Muy Buena', 'Buena', 'Regular','Mala'],
         trim: true
-    }
+    },
+    socieconomico: {
+        type: String,
+        enum: ['Alto', 'Medio-Alto', 'Medio','Medio-Bajo','Bajo'],
+        trim: true
+    },
 }, {
     timestamps: true
 });
@@ -128,6 +142,9 @@ adminSchema.methods.matchPassword = async function(password){
     return response
 }
 
+
+
+
 // Método para crear un token 
 adminSchema.methods.crearToken = function(){
     const tokenGenerado = this.token = Math.random().toString(36).slice(2)
@@ -136,6 +153,6 @@ adminSchema.methods.crearToken = function(){
 
 
 // Exportar los modelos
-export default model('administrador',adminSchema); 
-export const institucion1 = model('institucion1', institucionSchema);
+export default model('Administradores',adminSchema); 
+export const institucion1 = model('Instituciones', institucionSchema);
 export const Estudiante = model('Estudiante', estudianteSchema);

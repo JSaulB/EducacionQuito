@@ -4,7 +4,7 @@ import{ Login } from "./paginas/Login"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { Dashboard } from "./layouts/Dashboard"
 import { LandinPage } from "./paginas/LandingPage"
-import { ListaAdministradores } from "./paginas/ListaAdministradores"
+
 import { Perfil } from "./paginas/Perfil"
 import { CrearInstitucion } from "./paginas/CrearInstitucion"
 import { Actualizar} from './paginas/Actualizar'
@@ -13,6 +13,10 @@ import { Forgot } from './paginas/Forgot'
 import Restablecer from './paginas/Restablecer'
 import { Confirmar } from './paginas/Confirmar'
 import ListaInstituciones  from './paginas/ListaInstituciones'
+
+import { RegistroMinisterio } from './paginas/Ministerios'
+import { NotAllowed } from './paginas/NotAllowed'
+
 
 
 function App() {
@@ -31,16 +35,17 @@ function App() {
         <Route path='forgot/:id' element={<Forgot/>}/>
         <Route path='confirmar/:token' element={<Confirmar/>}/>
         <Route path='recuperar-password/:token' element={<Restablecer/>}/>
+        <Route path='*' element={<NotAllowed/>}/>
 
 
         <Route path='dashboard' element = {<Dashboard/>}>
           <Route index element={<Perfil/>}/>       
-          <Route path='/dashboard/listar' element = {<ListaAdministradores/>}/>
+       
           <Route path='/dashboard/crear' element={<CrearInstitucion/>}/>
+          
           <Route path='/dashboard/actualizar' element={<Actualizar/>}/>
+          <Route path='/dashboard/ministerio' element={<RegistroMinisterio/>}/>
           <Route path='/dashboard/listaInstituciones' element={<ListaInstituciones/>}/>
-
-        
         </Route>
       </Routes>
     </AuthProvider>

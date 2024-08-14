@@ -1,5 +1,6 @@
 import axios from "axios"
 import { createContext, useEffect, useState } from "react"
+import { jwtDecode } from "jwt-decode"
 // Creación del grupo de whatsapp
 const AuthContext = createContext()
 // El mensaje a enviar
@@ -11,7 +12,10 @@ const AuthProvider = ({ children }) => {
     
     const perfil = async(token) => {
         try {
-            const url = `${import.meta.env.VITE_BACKEND_URL}/perfil`
+            const user = jwtDecode(token) // Decodificar el token 
+            const url = user?.rol == "Administrador" ? `${process.env.VITE_BACKEND_URL}/perfil`:`${process.env.VITE_BACKEND_URL}/ministerio/perfil`
+            console.log(user)
+            // const url = `${import.meta.env.VITE_BACKEND_URL}/ministerio/perfil`
             console.log(url)
             const options={
                 headers: {
@@ -20,12 +24,35 @@ const AuthProvider = ({ children }) => {
                 }
             }
             const respuesta= await axios.get(url,options)
-            setAuth(respuesta.data)
             console.log(respuesta.data)
+            setAuth(respuesta.data)
         } catch (error) {
             console.log(error);
         }
     }
+    const actualizarPerfil = async (form) => {
+    
+        console.log(form);
+        const token = localStorage.getItem("token")
+        try {
+            const url= auth?.rol==="Administrador"?`${process.env.VITE_BACKEND_URL}/administrador/${auth._id} `:`${process.env.VITE_BACKEND_URL}/ministerio/${auth._id} `
+
+            const respuesta=await axios.put (url,form,{
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                    }
+                    })
+                    perfil(token) /*Sirve para que cuando se actualice el perfil, se cambie a la nueva actualizacion*/
+                    return {respuesta: respuesta.data,tipo:true}
+
+                  
+
+        } catch (error) {
+            return {respuesta: error.data,tipo:false}
+            
+        }
+    };
     useEffect(() => {
         const token = localStorage.getItem('token')
         if(token)
@@ -40,7 +67,9 @@ const AuthProvider = ({ children }) => {
                 auth,
                 setAuth,
                 data,
-                setData           
+                setData,
+                actualizarPerfil
+                     
             }
         }>
             {children}
@@ -49,6 +78,7 @@ const AuthProvider = ({ children }) => {
 }
 export {
     AuthProvider
+
 }
 export default AuthContext
 ///nfdgjhgfd

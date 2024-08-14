@@ -8,6 +8,11 @@ const ministerioSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    direccion: {
+        type: String,
+        required: true,
+
+    },
     email: {
         type: String,
         required: true,
@@ -16,15 +21,19 @@ const ministerioSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+        
     },
-    rol: {
-        type: String,
-        enum: ['admin', 'ministerio'],
-        required: true
-    },
+    // rol: {
+    //     type: String,
+    //     enum: ['admin', 'Ministerio'],
+    // },
     verificado: {
         type: Boolean,
         default: false
+    },
+    administrador:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'administrador'
     }
 }, { timestamps: true });
 
