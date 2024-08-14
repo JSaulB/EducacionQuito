@@ -139,6 +139,8 @@ const actualizarPerfil = async (req,res)=>{
 
     res.status(200).json({msg:"Perfil actualizado correctamente"})
 }
+
+
 //Perfil de usuario
 const perfil = (req,res)=>{
     delete req.ministerioBDD.token // Eliminar el token

@@ -35,14 +35,17 @@ const AuthProvider = ({ children }) => {
         console.log(form);
         const token = localStorage.getItem("token")
         try {
-            
-            const respuesta=await axios.put (`${process.env.VITE_BACKEND_URL}/administrador/${auth._id} `,form,{
+            const url= auth?.rol==="Administrador"?`${process.env.VITE_BACKEND_URL}/administrador/${auth._id} `:`${process.env.VITE_BACKEND_URL}/ministerio/${auth._id} `
+
+            const respuesta=await axios.put (url,form,{
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                     }
                     })
+                    perfil(token) /*Sirve para que cuando se actualice el perfil, se cambie a la nueva actualizacion*/
                     return {respuesta: respuesta.data,tipo:true}
+
                   
 
         } catch (error) {

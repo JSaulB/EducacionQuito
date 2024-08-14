@@ -151,6 +151,8 @@ const actualizarPerfil = async (req,res)=>{
     // Actividad 4 (Respuesta)
     res.status(200).json({msg:'Perfil actualizado'})
 }
+
+
 const actualizarPassword = async (req,res)=>{
     // Actividad 1 (Request)
     const {email, password, newpassword, confirmpassword} = req.body
