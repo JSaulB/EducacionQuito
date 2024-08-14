@@ -1,63 +1,56 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { MdDeleteForever, MdNoteAdd, MdInfo } from "react-icons/md";
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Mensaje from "./Alerts";
 import AuthContext from "../context/AuthProvider";
-import { Link,useLocation } from 'react-router-dom'
 
 const Tabla = () => {
-    const navigate = useNavigate();
-    const { auth } = useContext(AuthContext)
+    const { auth } = useContext(AuthContext);
+    const [instituciones, setInstituciones] = useState([]);
 
-    const [instituciones, setinstituciones] = useState([])
-    
-    const listarinstituciones = async () => {
+    const listarInstituciones = async () => {
         try {
-            const token = localStorage.getItem('token')
-            const url = `${process.env.VITE_BACKEND_URL}/listai`
+            const token = localStorage.getItem('token');
+            const url = `${process.env.VITE_BACKEND_URL}/listai`;
             const options = {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`
                 }
-            }
-            const respuesta = await axios.get(url, options)
-            setinstituciones(respuesta.data, ...instituciones)
+            };
+            const respuesta = await axios.get(url, options);
+            setInstituciones(respuesta.data);
         } catch (error) {
             console.log(error);
         }
     }
 
-    
-
     useEffect(() => {
-        listarinstituciones()
-    }, [])
-
+        listarInstituciones();
+    }, []);
 
     return (
         <>
             {instituciones.length === 0 ? (
                 <Mensaje tipo={'active'}>{'No existen registros'}</Mensaje>
             ) : (
-                <ul className="grid grid-cols-4 gap-4 mt-5">
+                <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
                     {instituciones.map((institucion, index) => (
                         <li
                             key={institucion._id}
-                            className="rounded-lg shadow-md hover:bg-white font-bold"
-                            style={{ height: '180px', width: '160px' }}
+                            className="bg-white rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out"
                         >
                             <Link
                                 to={`/dashboard/actualizar/${institucion._id}`}
-                                className="bg-gray-400 p-4 flex flex-col items-center justify-center text-slate-900 text-xl text-center hover:text-slate-600"
-                                style={{ height: '100%', width: '100%', display: 'block' }}
+                                className="block p-6 text-center"
                             >
-                                <span>{index + 1}. {institucion.nombre}</span>
+                                <h2 className="font-semibold text-lg text-gray-700 mb-3">
+                                    {index + 1}. {institucion.nombre}
+                                </h2>
                                 <img
                                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm0JvVF5FJgxUvqkgEL-_lBh0mZQlweJM8Jg&s"
                                     alt={`Imagen de ${institucion.nombre}`}
-                                    className="m-auto mt-3 p-1 border-2 border-slate-00 rounded-full"
+                                    className="mx-auto mb-3 border-2 border-gray-200 rounded-full"
                                     width={80}
                                     height={80}
                                 />
@@ -69,4 +62,5 @@ const Tabla = () => {
         </>
     );
 }
-export default Tabla
+
+export default Tabla;
