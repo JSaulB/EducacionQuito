@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'; // Para obtener el ID desde la URL
 import axios from 'axios';
 import Mensaje from "../componets/Alerts";
-import { Formulario } from '../componets/Formulario';
+import { Formulario } from '../componets/FormularioA';
 
 export const Actualizar = () => {
     const { id } = useParams(); // Obtenemos el ID de la URL
