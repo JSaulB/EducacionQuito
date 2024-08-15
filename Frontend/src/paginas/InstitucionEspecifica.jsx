@@ -26,7 +26,7 @@ const InstitucionEspecifica = () => {
 
         obtenerInstitucion();
     }, [id]);
-
+    console.log(institucion);
     if (!institucion) {
         return <p className="text-center text-gray-500">Cargando...</p>;
     }

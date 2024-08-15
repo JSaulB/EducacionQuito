@@ -18,7 +18,7 @@ import { RegistroMinisterio } from './paginas/Ministerios'
 import { NotAllowed } from './paginas/NotAllowed'
 import InstitucionEspecifica from './paginas/InstitucionEspecifica'
 
-
+import ListaInstituciones2 from './paginas/ListaInstituciones 2'
 
 function App() {
   return (
@@ -47,6 +47,7 @@ function App() {
           <Route path='/dashboard/ministerio' element={<RegistroMinisterio/>}/>
           <Route path='/dashboard/institucion/:id' element={<InstitucionEspecifica/>}/>
           <Route path='/dashboard/listaInstituciones' element={<ListaInstituciones/>}/>
+          <Route path='/dashboard/instituciones' element={<ListaInstituciones2/>}/>
         </Route>
         
       </Routes>
