@@ -377,6 +377,13 @@ const crearAyuda = async (req, res) => {
     }
 
     try {
+        // Verifica si ya existe una ayuda para la misma institución
+        const existingAyuda = await Ayuda.findOne({ institucion });
+
+        if (existingAyuda) {
+            return res.status(400).json({ msg: 'Ya existe una ayuda para esta institución' });
+        }
+
         const newAyuda = new Ayuda({
             institucion,
             descripcion,
@@ -389,6 +396,17 @@ const crearAyuda = async (req, res) => {
         res.status(500).json({ msg: 'Error al crear la ayuda', error: error.message });
     }
 };
+
+const listarAyudas = async (req, res) => {
+    try {
+        const ayudas = await Ayuda.find();
+        res.status(200).json(ayudas);
+    } catch (error) {
+        res.status(500).json({ msg: 'Error al obtener las ayudas', error: error.message });
+    }
+};
+
+
 
 
 // Crear un nuevo estudiante
@@ -447,5 +465,6 @@ export {
     updateEstudiante,
     deleteEstudiante,
     getInstitucionById,
-    crearAyuda
+    crearAyuda,
+    listarAyudas
 }

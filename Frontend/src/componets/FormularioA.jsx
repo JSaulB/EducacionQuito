@@ -21,6 +21,7 @@ export const Formulario = ({ institucion }) => {
         Infraestructura: institucion?.Infraestructura ?? "",
         socieconomico: institucion?.socieconomico ?? ""
     });
+    
 
     const handleChange = (e) => {
         setForm({

@@ -3,11 +3,13 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import Mensaje from './Alerts';
 
 const FormularioAyuda = () => {
     const { id } = useParams();
     const [institucionId, setInstitucionId] = useState('');
     const [institucionNombre, setInstitucionNombre] = useState('');
+    const [mensaje, setMensaje] = useState({});
 
     useEffect(() => {
         const obtenerInstitucion = async () => {
@@ -58,9 +60,17 @@ const FormularioAyuda = () => {
                 };
 
                 const response = await axios.post(url, values, options);
+                setMensaje({
+                    respuesta: respuesta.data.msg,
+                    tipo: true,
+                  });
                 console.log('Respuesta del servidor:', response.data);
             } catch (error) {
                 console.error('Error al enviar la solicitud de ayuda:', error);
+                setMensaje({
+                    respuesta: respuesta.data.error,
+                    tipo: true,
+                  });
             }
         },
     });
@@ -73,7 +83,8 @@ const FormularioAyuda = () => {
 
     return (
         <form onSubmit={formik.handleSubmit} className="max-w-lg mx-auto mt-10 p-6 bg-white rounded shadow-md">
-            <h2 className="text-2xl font-bold mb-6">Solicitud de Ayuda para {institucionNombre}</h2>
+            {Object.keys(mensaje).length > 0 && <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>}
+            <h2 className="text-2xl font-bold mb-6">Registrar de Ayuda para {institucionNombre}</h2>
             
             <div className="mb-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="descripcion">

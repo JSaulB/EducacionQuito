@@ -40,7 +40,10 @@ export const Formulario = ({ institucion }) => {
     }, [urlActual]);
 
     const validationSchema = Yup.object({
-        nombre: Yup.string().required('El nombre es requerido'),
+        nombre: Yup.string().matches(/^[A-Za-zÀ-ÿ\s]+$/, "El nombre solo puede contener letras")
+        .min(5, "El nombre debe tener al menos 5 caracteres")
+        .max(10, "El nombre no puede tener más de 10 caracteres")
+        .required("El nombre es requerido"),
         direccion: Yup.string().required('La dirección es requerida'),
         email: Yup.string().email('Email inválido').required('El email es requerido'),
         telefono: Yup.string().matches(/^[0-9]+$/, "Sólo se permiten números").required('El teléfono es requerido'),

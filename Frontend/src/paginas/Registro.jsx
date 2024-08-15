@@ -9,8 +9,14 @@ export const Registro = () => {
   const [mensaje, setMensaje] = useState({});
 
   const validationSchema = Yup.object({
-    nombre: Yup.string().required('El nombre es obligatorio'),
-    apellido: Yup.string().required('El apellido es obligatorio'),
+    nombre: Yup.string().matches(/^[A-Za-zÀ-ÿ\s]+$/, "El nombre solo puede contener letras")
+    .min(5, "El nombre debe tener al menos 5 caracteres")
+    .max(10, "El nombre no puede tener más de 10 caracteres")
+    .required("El nombre es requerido"),
+    apellido: Yup.string().matches(/^[A-Za-zÀ-ÿ\s]+$/, "El apellido solo puede contener letras")
+    .min(2, "El apellido debe tener al menos 5 caracteres")
+    .max(10, "El apellido no puede tener más de 10 caracteres")
+    .required("El apellido es requerido"),
     direccion: Yup.string().required('La dirección es obligatoria'),
     telefono: Yup.string()
       .matches(/^[0-9]+$/, 'El teléfono debe ser un número')

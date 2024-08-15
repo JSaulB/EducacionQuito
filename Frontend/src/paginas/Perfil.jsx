@@ -65,7 +65,7 @@ export const Perfil = () => {
             )
          } 
          {
-            auth?.rol === "Administrador" && (
+            auth?.rol === "ministerio" && (
                     <li className="bg-gray-400 p-4 rounded-lg shadow-md flex items-center justify-center hover:bg-white font-bold" style={{ height: '180px', width: '160px' }}>
                         <Link 
                             to="/dashboard/ayuda" 

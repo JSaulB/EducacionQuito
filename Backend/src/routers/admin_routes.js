@@ -21,7 +21,8 @@ import {
     createEstudiante,
     updateEstudiante,
     deleteEstudiante,
-    crearAyuda
+    crearAyuda,
+    listarAyudas
 }from "../controllers/admin_controller.js";
 
 import verificarAutenticacion from "../middlewares/autadmin.js";
@@ -47,6 +48,7 @@ router.put('/actualizari/:id',verificarAutenticacion, updateInstitucion);
 router.delete('/eliminari/:id',verificarAutenticacion, deleteInstitucion);
 
 router.post('/ayuda', verificarAutenticacion,crearAyuda);
+router.get('/listarayuda',verificarAutenticacion,listarAyudas)
 
 router.get('/listare',verificarAutenticacion, getEstudiantes);
 router.post('/creare',verificarAutenticacion, createEstudiante);

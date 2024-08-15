@@ -17,7 +17,7 @@ export const LandinPage = () =>{
           Registrarse
         </button>
     </header>
-      <h1 className='Titulo'>EduScholar Portal</h1>
+      <h1 className='Titulo'>Portal de Educación</h1>
       <div className='Contenedorlogo'>
         <a href="../src/assets/educacion.jpg" target="_blank">
           <img src={educacion} className="logo" alt="educacion" />

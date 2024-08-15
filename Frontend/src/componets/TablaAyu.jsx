@@ -9,6 +9,7 @@ const TablaAyuda = () => {
     const navigate = useNavigate();
     const { auth } = useContext(AuthContext);
     const [instituciones, setInstituciones] = useState([]);
+    const [mensaje, setMensaje] = useState({});
 
     const listarInstituciones = async () => {
         try {
