@@ -10,6 +10,8 @@ servers:
 tags:
 - name: Administrador
   description: API para administradores
+- name: Ministerio
+  description: API para el ministerio
 
 paths:
   /api/loginadmin:
@@ -40,8 +42,9 @@ paths:
               schema:
                 type: object
                 properties:
-                  token:
-                    type: string
+                  type: string
+                example: Inicio de sesión con éxito  
+
         401:
           description: Credenciales incorrectas
           content:
@@ -466,6 +469,125 @@ paths:
                 properties:
                   type: string
                 example: Error al actualizar institucion
+    
+  /api/ministerio/register:
+    post:
+      tags:
+        - Administrador
+      summary: Registrar un nuevo Ministerio
+      description: Registrar un nuevo Ministerio
+      requestBody:
+        description: Datos del Ministerio
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+                direccion:
+                  type: string
+                email:
+                  type: string
+              example:
+                nombre: Ministerio de Educación
+                direccion: Calle 123, Ciudad 456
+                email: ministerioeducacion@ministerioeducacion.com
+      responses:
+        200:
+          description: Registro exitoso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                    type: string
+                example: Ministerio registrado con éxito
+        400:
+          description: Error al registrar
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                    type: string
+                example: Error al registrar ministerio
+
+
+
+
+
+
+  /api/ministerio/login:
+    post:
+      tags:
+        - Ministerio
+      summary: Iniciar sesión como Ministerio
+      description: Iniciar sesión como Ministerio
+      requestBody:
+        description: Credenciales de inicio de sesión
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              example:
+                email: ministerioeducacion@ministerioeducacion.com
+                password: Mindtjwqzu5vk
+
+      responses:
+        200:
+          description: Token de acceso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type: string
+                example: Inicio de sesión con éxito  
+        401:
+          description: Credenciales incorrectas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example: Credenciales incorrectas
+ 
+  
+
+  /api/listari:
+    get:
+      tags:
+        - Ministerio
+      summary: Listar instituciones
+      description: Listar instituciones
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: Lista de instituciones
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Institucion'
+        401:
+          description: No autorizado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type: string
+                example: No autorizado  
 
                 
 
@@ -525,6 +647,26 @@ components:
         nroEstudiantes: 10000
         historialSocioeconomico: bajo
         observaciones: sin observaciones
+
+    Ministerio:
+      type: object
+      properties:
+        nombre:
+          type: string
+        direccion:
+          type: string
+        email:
+          type: string
+        verificado:
+          type: boolean
+        administrador:
+          type: string
+
+      required:
+        - nombre
+        - direccion
+        - email
+        - password
 
 
 securitySchemes:
