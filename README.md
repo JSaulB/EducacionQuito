@@ -238,3 +238,74 @@ Una vez realizado todos los métodos, usando router; establecemos las URL para c
 
 ![image](https://github.com/user-attachments/assets/4c3d907c-5ec8-46b8-9f88-26a070684b7a)
 
+
+# Frontend
+
+Estructura del componente frotend en Visual Studio Code utilizando React 18.3.1 arquitectura Modelo Vista-Controlador
+
+![image](https://github.com/user-attachments/assets/797676ef-bc46-42ba-a4de-1930bccaba9f)
+
+Landing page: página principal del frontend 
+
+![image](https://github.com/user-attachments/assets/3d8eb519-4122-4338-951b-147e2c47badd)
+
+Página de registro, formulario de envio de datos para un nuevo administrador
+
+![image](https://github.com/user-attachments/assets/895c5ef9-793f-4600-8298-5b3a199a645b)
+
+Inicio de sesión: formulario que permite escoger el tipo de usuario y validar los datos para dar el acceso.
+
+![image](https://github.com/user-attachments/assets/2c7d4c17-4f51-462d-9607-104a4d78c812)
+
+Página principal como administrador, fromulario de actualización de datos y dashboard con diferentes funciones.
+
+![image](https://github.com/user-attachments/assets/0fa724a5-d67f-43bc-8bcc-e84759fc98dc)
+
+Olvidaste tu contraseña, módulo que permite valdiar el correo existente para enviar al correo una respuesta para restablecimiento.
+
+![image](https://github.com/user-attachments/assets/7e4a63d4-b5f9-4850-b790-62c748dc7dd6)
+
+![image](https://github.com/user-attachments/assets/c8fb695e-d5cc-495e-aca0-498cdf98669e)
+
+Crear privilegio a usuario: Permite crear un nuevo usuario administrador: algunos permisos
+
+![image](https://github.com/user-attachments/assets/77d59bcd-d027-4ec7-94ba-cf76196f7a09)
+
+Formulario para el registro de una nueva institución: Formualrio que valida las entradas y permite registrar una nueva institución en la base de datos.
+
+![image](https://github.com/user-attachments/assets/0589a5a8-4012-403f-9c6b-ee274b509cb3)
+
+Lista instituciones, página en la que se ve todos los registros de la base de datos en la colección Instituciones.Integar además tres botones con funcionalidad para actualizar, eliminar y ver datos.
+
+![image](https://github.com/user-attachments/assets/4184cecd-8eb8-4997-8de6-e02a9bf90f81)
+
+![image](https://github.com/user-attachments/assets/8099dede-ebbd-4da2-b822-ad6902e67d33)
+
+Actualizar: De manera similar a registrar presenta un formualrio, este debe cargzr los datos previamente creados y permite modificar.
+
+![image](https://github.com/user-attachments/assets/0be673d4-a6b6-4ae3-b071-1b7cba8bf077)
+
+![image](https://github.com/user-attachments/assets/4f0933e3-4a5f-4ff9-95a0-21b69ac5b910)
+
+Eliminar registro, al hacer click en el botón desparece de al base de datos, con una pregunat de confirmación
+
+![image](https://github.com/user-attachments/assets/87eb6efc-8556-4173-98aa-758b3b371720)
+
+![image](https://github.com/user-attachments/assets/e5d5bbaa-0ca9-4d29-9013-70f9faba6862)
+
+Registrar ayuda: Mediante una lista, también se puede realizar el regsitro de ayduas para una institución:
+
+![image](https://github.com/user-attachments/assets/ee401a6b-e8f3-44e5-a811-b863f60d95f6)
+
+Se escoge la instiución deseada y se abre un formulario para dicha institución: 
+
+![image](https://github.com/user-attachments/assets/96a0d1b7-c72d-405e-9215-9ddee89ab727)
+
+![image](https://github.com/user-attachments/assets/ade85b81-c45f-4a97-9ec4-497f37e4c161)
+
+Despliegues:
+
+
+
+
+
