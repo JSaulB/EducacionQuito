@@ -35,8 +35,8 @@ export const Forgot = () => {
 
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 {Object.keys(message).length>0 && <Mensaje tipo={message.tipo}>{message.respuesta}</Mensaje>}
-                    <h1 className="text-3xl font-semibold mb-2 text-center uppercase  text-gray-200">Te olvidaste tu contraseña!</h1>
-                    <small className="text-gray-400 block my-4 text-sm">No te preocupes, ingresa tu correo para seguir con el procedimiento</small>
+                    <h1 className="text-3xl font-semibold mb-2 text-center uppercase  text-gray-200">¿Olvidaste tu contraseña?</h1>
+                    <small className="text-gray-400 block my-4 text-sm">Ingresa tu correo para reestablecer tu clave</small>
 
                     <form onSubmit={handleSubmit} >
 		
@@ -54,7 +54,7 @@ export const Forgot = () => {
 		                </div>
 		
 		                <div className="mb-3">
-		                    <button className="bg-gray-600 text-slate-300 border py-2 w-full rounded-xl mt-5 hover:scale-105 duration-300 hover:bg-gray-900 hover:text-white">Enviar Correo
+		                    <button className="bg-green-600 text-slate-300 border py-2 w-full rounded-xl mt-5 hover:scale-105 duration-300 hover:bg-green-800 hover:text-white">Enviar Correo
 		                    </button>
 		                </div>
 		
@@ -65,7 +65,7 @@ export const Forgot = () => {
 
                     <div className="mt-3 text-sm flex justify-between items-center">
                         <p>Ya recordaste tu contraseña?</p>
-                        <Link to="/login" className="py-2 px-5 bg-gray-600 text-slate-300 border rounded-xl hover:scale-110 duration-300 hover:bg-gray-900 hover:text-white">Iniciar Sesión</Link>
+                        <Link to="/login" className="py-2 px-5 bg-blue-500 text-slate-300 border rounded-xl hover:scale-110 duration-300 hover:bg-blue-800 hover:text-white">Iniciar Sesión</Link>
 
                     </div>
 

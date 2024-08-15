@@ -4,6 +4,9 @@ import { MdDeleteForever, MdNoteAdd, MdInfo } from "react-icons/md";
 import axios from 'axios';
 import Mensaje from "./Alerts";
 import AuthContext from "../context/AuthProvider";
+import Delete from "../assets/Delete.jpg"
+import Update from "../assets/Update.png"
+import Detalle from "../assets/Detalle.png"
 
 const Tabla = () => {
     const navigate = useNavigate();
@@ -64,8 +67,8 @@ const Tabla = () => {
                     ?
                     <Mensaje tipo={'active'}>{'No existen registros'}</Mensaje>
                     :
-                    <table className='w-full mt-5 table-auto shadow-lg  bg-white'>
-                        <thead className='bg-gray-800 text-slate-400'>
+                    <table className='w-full mt-5 table-auto shadow-lg  bg-white '>
+                        <thead className='bg-gray-600 text-slate-100'>
                             <tr>                                
                                 <th className='p-2'>N°</th>
                                 <th className='p-2'>Nombre de la Institucion</th>
@@ -77,6 +80,7 @@ const Tabla = () => {
                                 <th className='p-2'>Historial Socieconomico</th>
                                 <th className='p-2'>Numero de Estudiantes</th>
                                 <th className='p-2'>Observaciones</th>
+                                <th className='p-2'>Acciones</th>
 
                             </tr>
                         </thead>
@@ -95,23 +99,23 @@ const Tabla = () => {
                                         <td>{institucion.Nestudiantes}</td>
                                         <td>{institucion.descripcion}</td>
                     
-                                        <td>
+                                        {/* <td>
                                             <span className="bg-blue-100 text-green-500 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">{institucion.estado && "activo"}</span>
-                                        </td>
+                                        </td> */}
                                         <td className='py-2 text-center'>
-                                            <MdNoteAdd 
+                                            <img src={Detalle} 
                                                 className="h-7 w-7 text-slate-800 cursor-pointer inline-block mr-2"
                                                 onClick={() => navigate(`/dashboard/institucion/${institucion._id}`)}
                                             />
                                             {
                                                 auth.rol === "Administrador" && (
                                                     <>
-                                                        <MdInfo
+                                                        <img src={Update}
                                                             className="h-7 w-7 text-slate-800 cursor-pointer inline-block mr-2"
                                                             onClick={() => navigate(`/dashboard/actualizar/${institucion._id}`)}
                                                         />
             
-                                                        <MdDeleteForever 
+                                                        <img src={Delete}
                                                             className="h-7 w-7 text-red-900 cursor-pointer inline-block"
                                                             onClick={() => handleDelete(institucion._id)}
                                                         />

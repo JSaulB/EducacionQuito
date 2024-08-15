@@ -104,7 +104,7 @@ export const Login =() =>{
                     </div>
 
                     <div className="mb-3">
-                        <label className="mb-2 block text-sm font-semibold">Password</label>
+                        <label className="mb-2 block text-sm font-semibold">Constraseña</label>
                         <input 
                             type="password"
                             name='password'

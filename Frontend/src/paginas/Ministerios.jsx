@@ -44,7 +44,7 @@ export const RegistroMinisterio = () => {
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img
           alt="Your Company"
-          src="https://www.65ymas.com/uploads/s1/36/42/51/bigstock-internet-security-firewall-or-326464240.jpeg"
+          src="https://previews.123rf.com/images/rizkiahmadfauzi28/rizkiahmadfauzi282304/rizkiahmadfauzi28230403919/203130378-icono-de-usuario-con-candado-sobre-fondo-blanco-ilustraci%C3%B3n-3d-aislada.jpg"
           className="m-auto mt-4 p-1 border-2 border-slate-4000 rounded-full"
           width={80}
           height={80}
@@ -52,7 +52,7 @@ export const RegistroMinisterio = () => {
 
         <div className="md:w-4/5 sm:w-full">
           {Object.keys(mensaje).length > 0 && <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>}
-          <h1 className="text-3xl font-semibold mb-2 text-center uppercase text-white mt-6">Entidad Ministerio</h1>
+          <h1 className="text-3xl font-semibold mb-2 text-center uppercase text-white mt-6">Crear Privilegio a Usuario</h1>
           <small className="text-gray-400 block my-7 text-m underline">Modo-Ministerio</small>
 
           <Formik
@@ -89,7 +89,7 @@ export const RegistroMinisterio = () => {
                 </div>
 
                 <div className="mb-3">
-                  <label className="mb-2 block text-sm font-semibold">Email:</label>
+                  <label className="mb-2 block text-sm font-semibold">Correo Electrónico:</label>
                   <Field
                     type="email"
                     name="email"
