@@ -47,15 +47,15 @@ export const Registro = () => {
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img
-          alt="Your Company"
-          src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+          alt="EduScholar"
+          src=".\src\assets\pngegg.png"
           className="mx-auto h-10 w-auto"
         />
 
         <div className="md:w-4/5 sm:w-full">
           {Object.keys(mensaje).length > 0 && <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>}
-          <h1 className="text-3xl font-semibold mb-2 text-center uppercase text-white-500">REGISTRO</h1>
-          <small className="text-gray-400 block my-4 text-sm">INGRESA TODOS LOS DATOS CORRECTAMENTE</small>
+          <h1 className="text-3xl font-semibold mb-2 text-center uppercase text-white">REGISTRO</h1>
+          <small className="text-gray-300 block my-4 text-sm">INGRESA TODOS LOS DATOS CORRECTAMENTE</small>
 
           <Formik
             initialValues={{
@@ -133,7 +133,7 @@ export const Registro = () => {
                 </div>
 
                 <div className="mb-3">
-                  <label className="mb-2 block text-sm font-semibold">Password:</label>
+                  <label className="mb-2 block text-sm font-semibold">Contraseña:</label>
                   <Field
                     type="password"
                     id="password"
@@ -160,9 +160,9 @@ export const Registro = () => {
           <div className="mt-5 text-xs border-b-2 py-4"></div>
 
           <div className="mt-3 text-sm flex justify-between items-center">
-            <p>¿Ya tienes una cuenta? Iniciar sesión</p>
+            <p>¿Ya tienes una cuenta?</p>
             <Link to="/login" className="py-2 px-5 bg-green-500 text-slate-100 border rounded-xl hover:scale-120 duration-300 hover:bg-green-900">
-              Login
+              Iniciar sesión
             </Link>
           </div>
         </div>

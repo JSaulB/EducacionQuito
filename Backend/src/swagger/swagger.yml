@@ -145,21 +145,7 @@ paths:
                     type: string
                 example: Lo sentimos, no se puede validar la cuenta
 
-  /api/administradores:
-    get:
-      tags:
-      - Administrador
-      summary: Obtener lista de administradores
-      description: Obtener lista de administradores
-      responses:
-        200:
-          description: Lista de administradores
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Administrador'
+  
 
   /api/recuperar-password:
     post:

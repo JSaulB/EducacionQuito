@@ -70,8 +70,8 @@ export const Login =() =>{
         <div className=" flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <img
-                alt="Your Company"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                alt="EduScholar"
+                src=".\src\assets\pngegg.png"
                 className="mx-auto h-10 w-auto"
                 />
                 {Object.keys(mensaje).length>0 && <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>}  {/*Para mostrar las alertas */}
@@ -98,7 +98,7 @@ export const Login =() =>{
                             name='email'
                             value={form.email || ""}
                             onChange={handleChange}
-                            placeholder="Enter you email"
+                            placeholder="Ingresa tu correo electronico"
                             className="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500"
                         />
                     </div>
@@ -119,7 +119,7 @@ export const Login =() =>{
                         <button
                             className="py-2 w-full block text-center bg-blue-500 text-slate-300 border rounded-xl hover:scale-100 duration-300 hover:bg-blue-900 hover:text-white"
                         >
-                            Login
+                            Iniciar Sesión
                         </button>
                     </div>
 
