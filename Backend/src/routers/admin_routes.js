@@ -21,6 +21,7 @@ import {
     createEstudiante,
     updateEstudiante,
     deleteEstudiante,
+    crearAyuda
 }from "../controllers/admin_controller.js";
 
 import verificarAutenticacion from "../middlewares/autadmin.js";
@@ -44,6 +45,8 @@ router.get('/institucion/:id', verificarAutenticacion, getInstitucionById);
 router.post('/creari',verificarAutenticacion,createInstitucion);
 router.put('/actualizari/:id',verificarAutenticacion, updateInstitucion);
 router.delete('/eliminari/:id',verificarAutenticacion, deleteInstitucion);
+
+router.post('/ayuda', verificarAutenticacion,crearAyuda);
 
 router.get('/listare',verificarAutenticacion, getEstudiantes);
 router.post('/creare',verificarAutenticacion, createEstudiante);

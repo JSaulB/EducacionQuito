@@ -19,6 +19,8 @@ import { NotAllowed } from './paginas/NotAllowed'
 import InstitucionEspecifica from './paginas/InstitucionEspecifica'
 
 import ListaInstituciones2 from './paginas/ListaInstituciones 2'
+import TablaAyuda from './componets/TablaAyu'
+import FormularioAyuda from './componets/FormularioAyuda'
 
 function App() {
   return (
@@ -48,6 +50,8 @@ function App() {
           <Route path='/dashboard/institucion/:id' element={<InstitucionEspecifica/>}/>
           <Route path='/dashboard/listaInstituciones' element={<ListaInstituciones/>}/>
           <Route path='/dashboard/instituciones' element={<ListaInstituciones2/>}/>
+          <Route path="/dashboard/ayuda" element={<TablaAyuda />} />
+          <Route path="/dashboard/registrar-ayuda/:id" element={<FormularioAyuda />} />
         </Route>
         
       </Routes>

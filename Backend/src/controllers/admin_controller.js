@@ -1,6 +1,7 @@
 import administrador from "../models/administrador.js"
 import { institucion1 } from '../models/administrador.js';
 import {Estudiante }from '../models/administrador.js';
+import  Ayuda  from "../models/ayuda.js"
 import { sendMailToUser, sendMailToRecoveryPassword} from "../config/nodemailer.js"
 import mongoose from "mongoose"
 import generarJWT from "../helpers/crearJWT.js";
@@ -368,6 +369,27 @@ const getEstudiantes = async (req, res) => {
         res.status(500).json({ message: msg.message });
     }
 };
+const crearAyuda = async (req, res) => {
+    const { institucion, descripcion, monto } = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(institucion)) {
+        return res.status(400).json({ mensaje: 'ID de institución no válido' });
+    }
+
+    try {
+        const newAyuda = new Ayuda({
+            institucion,
+            descripcion,
+            monto,
+        });
+        const savedAyuda = await newAyuda.save();
+
+        res.status(201).json({ msg: 'Ayuda creada exitosamente', ayuda: savedAyuda });
+    } catch (error) {
+        res.status(500).json({ msg: 'Error al crear la ayuda', error: error.message });
+    }
+};
+
 
 // Crear un nuevo estudiante
 const createEstudiante = async (req, res) => {
@@ -424,5 +446,6 @@ export {
     createEstudiante,
     updateEstudiante,
     deleteEstudiante,
-    getInstitucionById
+    getInstitucionById,
+    crearAyuda
 }

@@ -63,7 +63,26 @@ export const Perfil = () => {
                 </li>
 
             )
-         }         
+         } 
+         {
+            auth?.rol === "Administrador" && (
+                    <li className="bg-gray-400 p-4 rounded-lg shadow-md flex items-center justify-center hover:bg-white font-bold" style={{ height: '180px', width: '160px' }}>
+                        <Link 
+                            to="/dashboard/ayuda" 
+                            className={`${urlActual === '/dashboard/ayuda' ? 'text-slate-100 bg-gray-900 px-3 py-2 rounded-md' : 'text-slate-900'} text-xl block text-center hover:text-slate-600`}
+                        >
+                            Registrar Ayuda
+                            <img 
+                                src="https://static.vecteezy.com/system/resources/previews/023/846/641/non_2x/assistance-helping-hand-icon-free-vector.jpg" 
+                                alt="help-icon" 
+                                className="m-auto mt-3 p-1 border-2 border-slate-00 rounded-full" 
+                                width={80} 
+                                height={80} 
+                            />
+                        </Link>
+                    </li>
+            )
+         }        
 
                 <li className="bg-gray-400 p-4 rounded-lg shadow-md flex items-center justify-center hover:bg-white font-bold" style={{ height: '180px', width: '160px' }}>
                     <Link 
